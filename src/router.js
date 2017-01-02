@@ -7,8 +7,8 @@ Vue.use(VueRouter)
 import CircuitManager from 'components/CircuitManager'
 import UserProfile from 'components/UserProfile'
 import ResourceCreation from 'components/ResourceCreation'
-import CircuitsList from 'components/CircuitsList'
-import Explore from 'components/Explore'
+import CircuitList from 'components/CircuitList'
+import CommunityGameList from 'components/CommunityGameList'
 import Administration from 'components/Administration'
 import EditProject from 'components/EditProject'
 import ListAdmin from 'components/ListAdmin'
@@ -23,8 +23,12 @@ var routes = [
     path: '/explore',
     alias: '/',
     name: 'Découvrir',
-    component: Explore
-
+    component: CommunityGameList
+  },
+  {
+    path: '/progress',
+    component: CircuitList,
+    name: 'Parcours'
   },
   {
     path: '/users/me',
@@ -32,7 +36,6 @@ var routes = [
     name: 'Mon Profil'
   },
   { path: '/resources/new', component: ResourceCreation, name: 'Création de ressource' },
-  { path: '/circuits', component: CircuitsList, name: 'Parcours' },
   { path: '/circuits/edit', component: CircuitManager, name: 'Éditeur de circuit' },
   /*{ path: '/create', component: Create, name: 'Créer'/*, children: [
       { path: 'current', component: CurrentProjectInformations, name: 'Panneau d\'exemple'},
@@ -46,7 +49,6 @@ var routes = [
       { path: 'list/:type', component: MyList, name: 'list'}
   ]},*/
   { path: '/create', name: 'Créer' },
-  { path: '/progress', name: 'Progresser' },
   { path: '/DeclickMap', component: DeclickMap, name: 'DeclickMap' },
   { path: '/administration', component: Administration, name: 'Administration', children: [
       { path: 'lists/:type', component: ListAdmin, name :'liste'},
