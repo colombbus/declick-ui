@@ -1,0 +1,8 @@
+.DS_Store
+dist/
+nbproject/
+node_modules/
+npm-debug.log
+src/assets/config/social-services.js
+config/index.js
+src/assets/config/declick.js
