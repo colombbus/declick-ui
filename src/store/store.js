@@ -36,6 +36,11 @@ export default new Vuex.Store({
     },
     [type.SET_USER] (state,user) {
       state.current_user = user
+    },
+    [type.DISCONNECT] (state,nothing){
+      state.current_user = {}
+      state.authorizations = ''
+      state.connected = false
     }
   }
 })

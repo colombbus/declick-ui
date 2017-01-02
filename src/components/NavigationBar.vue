@@ -35,7 +35,7 @@
           ></AuthenticationModal>
         </li>
         <li v-else>
-          <a class="interactive">Se déconnecter</a>
+          <a class="interactive" @click="disconnect">Se déconnecter</a>
           <router-link
             to="/me"
             id="main-menu-username"
@@ -60,6 +60,11 @@ export default {
   computed: mapState(['connected', 'current_user']),
   components: {
     AuthenticationModal
+  },
+  methods:{
+    disconnect(){
+      this.$store.dispatch('disconnectMe','')
+    }
   }
 }
 </script>

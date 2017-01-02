@@ -1,7 +1,7 @@
 import declickConfig from '../assets/config/declick.js'
 
 export const ENDPOINT = declickConfig.url.api
-
+export const DISCONNECT = 'DISCONNECT'
 export const AUTHENTICATION_SUCCESS = 'AUTHENTICATION_SUCCESS'
 export const UPDATE_CURRENT_PROJECT = 'UPDATE_CURRENT_PROJECT'
 export const SET_LISTS = 'SET_LISTS'
