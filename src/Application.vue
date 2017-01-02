@@ -71,7 +71,7 @@ export default {
         this.$route.matched[0].path === '/create'*/
         //return false
         return this.$route.path==='/create'
-      
+
     },
     urlCreate () {
       return declickConfig.url.client + 'index.html#token=' + this.$store.state.authorizations
@@ -89,7 +89,7 @@ export default {
 
 <style>
 .fullscreen-iframe {
-  height: calc(100vh - 55px);
+  height: calc(100vh - 60px);
   width: 100%;
   border: none;
   overflow:hidden;
