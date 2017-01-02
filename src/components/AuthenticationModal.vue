@@ -14,7 +14,7 @@
             <button class="btn btn-block btn-social btn-google" id="g-signin2" data-onsuccess="onSignIn">
               <span class="fa fa-google"></span> Se connecter via Google
             </button>
-            <buton @click="facebook" class="btn btn-block btn-social btn-facebook">
+            <button @click="facebook" class="btn btn-block btn-social btn-facebook">
               <span class="fa fa-facebook"></span> Se connecter via Facebook
             </button>
         </div>
