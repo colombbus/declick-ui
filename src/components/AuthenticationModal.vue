@@ -158,7 +158,6 @@ export default {
         'password': this.password
       }).then((response) =>{
         this.$emit('close')
-
         this.$store.commit(type.AUTHENTICATION_SUCCESS, response.body.token);
         this.$store.dispatch('get_user',response.body.owner_id)
       },(error) =>{

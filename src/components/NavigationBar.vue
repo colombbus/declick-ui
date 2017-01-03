@@ -63,6 +63,8 @@ export default {
   },
   methods:{
     disconnect(){
+      localStorage.removeItem('user')
+      localStorage.removeItem('authorizations')
       this.$store.dispatch('disconnectMe','')
     }
   }

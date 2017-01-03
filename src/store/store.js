@@ -24,6 +24,7 @@ export default new Vuex.Store({
       state.authorizations = token
       state.connected = true
       state.error_code = 0
+      localStorage.setItem('authorizations',state.authorizations)
     },
     [type.CURRENT_PROJECT] (state, project){
       state.current_project = project
@@ -37,8 +38,8 @@ export default new Vuex.Store({
       state.get_user_id =  user
     },
     [type.SET_USER] (state,user) {
-      console.log(user);
       state.current_user = user
+      localStorage.setItem('user', user.default_project_id  +'/'+ user.email +'/'+ user.id+'/'+ user.username)
     },
     [type.DISCONNECT] (state,nothing){
       state.current_user = {}
