@@ -4,14 +4,12 @@ import VueResource from 'vue-resource'
 Vue.use(VueResource)
 import * as type from './mutation-types.js'
 
-// export const authenticate = ({ commit, dispatch }, credentials) => {
-//   Vue.http.post(type.ENDPOINT + 'authorizations', credentials).then((response) =>{
-//     commit(type.AUTHENTICATION_SUCCESS, response.body.token);
-//     dispatch('get_user',response.body.owner_id)
-//   },(error) =>{
-//     commit(type.ERROR,error)
-//   })
-// }
+export const authenticate = ({ commit, dispatch }, credentials) => {
+  Vue.http.post(type.ENDPOINT + 'authorizations', credentials).then((response) =>{
+    commit(type.AUTHENTICATION_SUCCESS, response.body.token);
+    dispatch('get_user',response.body.owner_id)
+  })
+}
 export const set_project = ({commit}, project) =>{
   commit(type.UPDATE_CURRENT_PROJECT,project)
 }

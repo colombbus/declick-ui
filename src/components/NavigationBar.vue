@@ -57,20 +57,13 @@ export default {
       showAuthenticationModal: false
     }
   },
-  computed: mapState(['connected', 'current_user','error_code']),
+  computed: mapState(['connected', 'current_user']),
   components: {
     AuthenticationModal
   },
   methods:{
     disconnect(){
       this.$store.dispatch('disconnectMe','')
-    }
-  },
-  watch:{
-    error_code(){
-      if(this.error_code == 422 || this.error_code == 401){
-        this.showAuthenticationModal = true
-      }
     }
   }
 }
