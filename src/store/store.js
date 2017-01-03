@@ -15,13 +15,15 @@ export default new Vuex.Store({
     connected: false,
     current_user: {},
     current_project: {},
-    authorizations: ''
+    authorizations: '',
+    error_code:0
   },
   actions,
   mutations: {
     [type.AUTHENTICATION_SUCCESS] (state, token) {
       state.authorizations = token
       state.connected = true
+      state.error_code = 0
     },
     [type.CURRENT_PROJECT] (state, project){
       state.current_project = project
@@ -41,6 +43,9 @@ export default new Vuex.Store({
       state.current_user = {}
       state.authorizations = ''
       state.connected = false
+    },
+    [type.ERROR] (state,error){
+      state.error_code = error.status
     }
   }
 })

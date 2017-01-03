@@ -3,11 +3,17 @@
     <div class="modal-mask" @click="$emit('close')">
       <div class="modal-wrapper">
         <div class="modal-container" @click.stop>
-            <div class="form-group">
-              <input v-model="username" type="text" class="form-control" placeholder="nom d'utilisateur" name="username">
+            <div class="form-group" >
+              <input v-model="username" type="text" :class="error_code == 422 ? 'alert alert-danger form-control':'form-control' " placeholder="nom d'utilisateur" name="username">
+              <p v-if="error_code == 422 " class="modalError bg-warning">
+                caractere non authoriser dans le nom d'utilisateur !
+              </p>
             </div>
             <div class="form-group">
-              <input v-model="password" type="password" class="form-control" placeholder="mot de passe" name="password">
+              <input v-model="password" :class="error_code == 401 ? 'alert alert-danger form-control':'form-control' " type="password" class="form-control" placeholder="mot de passe" name="password">
+              <p v-if="error_code == 401 " class="modalError bg-warning">
+                erreur de nom de compte ou de mot de passe !
+              </p>
             </div>
             <button @click="authenticate" class="btn btn-block btn-primary" type="button">se connecter</button>
             <button class="btn btn-block btn-primary" type="button" @click="regrister">s'inscrire</button>
@@ -31,6 +37,9 @@ import { FACEBOOK_APP_ID, GOOGLE_APP_ID } from '../assets/config/social-services
 
 import '../assets/js/google-platform.js'
 
+import * as type from '../store/mutation-types.js'
+
+import { mapState } from 'vuex'
 
 function onSignIn(googleUser) {
   var profile = googleUser.getBasicProfile();
@@ -48,6 +57,7 @@ export default {
       password: ''
     }
   },
+  computed:mapState(['error_code']),
   mounted () {
     gapi.load('auth2', function() {
       let auth2 = gapi.auth2.init({
@@ -140,17 +150,30 @@ export default {
       });
     }
 
-
-
-
   },
   methods: {
     authenticate () {
-      this.$store.dispatch('authenticate', {
+      this.$http.post(type.ENDPOINT + 'authorizations', {
         'username': this.username,
         'password': this.password
+      }).then((response) =>{
+        this.$emit('close')
+        this.$store.commit(type.AUTHENTICATION_SUCCESS, response.body.token);
+        this.$store.dispatch('get_user',response.body.owner_id)
+      },(error) =>{
+        this.$store.commit(type.ERROR,error)
       })
-      this.$emit('close')
+
+
+      //
+      // this.$store.dispatch('authenticate', {
+      //   'username': this.username,
+      //   'password': this.password
+      // }).then(() => {
+      //   if(this.$store.state.error_code == 0)
+      //     this.$emit('close')
+      // })
+
     },
     facebook () {
       FB.login( function(response) {
@@ -173,6 +196,10 @@ export default {
 </script>
 
 <style lang="css">
+.modalError{
+  font-size: 13px;
+  padding: 5px;
+}
 .modal-mask {
   position: fixed;
   z-index: 9998;
