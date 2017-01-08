@@ -14,7 +14,7 @@
         <img :src="circuit.imageUrl" :alt="circuit.title"/>
       </div>
       <div class="contentCircuit">
-        <p class="titleCircuit">{{circuit.title}}</p>
+        <router-link to="DeclickMap">{{circuit.title}}</router-link>
         <p class="descriptionCircuit">{{circuit.description}}</p>
         <div v-if="circuit.info" class="moreInfo">
           <p @click="toggleShow(circuit)" v-show="!circuit.showInfo"><span class="glyphicon glyphicon-triangle-right"></span> plus d'infos</p>
