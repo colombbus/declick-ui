@@ -1,7 +1,7 @@
 <template>
   <ul id="breadcrumb">
     <li v-for="(level, index) in route">
-      <router-link
+      <router-link v-if="index + 1 != 2 | level.name != 'Acceuil'"
         :to="level.path"
         :class="'level-' + (index + 1)"
       >{{level.name}}</router-link>
@@ -54,7 +54,7 @@ export default {
   color: white
 }
 /***
-*TODO definire des couleurs pour les bordures suivant le niveau de l'élément 
+*TODO definire des couleurs pour les bordures suivant le niveau de l'élément
 **/
 #breadcrumb #level-2 {
   border-color: #E11782;

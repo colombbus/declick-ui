@@ -3,6 +3,7 @@
     <div class="modal-mask" @click="$emit('close')">
       <div class="modal-wrapper">
         <div class="modal-container" @click.stop>
+          <div v-if="!inscription">
             <div class="form-group" >
               <input v-model="username" type="text" :class="error_code == 422 ? 'alert alert-danger form-control':'form-control' " placeholder="nom d'utilisateur" name="username">
               <p v-if="error_code == 422 " class="modalError bg-warning">
@@ -23,6 +24,40 @@
             <button @click="facebook" class="btn btn-block btn-social btn-facebook">
               <span class="fa fa-facebook"></span> Se connecter via Facebook
             </button>
+          </div>
+
+
+          <div v-else>
+            <div class="form-group" >
+              <input v-model="userMail" :class="error_code == 401 ? 'alert alert-danger form-control':'form-control'" placeholder="email" name="email" type="email">
+              <p v-if="error.email" class="modalError bg-warning">
+                adresse deja existante
+              </p>
+            </div>
+            <div class="form-group" >
+              <input v-model="username" type="text" :class="error_code == 422 ? 'alert alert-danger form-control':'form-control' " placeholder="nom d'utilisateur" name="username">
+              <p v-if="error.username" class="modalError bg-warning">
+                utilisateur déja enregistré
+              </p>
+            </div>
+            <div class="form-group">
+              <input v-model="password" :class="error_code == 401 ? 'alert alert-danger form-control':'form-control' " type="password" class="form-control" placeholder="mot de passe" name="password">
+            </div>
+            <div class="form-group">
+              <input v-model="confirmPassword" type="password" class="form-control" placeholder="confirmation mot de passe" name="password">
+              <p v-if="confirmPassword != password " class="modalError bg-warning">
+                les mots de passes ne conrresponde pas
+              </p>
+            </div>
+            <button class="btn btn-block btn-primary" type="button" @click="validation">valide</button>
+            <button class="btn btn-block btn-social btn-google" id="g-signin2" data-onsuccess="onSignIn">
+              <span class="fa fa-google"></span> insctiption via Google
+            </button>
+            <button @click="facebook" class="btn btn-block btn-social btn-facebook">
+              <span class="fa fa-facebook"></span> insctiption via Facebook
+            </button>
+          </div>
+
         </div>
       </div>
     </div>
@@ -53,8 +88,12 @@ function onSignIn(googleUser) {
 export default {
   data () {
     return {
+      inscription:false,
+      userMail:'',
+      confirmPassword:'',
       username: '',
-      password: ''
+      password: '',
+      error:{}
     }
   },
   computed:mapState(['error_code']),
@@ -189,7 +228,15 @@ export default {
       }, { scope: 'email,public_profile' } );
     },
     regrister () {
-      this.$emit('regrister')
+      this.inscription = !this.inscription
+    },
+    validation(){
+      this.$http.post(type.ENDPOINT + 'users', {'email':this.userMail,'username':this.username,'password':this.password}).then((response) => {
+        this.authenticate()
+        this.$emit('close')
+      },(error) => {
+        this.error = error.body
+      })
     }
   }
 }
