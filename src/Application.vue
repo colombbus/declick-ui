@@ -27,7 +27,7 @@
         :class="this.$route.path == '/create' ? 'displayBlock' : 'displayNone'" :src="urlCreate"
       ></iframe>
     <iframe id="declick-client-learn" class="fullscreen-iframe"
-        :class="this.$route.path == '/progress' ? 'displayBlock' : 'displayNone'" :src="urlLearn"
+        :class="this.$route.path == '/progress' && current_circuit == {} ? 'displayBlock' : 'displayNone'" :src="urlLearn"
       ></iframe>
     <div id="mainContainer" :class="this.$route.path == '/create' ? 'displayNone' : 'displayBlock'">
       <router-view></router-view>
@@ -59,6 +59,7 @@ import Breadcrumb from './components/Breadcrumb'
 import SmallNavigationBar from './components/SmallNavigationBar'
 import declickConfig from './assets/config/declick.js'
 
+import {mapSate} from 'vuex'
 export default {
   components: {
     NavigationBar,
@@ -66,6 +67,7 @@ export default {
     SmallNavigationBar
   },
   computed: {
+    mapSate:(['current_circuit']),
     minimized () {
       /*return this.$route.matched[0] &&
         this.$route.matched[0].path === '/create'*/
