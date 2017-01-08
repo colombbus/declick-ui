@@ -16,12 +16,17 @@ import DeclickMap from 'components/DeclickMap'
 import MyList from 'components/MyList'
 import CurrentProjectInformations from 'components/CurrentProjectInformations'
 import declickConfig from 'assets/config/declick.js'
+import PageDeclick from 'components/PageDeclick'
 
 
 var routes = [
   {
+    path:'/',
+    name:'Acceuil',
+    component:PageDeclick
+  },
+  {
     path: '/explore',
-    alias: '/',
     name: 'Découvrir',
     component: CommunityGameList
   },
