@@ -1,3 +1,5 @@
+/* global localStorage */
+
 import Vue from 'vue'
 import Vuex from 'vuex'
 
@@ -6,14 +8,13 @@ import * as type from './mutation-types.js'
 
 Vue.use(Vuex)
 
-
 export default new Vuex.Store({
   state: {
     lists: [],
     current_page: 0,
     last_page: 0,
     connected: false,
-    current_user: {},
+    authenticatedUser: null,
     current_project: {},
     authorizations: '',
     error_code:0
@@ -38,11 +39,13 @@ export default new Vuex.Store({
       state.get_user_id =  user
     },
     [type.SET_USER] (state,user) {
-      state.current_user = user
+      state.authenticatedUser = user
       localStorage.setItem('user', user.default_project_id  +'/'+ user.email +'/'+ user.id+'/'+ user.username)
     },
-    [type.DISCONNECT] (state,nothing){
-      state.current_user = {}
+    [type.LOG_OUT] (state) {
+      localStorage.removeItem('user')
+      localStorage.removeItem('authorizations')
+      state.authenticatedUser = null
       state.authorizations = ''
       state.connected = false
     },

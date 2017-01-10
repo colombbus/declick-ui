@@ -103,6 +103,6 @@ export const get_resource_id = ({commit}, project_id, resources_id) => {
     console.log(response)
   )
 }
-export const disconnectMe = ({commit},nothing) => {
-  commit(type.DISCONNECT,nothing)
-}
+
+export const logOut = ({commit}) =>
+  commit(type.LOG_OUT)

@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import NavigationBar from './components/NavigationBar'
+import NavigationBar from './components/navigation/NavigationBar'
 import Breadcrumb from './components/Breadcrumb'
 import SmallNavigationBar from './components/SmallNavigationBar'
 import declickConfig from './assets/config/declick.js'

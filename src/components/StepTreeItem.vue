@@ -48,7 +48,6 @@ export default {
 <style>
 li {
   margin-left: 20px;
-  cursor: pointer;
 }
 
 .fade-enter-active, .fade-leave-active {
