@@ -1,13 +1,15 @@
 <template lang="html">
-  <div id="contentContainerAcceuil">
+  <div id="contentContainerHome">
   </div>
 </template>
 
 <script>
+import declickConfig from '../assets/config/declick.js'
 export default {
   created(){
-    this.$http.get('http://localhost/directus/api/1/tables/testTable/rows/1?access_token=DY641vbi1aNV9Dyd').then((responce) => {
-      $('#contentContainerAcceuil').append($.parseHTML(responce.body.longTextTest))
+    this.$http.get( declickConfig.url.cms+'pages/rows/1?access_token=jWNoVhWCng6odNLK').then((responce) => {
+      console.log(responce);
+      $('#contentContainerHome').append($.parseHTML(responce.body.content))
     })
   }
 }

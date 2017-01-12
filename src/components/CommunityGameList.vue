@@ -4,10 +4,11 @@
 </template>
 
 <script>
+import declickConfig from '../assets/config/declick.js'
 export default {
   created(){
-    this.$http.get('http://localhost/getSimpleCms/index.php?id=bienvenue-sur-declick').then((responce) => {
-      $('#contentContainerBienvenue').append($.parseHTML(responce.body))
+    this.$http.get(declickConfig.url.cms+'pages/rows/2?access_token=jWNoVhWCng6odNLK').then((responce) => {
+      $('#contentContainerBienvenue').append($.parseHTML(responce.body.content))
     })
   }
 }
