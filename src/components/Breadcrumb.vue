@@ -1,10 +1,15 @@
 <template>
   <ul id="breadcrumb">
     <li v-for="(level, index) in route">
-      <router-link v-if="index + 1 != 2 | level.name != 'Acceuil'"
+      <router-link
+        v-if="index !== route.length - 1"
         :to="level.path"
         :class="'level-' + (index + 1)"
       >{{level.name}}</router-link>
+      <span
+        v-else
+        :class="['level-' + (index + 1), 'current']"
+      >{{level.name}}</span>
     </li>
   </div>
 </template>
@@ -13,76 +18,53 @@
 export default {
   computed: {
     route () {
-      return [
-        {
+      let levels = this.$route.matched.slice()
+      if (levels[0].name != 'Acceuil') {
+        levels.unshift({
           name: 'Accueil',
           path: '/'
-        }
-      ].concat(this.$route.matched)
+        })
+      }
+      return levels
     }
   }
 }
 </script>
 
 <style>
-#breadcrumb {
-  position: relative;
-  margin-bottom:0;
-}
-
-#breadcrumb a {
-  display: inline-block;
-  height: 25px;
-  padding: 0 5px;
-  border-left: 5px solid;
-  line-height: 25px;
-  vertical-align: center;
-  font-size: 12pt;
-  font-weight: bold;
-  text-decoration: none;
+#breadcrumb ul {
+  margin-bottom: 10px;
 }
 
 #breadcrumb li {
+  float: left;
+  height: 25px;
+  margin-left: 0px;
+  margin-right: 5px;
+  list-style-type: none;
+}
+
+#breadcrumb a,
+#breadcrumb span {
   display: inline-block;
+  padding: 0 5px;
+  border-left: 5px solid;
+  border-color: #E42C20;
+  line-height: 25px;
+  font-size: 12pt;
+  font-weight: bold;
+  color: white;
 }
 
 #breadcrumb .level-1 {
   border-color: #0FAC8E;
 }
 
-#breadcrumb li a {
-  color: white
-}
-/***
-*TODO definire des couleurs pour les bordures suivant le niveau de l'élément
-**/
-#breadcrumb #level-2 {
-  border-color: #E11782;
-}
-
-#breadcrumb #level-3 {
-  border-color: #E11782;
-}
-
-#breadcrumb #level-4 {
-  border-color: #E11782;
-}
-
-#breadcrumb li:last-child a{
-    color: #D1D718;
-    border-color: #D1D718!important;
-}
-
-#breadcrumb .level-1 {
-  color: white
-}
-
 #breadcrumb .level-2 {
   border-color: #E11782;
 }
 
-#breadcrumb .level-2 {
-  color: #D1D718
+#breadcrumb .current {
+  color: #D1D718;
 }
-
 </style>
