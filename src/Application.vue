@@ -6,8 +6,6 @@
       <!-- navigation -->
       <navigation-bar></navigation-bar>
       <!-- end navigation -->
-
-      <breadcrumb></breadcrumb>
     </div>
     <div  :class="minimized ? 'displayBlock' : 'displayNone'">
       <SmallNavigationBar></SmallNavigationBar>
@@ -47,7 +45,6 @@
 
 <script>
 import NavigationBar from './components/navigation/NavigationBar'
-import Breadcrumb from './components/Breadcrumb'
 import SmallNavigationBar from './components/SmallNavigationBar'
 import declickConfig from './assets/config/declick.js'
 

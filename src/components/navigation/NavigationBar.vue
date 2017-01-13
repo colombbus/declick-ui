@@ -57,6 +57,7 @@
       v-if="isAuthenticationModalVisible"
       @close="isAuthenticationModalVisible = false"
     ></AuthenticationModal>
+    <Breadcrumb></Breadcrumb>
   </nav>
 </template>
 
@@ -64,6 +65,7 @@
 import { mapActions, mapState } from 'vuex'
 
 import AuthenticationModal from '../AuthenticationModal'
+import Breadcrumb from './Breadcrumb'
 
 export default {
   data () {
@@ -74,7 +76,8 @@ export default {
   computed: mapState(['authenticatedUser']),
   methods: mapActions(['logOut']),
   components: {
-    AuthenticationModal
+    AuthenticationModal,
+    Breadcrumb
   }
 }
 </script>
