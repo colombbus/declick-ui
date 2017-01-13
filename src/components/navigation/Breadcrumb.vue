@@ -19,7 +19,7 @@ export default {
   computed: {
     route () {
       let levels = this.$route.matched.slice()
-      if (levels[0].name != 'Acceuil') {
+      if (levels[0] && levels[0].name != 'Acceuil') {
         levels.unshift({
           name: 'Accueil',
           path: '/'
