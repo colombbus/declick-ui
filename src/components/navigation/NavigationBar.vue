@@ -97,7 +97,7 @@ export default {
   border-left: 0;
   border-right: 0;
   background-color: #642D46;
-  background-image: url(~assets/img/waves.png);
+  background-image: url(~assets/image/waves.png);
   background-repeat: repeat-x;
 }
 
@@ -141,19 +141,19 @@ export default {
 }
 
 #main-menu-explore-link:after {
-  background-image: url(~assets/img/explore-robot.png);
+  background-image: url(~assets/image/explore-robot.png);
 }
 
 #main-menu-progress-link:after {
-  background-image: url(~assets/img/progress-robot.png);
+  background-image: url(~assets/image/progress-robot.png);
 }
 
 #main-menu-create-link:after {
-  background-image: url(~assets/img/create-robot.png);
+  background-image: url(~assets/image/create-robot.png);
 }
 
 #main-menu-log-in-link:after {
-  background-image: url(~assets/img/log-in-robot.png);
+  background-image: url(~assets/image/log-in-robot.png);
 }
 
 #main-menu .menu-floating-box {
