@@ -105,13 +105,6 @@ export default {
   #mainContainer {
     min-height: calc(100vh - 245px);
   }
-
-  #breadcrumb{
-    padding-left: 0px;
-    height: 25px;
-    background-color: #480A2A;
-    font-weight: bold;
-  }
   #footerBottom{
     background-color: #480A2A;
     flex-direction: row;

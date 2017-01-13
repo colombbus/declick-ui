@@ -32,6 +32,12 @@ export default {
 </script>
 
 <style>
+#breadcrumb{
+  height: 25px;
+  padding-left: 0px;
+  background-color: #480A2A;
+}
+
 #breadcrumb ul {
   margin-bottom: 10px;
 }
