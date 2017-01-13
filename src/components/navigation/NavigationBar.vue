@@ -54,12 +54,12 @@
           </li>
         </ul>
       </div>
-      <Breadcrumb></Breadcrumb>
+      <breadcrumb></breadcrumb>
     </nav>
-    <AuthenticationModal
+    <authentication-modal
       v-if="isAuthenticationModalVisible"
       @close="isAuthenticationModalVisible = false"
-    ></AuthenticationModal>
+    ></authentication-modal>
   <div>
 </template>
 
