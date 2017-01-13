@@ -52,7 +52,6 @@ import {mapSate} from 'vuex'
 export default {
   components: {
     NavigationBar,
-    Breadcrumb,
     SmallNavigationBar
   },
   computed: {
