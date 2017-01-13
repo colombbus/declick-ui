@@ -1,64 +1,66 @@
 <template>
-  <nav>
-    <router-link
-      to="/"
-      id="main-home-link"
-    >Entre 8 et 15 ans ?<br>Apprends à programmer des jeux !</router-link>
-    <div id="main-menu">
-      <ul>
-        <li>
-          <router-link
-            to="/explore"
-            id="main-menu-explore-link"
-            class="menu-link menu-illustrated-link"
-          >Découvrir</router-link>
-        </li>
-        <li>
-          <router-link
-            to="/progress"
-            id="main-menu-progress-link"
-            class="menu-link menu-illustrated-link"
-          >Progresser</router-link>
-        </li>
-        <li>
-          <router-link
-            to="/create"
-            id="main-menu-create-link"
-            class="menu-link menu-illustrated-link"
-          >Créer</router-link>
-        </li>
-        <li v-if="!authenticatedUser">
-          <a
-            @click="isAuthenticationModalVisible = true"
-            id="main-menu-log-in-link"
-            class="menu-link menu-illustrated-link"
-          >Se connecter</a>
-        </li>
-        <li v-else>
-          <a
-            @click="logOut"
-            class="menu-link"
-          >Se déconnecter</a>
-          <div class="menu-floating-box">
+  <div>
+    <nav>
+      <router-link
+        to="/"
+        id="main-home-link"
+      >Entre 8 et 15 ans ?<br>Apprends à programmer des jeux !</router-link>
+      <div id="main-menu">
+        <ul>
+          <li>
             <router-link
-              to="/me"
-            >{{authenticatedUser.username}}</router-link>
-            <router-link to="/admin">
-              <span
-                class="glyphicon glyphicon-wrench"
-                aria-hidden="true"
-              ></span>
-            </router-link>
-          </div>
-        </li>
-      </ul>
-    </div>
+              to="/explore"
+              id="main-menu-explore-link"
+              class="menu-link menu-illustrated-link"
+            >Découvrir</router-link>
+          </li>
+          <li>
+            <router-link
+              to="/progress"
+              id="main-menu-progress-link"
+              class="menu-link menu-illustrated-link"
+            >Progresser</router-link>
+          </li>
+          <li>
+            <router-link
+              to="/create"
+              id="main-menu-create-link"
+              class="menu-link menu-illustrated-link"
+            >Créer</router-link>
+          </li>
+          <li v-if="!authenticatedUser">
+            <a
+              @click="isAuthenticationModalVisible = true"
+              id="main-menu-log-in-link"
+              class="menu-link menu-illustrated-link"
+            >Se connecter</a>
+          </li>
+          <li v-else>
+            <a
+              @click="logOut"
+              class="menu-link"
+            >Se déconnecter</a>
+            <div class="menu-floating-box">
+              <router-link
+                to="/me"
+              >{{authenticatedUser.username}}</router-link>
+              <router-link to="/admin">
+                <span
+                  class="glyphicon glyphicon-wrench"
+                  aria-hidden="true"
+                ></span>
+              </router-link>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <Breadcrumb></Breadcrumb>
+    </nav>
     <AuthenticationModal
       v-if="isAuthenticationModalVisible"
       @close="isAuthenticationModalVisible = false"
     ></AuthenticationModal>
-    <Breadcrumb></Breadcrumb>
-  </nav>
+  <div>
 </template>
 
 <script>
