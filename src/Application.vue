@@ -2,14 +2,6 @@
   <div id="application">
     <!--header -->
     <div id="headerContainer" :class="minimized ? 'displayNone' : 'displayBlock'">
-      <router-link to="/">
-        <div id="menu-logo">
-          <p class="tagline">
-            Entre 8 et 15 ans ?<br>
-            Apprends à programmer des jeux !
-          </p>
-        </div>
-      </router-link>
 
       <!-- navigation -->
       <navigation-bar></navigation-bar>
@@ -114,26 +106,6 @@ export default {
     min-height: calc(100vh - 245px);
   }
 
-  #menu-logo {
-    background-color: #480A2A !important;
-    background-image: url(./assets/img/logo.png);
-    background-repeat: no-repeat;
-    background-position: 5px 5px;
-    width: 100%;
-    height: 100px;
-    border-bottom: 3px solid #D1D718;
-  }
-  .tagline {
-    display: initial;
-    position: relative;
-    left: 180px;
-    top: 30px;
-    color: #A88996;
-    line-height: 18pt;
-    font-size: 13pt;
-    font-weight: bold;
-    text-decoration: none;
-  }
   #breadcrumb{
     padding-left: 0px;
     height: 25px;
