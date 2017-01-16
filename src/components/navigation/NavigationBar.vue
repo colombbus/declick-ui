@@ -1,63 +1,73 @@
 <template>
-  <nav id="main-menu">
-    <ul>
-      <li>
-        <router-link
-          to="/explore"
-          id="main-menu-explore-link"
-          class="menu-link menu-illustrated-link"
-        >Découvrir</router-link>
-      </li>
-      <li>
-        <router-link
-          to="/progress"
-          id="main-menu-progress-link"
-          class="menu-link menu-illustrated-link"
-        >Progresser</router-link>
-      </li>
-      <li>
-        <router-link
-          to="/create"
-          id="main-menu-create-link"
-          class="menu-link menu-illustrated-link"
-        >Créer</router-link>
-      </li>
-      <li v-if="!authenticatedUser">
-        <a
-          @click="isAuthenticationModalVisible = true"
-          id="main-menu-log-in-link"
-          class="menu-link menu-illustrated-link"
-        >Se connecter</a>
-      </li>
-      <li v-else>
-        <a
-          @click="logOut"
-          class="menu-link"
-        >Se déconnecter</a>
-        <div class="menu-floating-box">
-          <router-link
-            to="/me"
-          >{{authenticatedUser.username}}</router-link>
-          <router-link to="/admin">
-            <span
-              class="glyphicon glyphicon-wrench"
-              aria-hidden="true"
-            ></span>
-          </router-link>
-        </div>
-      </li>
-    </ul>
-    <AuthenticationModal
+  <div>
+    <nav>
+      <router-link
+        to="/"
+        id="main-home-link"
+      >Entre 8 et 15 ans ?<br>Apprends à programmer des jeux !</router-link>
+      <div id="main-menu">
+        <ul>
+          <li>
+            <router-link
+              to="/explore"
+              id="main-menu-explore-link"
+              class="menu-link menu-illustrated-link"
+            >Découvrir</router-link>
+          </li>
+          <li>
+            <router-link
+              to="/progress"
+              id="main-menu-progress-link"
+              class="menu-link menu-illustrated-link"
+            >Progresser</router-link>
+          </li>
+          <li>
+            <router-link
+              to="/create"
+              id="main-menu-create-link"
+              class="menu-link menu-illustrated-link"
+            >Créer</router-link>
+          </li>
+          <li v-if="!authenticatedUser">
+            <a
+              @click="isAuthenticationModalVisible = true"
+              id="main-menu-log-in-link"
+              class="menu-link menu-illustrated-link"
+            >Se connecter</a>
+          </li>
+          <li v-else>
+            <a
+              @click="logOut"
+              class="menu-link"
+            >Se déconnecter</a>
+            <div class="menu-floating-box">
+              <router-link
+                to="/me"
+              >{{authenticatedUser.username}}</router-link>
+              <router-link to="/admin">
+                <span
+                  class="glyphicon glyphicon-wrench"
+                  aria-hidden="true"
+                ></span>
+              </router-link>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <breadcrumb></breadcrumb>
+    </nav>
+    <authentication-modal
       v-if="isAuthenticationModalVisible"
       @close="isAuthenticationModalVisible = false"
-    ></AuthenticationModal>
-  </nav>
+    ></authentication-modal>
+  <div>
 </template>
 
 <script>
 import { mapActions, mapState } from 'vuex'
 
 import AuthenticationModal from '../AuthenticationModal'
+import Breadcrumb from './Breadcrumb'
 
 export default {
   data () {
@@ -68,12 +78,31 @@ export default {
   computed: mapState(['authenticatedUser']),
   methods: mapActions(['logOut']),
   components: {
-    AuthenticationModal
+    AuthenticationModal,
+    Breadcrumb
   }
 }
 </script>
 
 <style>
+#main-home-link {
+  display: block;
+  height: 100px;
+  padding-top: 30px;
+  padding-left: 180px;
+  border-bottom: 3px solid #D1D718;
+  line-height: 18pt;
+  font-size: 13pt;
+  font-weight: bold;
+  color: #A88996;
+  text-decoration: none;
+  outline: 0;
+  background-color: #480A2A !important;
+  background-image: url(~assets/image/logo.png);
+  background-repeat: no-repeat;
+  background-position: 5px 5px;
+}
+
 #main-menu ul {
   float: right;
 }
@@ -97,7 +126,7 @@ export default {
   border-left: 0;
   border-right: 0;
   background-color: #642D46;
-  background-image: url(~assets/img/waves.png);
+  background-image: url(~assets/image/waves.png);
   background-repeat: repeat-x;
 }
 
@@ -117,8 +146,8 @@ export default {
 }
 
 #main-menu li .menu-link.router-link-active {
-  background-color: #480A2A;
   color: #D1D718;
+  background-color: #480A2A;
 }
 
 #main-menu .menu-illustrated-link:after {
@@ -141,19 +170,19 @@ export default {
 }
 
 #main-menu-explore-link:after {
-  background-image: url(~assets/img/explore-robot.png);
+  background-image: url(~assets/image/explore-robot.png);
 }
 
 #main-menu-progress-link:after {
-  background-image: url(~assets/img/progress-robot.png);
+  background-image: url(~assets/image/progress-robot.png);
 }
 
 #main-menu-create-link:after {
-  background-image: url(~assets/img/create-robot.png);
+  background-image: url(~assets/image/create-robot.png);
 }
 
 #main-menu-log-in-link:after {
-  background-image: url(~assets/img/log-in-robot.png);
+  background-image: url(~assets/image/log-in-robot.png);
 }
 
 #main-menu .menu-floating-box {
