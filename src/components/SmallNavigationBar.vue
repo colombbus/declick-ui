@@ -2,19 +2,73 @@
   <div id="navigation-bar-small">
     <router-link to="/" id="home-control-small"></router-link>
     <div id="page-title">Créer</div>
-    <router-link to="/" id="map-control-small"></router-link>
+    <p to="/DeclickMap" id="map-control-small" @click="toggleMapIframe()"></p>
+    <div id="mapController">
+      <div id="leftLink" @click="previous()" ></div>
+      <div id="rightLink" @click="next()"></div>
+    </div>
   </div>
+
 </template>
 
 <script>
+import {mapState} from 'vuex'
+
 export default {
   data () {
     return {}
+  },
+  computed: mapState(['map_visited','map_passed']),
+  methods:{
+    previous(){
+        this.$store.dispatch('set_map_visited',{'id':this.map_visited.id-1,'visited':true})
+        this.$store.dispatch('set_map_passed',{'id':this.map_visited.id,'passed':false})
+    },
+    next(){
+      this.$store.dispatch('set_map_passed',{'id':this.map_visited.id,'passed':true})
+      this.$store.dispatch('set_map_visited',{'id':this.map_visited.id + 1,'visited':true})
+    },
+    toggleMapIframe(){
+      $('#declick-client-learn').css('display','none')
+      $('#map').css('display','block')
+    }
   }
 }
 </script>
 
 <style>
+#mapController div{
+  cursor: pointer
+}
+#rightLink:hover {
+    background-image: url('../assets/img/arrow-right-hover.png');
+}
+#leftLink:hover {
+    background-image: url('../assets/img/arrow-left-hover.png');
+}
+#rightLink {
+    background-image: url('../assets/img/arrow-right.png');
+    content: '';
+    position: absolute;
+    right: 115px !important;
+    top: 9px;
+    background-color: transparent;
+    height: 33px;
+    width: 33px;
+}
+#leftLink {
+    position: absolute;
+    content: '';
+    background-image: url('../assets/img/arrow-left.png');
+    right: 165px;
+    top: 9px;
+    left: initial !important;
+    background-color: transparent;
+    transform: initial;
+    -webkit-transform: initial;
+    height: 33px;
+    width: 33px;
+}
 #navigation-bar-small {
   padding: 0px 10px;
   background-color: #480A2A;

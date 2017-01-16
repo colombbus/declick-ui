@@ -72,7 +72,7 @@ export default {
       /*return this.$route.matched[0] &&
         this.$route.matched[0].path === '/create'*/
         //return false
-        return this.$route.path==='/create'
+        return this.$route.path==='/create' || this.$route.path==='/DeclickMap' 
 
     },
     urlCreate () {
