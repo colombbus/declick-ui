@@ -122,6 +122,13 @@ export default {
 	font-style: normal;
 }
 
+.authenticated-user-box {
+  float: right;
+  position: relative;
+  top: -3px;
+  margin-top: -38px;
+}
+
   .displayNone {
     display:none;
   }
