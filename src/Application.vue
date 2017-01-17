@@ -1,9 +1,9 @@
 <template>
   <div id="application">
     <!--header -->
-    <div id="headerContainer" :class="minimized ? 'displayNone' : 'displayBlock'">
 
-      <!-- navigation -->
+
+    <div v-show="!minimized">
       <header-bar></header-bar>
       <authenticated-user-box
         v-if="authenticatedUser"
@@ -16,9 +16,8 @@
         v-if="isAuthenticationModalVisible"
         @close="isAuthenticationModalVisible = false"
       ></authentication-modal>
-      <!-- end navigation -->
     </div>
-    <div  :class="minimized ? 'displayBlock' : 'displayNone'">
+    <div v-show="minimized">
       <SmallNavigationBar></SmallNavigationBar>
     </div>
     <!-- end header -->
@@ -35,25 +34,7 @@
     </div>
     <!-- end main -->
 
-    <!-- footer -->
-    <footer v-if="!minimized">
-      <div id="footerBottom">
-        <div id="footerBottomLeft">
-          <p>
-            Réalisé par
-            <a
-              target="_blank"
-              href="http://www.colombbus.org/"
-            >Colombbus</a>
-          </p>
-        </div>
-        <div id="footerBottomRight">
-          <a href="mailto:declick@colombbus.org">Contactez-nous ! <i class="glyphicon glyphicon-envelope"></i></a>
-        </div>
-      </div>
-    </footer>
-    <!-- end footer -->
-
+    <footer-bar v-show="!minimized"></footer-bar>
   </div>
 </template>
 
@@ -66,6 +47,7 @@ import AuthenticatedUserBox from 'components/navigation/AuthenticatedUserBox'
 import AuthenticationModal from 'components/AuthenticationModal'
 import Breadcrumb from 'components/navigation/Breadcrumb'
 import HeaderBar from 'components/navigation/HeaderBar'
+import FooterBar from 'components/navigation/FooterBar'
 
 import { mapState } from 'vuex'
 export default {
@@ -78,6 +60,7 @@ export default {
     AuthenticatedUserBox,
     AuthenticationModal,
     Breadcrumb,
+    FooterBar,
     HeaderBar,
     NavigationBar,
     SmallNavigationBar
@@ -112,6 +95,7 @@ export default {
   border: none;
   overflow:hidden;
 }
+
 @font-face {
 	font-family: 'Rubik';
 	src: url('assets/font/Rubik-Regular.eot');
@@ -129,13 +113,31 @@ export default {
   margin-top: -38px;
 }
 
+html, body, #application {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#mainContainer {
+  /*
+  header-bar: 100px
+  main-menu: 45px
+  breadcrumb: 25px
+  footer-bar: 25px
+  total: 195px
+  */
+  height: calc(100% - 195px);
+}
+
+.right-aligned {
+  float: right;
+}
+
   .displayNone {
     display:none;
   }
 
-  #mainContainer {
-    min-height: calc(100vh - 245px);
-  }
   #footerBottom{
     background-color: #480A2A;
     flex-direction: row;
