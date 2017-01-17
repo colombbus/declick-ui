@@ -28,10 +28,13 @@
     <footer v-if="!minimized">
       <div id="footerBottom">
         <div id="footerBottomLeft">
-          <p>Réalisé par <a target="_blank" href="http://www.colombbus.org/">
-            Colombbus</a> et <a target="_blank" href="http://www.france-ioi.org/">
-              France-ioi</a>
-            </p>
+          <p>
+            Réalisé par
+            <a
+              target="_blank"
+              href="http://www.colombbus.org/"
+            >Colombbus</a>
+          </p>
         </div>
         <div id="footerBottomRight">
           <a href="mailto:declick@colombbus.org">Contactez-nous ! <i class="glyphicon glyphicon-envelope"></i></a>
@@ -60,7 +63,7 @@ export default {
       /*return this.$route.matched[0] &&
         this.$route.matched[0].path === '/create'*/
         //return false
-        return this.$route.path==='/create' || this.$route.path==='/DeclickMap' 
+        return this.$route.path==='/create' || this.$route.path==='/DeclickMap'
 
     },
     urlCreate () {
