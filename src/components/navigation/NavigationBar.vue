@@ -1,10 +1,7 @@
 <template>
   <div>
     <nav>
-      <router-link
-        to="/"
-        id="main-home-link"
-      >Entre 8 et 15 ans ?<br>Apprends à programmer des jeux !</router-link>
+      <header-bar></header-bar>
       <authenticated-user-box
         v-if="authenticatedUser"
       ></authenticated-user-box>
@@ -61,6 +58,7 @@ import { mapActions, mapState } from 'vuex'
 import AuthenticatedUserBox from './AuthenticatedUserBox'
 import AuthenticationModal from '../AuthenticationModal'
 import Breadcrumb from './Breadcrumb'
+import HeaderBar from './HeaderBar'
 
 export default {
   data () {
@@ -73,30 +71,13 @@ export default {
   components: {
     AuthenticatedUserBox,
     AuthenticationModal,
-    Breadcrumb
+    Breadcrumb,
+    HeaderBar
   }
 }
 </script>
 
 <style>
-#main-home-link {
-  display: block;
-  height: 100px;
-  padding-top: 30px;
-  padding-left: 180px;
-  border-bottom: 3px solid #D1D718;
-  line-height: 18pt;
-  font-size: 13pt;
-  font-weight: bold;
-  color: #A88996;
-  text-decoration: none;
-  outline: 0;
-  background-color: #480A2A !important;
-  background-image: url(~assets/image/logo.png);
-  background-repeat: no-repeat;
-  background-position: 5px 5px;
-}
-
 #main-menu ul {
   float: right;
 }
