@@ -58,7 +58,7 @@
 <script>
 import { mapActions, mapState } from 'vuex'
 
-import AuthenticatedUserBox from '../AuthenticatedUserBox'
+import AuthenticatedUserBox from './AuthenticatedUserBox'
 import AuthenticationModal from '../AuthenticationModal'
 import Breadcrumb from './Breadcrumb'
 
