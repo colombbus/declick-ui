@@ -44,7 +44,7 @@
               <router-link
                 to="/me"
               >{{authenticatedUser.username}}</router-link>
-              <router-link to="/admin">
+              <router-link to="/administration">
                 <span
                   class="glyphicon glyphicon-wrench"
                   aria-hidden="true"
