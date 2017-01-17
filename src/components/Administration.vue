@@ -5,6 +5,12 @@
         <div class="col-md-3">
           <h2>Administration</h2>
           <ul class="adminNav">
+            <li>
+              <router-link
+                to="/administration/circuits"
+                class="content-link"
+              >gestion des parcours</router-link>
+            </li>
             <li><router-link to="/administration/lists/users" class="content-link">utilisateurs</router-link></li>
             <li><router-link to="/administration/lists/projects" class="content-link">Project</router-link></li>
             <li><router-link to="/administration/lists/exercices" class="content-link">Exercices</router-link></li>

@@ -4,7 +4,6 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 //import Create from 'components/Create'
-import CircuitManager from 'components/CircuitManager'
 import UserProfile from 'components/UserProfile'
 import ResourceCreation from 'components/ResourceCreation'
 import CircuitList from 'components/CircuitList'
@@ -18,11 +17,13 @@ import CurrentProjectInformations from 'components/CurrentProjectInformations'
 import declickConfig from 'assets/config/declick.js'
 import PageDeclick from 'components/PageDeclick'
 
+import AdministrationCircuitList from 'components/administration/CircuitList'
+import CircuitEditor from 'components/administration/CircuitEditor'
 
 var routes = [
   {
     path:'/',
-    name:'Acceuil',
+    name:'Accueil',
     component:PageDeclick
   },
   {
@@ -41,7 +42,6 @@ var routes = [
     name: 'Mon Profil'
   },
   { path: '/resources/new', component: ResourceCreation, name: 'Création de ressource' },
-  { path: '/circuits/edit', component: CircuitManager, name: 'Éditeur de circuit' },
   /*{ path: '/create', component: Create, name: 'Créer'/*, children: [
       { path: 'current', component: CurrentProjectInformations, name: 'Panneau d\'exemple'},
       { path: 'administration', component: Administration, name: 'Administration', children: [
@@ -56,6 +56,16 @@ var routes = [
   { path: '/create', name: 'Créer' },
   { path: '/DeclickMap', component: DeclickMap, name: 'DeclickMap' },
   { path: '/administration', component: Administration, name: 'Administration', children: [
+    {
+      path: 'circuits',
+      component: AdministrationCircuitList,
+      name: 'Liste des parcours'
+    },
+    {
+      path: 'circuits/:id',
+      component: CircuitEditor,
+      name: 'Modification de parcours'
+    },
       { path: 'lists/:type', component: ListAdmin, name :'liste'},
       { path: 'current', component: CurrentProjectInformations, name: 'Panneau d\'exemple'},
       { path: 'edit/:id', component: EditProject, name: 'Edition'},
