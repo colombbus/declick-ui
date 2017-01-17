@@ -1,79 +1,50 @@
 <template>
-  <div>
-    <nav>
-      <header-bar></header-bar>
-      <authenticated-user-box
-        v-if="authenticatedUser"
-      ></authenticated-user-box>
-      <div id="main-menu">
-        <ul>
-          <li>
-            <router-link
-              to="/explore"
-              id="main-menu-explore-link"
-              class="menu-link menu-illustrated-link"
-            >Découvrir</router-link>
-          </li>
-          <li>
-            <router-link
-              to="/progress"
-              id="main-menu-progress-link"
-              class="menu-link menu-illustrated-link"
-            >Progresser</router-link>
-          </li>
-          <li>
-            <router-link
-              to="/create"
-              id="main-menu-create-link"
-              class="menu-link menu-illustrated-link"
-            >Créer</router-link>
-          </li>
-          <li v-if="!authenticatedUser">
-            <a
-              @click="isAuthenticationModalVisible = true"
-              id="main-menu-log-in-link"
-              class="menu-link menu-illustrated-link"
-            >Se connecter</a>
-          </li>
-          <li v-else>
-            <a
-              @click="logOut"
-              class="menu-link"
-            >Se déconnecter</a>
-          </li>
-        </ul>
-      </div>
-      <breadcrumb></breadcrumb>
-    </nav>
-    <authentication-modal
-      v-if="isAuthenticationModalVisible"
-      @close="isAuthenticationModalVisible = false"
-    ></authentication-modal>
-  <div>
+  <div id="main-menu">
+    <ul>
+      <li>
+        <router-link
+          to="/explore"
+          id="main-menu-explore-link"
+          class="menu-link menu-illustrated-link"
+        >Découvrir</router-link>
+      </li>
+      <li>
+        <router-link
+          to="/progress"
+          id="main-menu-progress-link"
+          class="menu-link menu-illustrated-link"
+        >Progresser</router-link>
+      </li>
+      <li>
+        <router-link
+          to="/create"
+          id="main-menu-create-link"
+          class="menu-link menu-illustrated-link"
+        >Créer</router-link>
+      </li>
+      <li v-if="!authenticatedUser">
+        <a
+          @click="$emit('show-authentication-modal')"
+          id="main-menu-log-in-link"
+          class="menu-link menu-illustrated-link"
+        >Se connecter</a>
+      </li>
+      <li v-else>
+        <a
+          @click="logOut"
+          class="menu-link"
+        >Se déconnecter</a>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>
 import { mapActions, mapState } from 'vuex'
 
-import AuthenticatedUserBox from './AuthenticatedUserBox'
-import AuthenticationModal from '../AuthenticationModal'
-import Breadcrumb from './Breadcrumb'
-import HeaderBar from './HeaderBar'
-
 export default {
-  data () {
-    return {
-      isAuthenticationModalVisible: false
-    }
-  },
   computed: mapState(['authenticatedUser']),
-  methods: mapActions(['logOut']),
-  components: {
-    AuthenticatedUserBox,
-    AuthenticationModal,
-    Breadcrumb,
-    HeaderBar
-  }
+  methods: mapActions(['logOut'])
 }
 </script>
 

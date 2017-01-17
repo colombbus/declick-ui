@@ -4,7 +4,18 @@
     <div id="headerContainer" :class="minimized ? 'displayNone' : 'displayBlock'">
 
       <!-- navigation -->
-      <navigation-bar></navigation-bar>
+      <header-bar></header-bar>
+      <authenticated-user-box
+        v-if="authenticatedUser"
+      ></authenticated-user-box>
+      <navigation-bar
+        @show-authentication-modal="isAuthenticationModalVisible = true"
+      ></navigation-bar>
+      <breadcrumb></breadcrumb>
+      <authentication-modal
+        v-if="isAuthenticationModalVisible"
+        @close="isAuthenticationModalVisible = false"
+      ></authentication-modal>
       <!-- end navigation -->
     </div>
     <div  :class="minimized ? 'displayBlock' : 'displayNone'">
@@ -51,14 +62,27 @@ import NavigationBar from './components/navigation/NavigationBar'
 import SmallNavigationBar from './components/SmallNavigationBar'
 import declickConfig from './assets/config/declick.js'
 
-import {mapSate} from 'vuex'
+import AuthenticatedUserBox from 'components/navigation/AuthenticatedUserBox'
+import AuthenticationModal from 'components/AuthenticationModal'
+import Breadcrumb from 'components/navigation/Breadcrumb'
+import HeaderBar from 'components/navigation/HeaderBar'
+
+import { mapState } from 'vuex'
 export default {
+  data () {
+    return {
+      isAuthenticationModalVisible: false
+    }
+  },
   components: {
+    AuthenticatedUserBox,
+    AuthenticationModal,
+    Breadcrumb,
+    HeaderBar,
     NavigationBar,
     SmallNavigationBar
   },
   computed: {
-    mapSate:(['current_circuit']),
     minimized () {
       /*return this.$route.matched[0] &&
         this.$route.matched[0].path === '/create'*/
@@ -71,7 +95,8 @@ export default {
     },
     urlLearn () {
       return declickConfig.url.client + 'learn.html#id=4&token=' + this.$store.state.authorizations
-    }
+    },
+    ...mapState(['authenticatedUser', 'current_circuit'])
   },
   updated () {
     console.log(this.$route.name)
