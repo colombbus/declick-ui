@@ -5,6 +5,9 @@
         to="/"
         id="main-home-link"
       >Entre 8 et 15 ans ?<br>Apprends à programmer des jeux !</router-link>
+      <authenticated-user-box
+        v-if="authenticatedUser"
+      ></authenticated-user-box>
       <div id="main-menu">
         <ul>
           <li>
@@ -40,17 +43,6 @@
               @click="logOut"
               class="menu-link"
             >Se déconnecter</a>
-            <div class="menu-floating-box">
-              <router-link
-                to="/me"
-              >{{authenticatedUser.username}}</router-link>
-              <router-link to="/administration">
-                <span
-                  class="glyphicon glyphicon-wrench"
-                  aria-hidden="true"
-                ></span>
-              </router-link>
-            </div>
           </li>
         </ul>
       </div>
@@ -66,6 +58,7 @@
 <script>
 import { mapActions, mapState } from 'vuex'
 
+import AuthenticatedUserBox from '../AuthenticatedUserBox'
 import AuthenticationModal from '../AuthenticationModal'
 import Breadcrumb from './Breadcrumb'
 
@@ -78,6 +71,7 @@ export default {
   computed: mapState(['authenticatedUser']),
   methods: mapActions(['logOut']),
   components: {
+    AuthenticatedUserBox,
     AuthenticationModal,
     Breadcrumb
   }
@@ -183,19 +177,5 @@ export default {
 
 #main-menu-log-in-link:after {
   background-image: url(~assets/image/log-in-robot.png);
-}
-
-#main-menu .menu-floating-box {
-  float: left;
-  position: relative;
-  top: -86px;
-  width: 150px;
-  line-height: 35px;
-  background-color: #642D46;
-}
-
-#main-menu .menu-floating-box .glyphicon {
-  position: relative;
-  top: 3px;
 }
 </style>
