@@ -95,7 +95,6 @@ export default {
   border: none;
   overflow:hidden;
 }
-
 @font-face {
 	font-family: 'Rubik';
 	src: url('assets/font/Rubik-Regular.eot');
