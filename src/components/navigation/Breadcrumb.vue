@@ -34,6 +34,7 @@ export default {
 <style>
 #breadcrumb{
   height: 25px;
+  margin-bottom: 0;
   padding-left: 0px;
   background-color: #480A2A;
 }
