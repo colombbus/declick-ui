@@ -35,7 +35,7 @@ export default {
 
       // current step
        current:0,
-       currentIndex:0,
+       currentIndex:-1,
        currentCallback:false,
 
       // labels
@@ -686,7 +686,7 @@ export default {
                }
                if (stepIndex > -1) {
                    // set target current position
-                   this.step = this.displayedSteps[stepIndex];
+                   step = this.displayedSteps[stepIndex];
                    if (!skipChapter) {
                        // look for corresponding chapter
                        for (var j=stepIndex; j>=0; j--) {
@@ -728,7 +728,6 @@ export default {
                        this.setTargetCurrent(step.position, factor);
                    } else {
                        this.current.visible = true;
-
                        this.currentIndex = stepIndex;
                        this.current.position = step.position;
                        this.targetCurrent = this.current.position;
@@ -832,7 +831,7 @@ export default {
                        for (var i=0;i<_this.steps.length;i++) {
                            if (_this.steps[i].id && _this.steps[i].id === value.id) {
                                if (typeof value.passed !=='undefined') {
-                                   steps[i].passed = value.passed;
+                                   _this.steps[i].passed = value.passed;
                                }
                                if (typeof value.visited !=='undefined') {
                                    _this.steps[i].visited = value.visited;

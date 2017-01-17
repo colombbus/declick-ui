@@ -1,5 +1,5 @@
 <template lang="html">
-  <div id="contentContainerBienvenue">
+  <div id="contentContainerWelcome">
   </div>
 </template>
 
@@ -8,7 +8,7 @@ import declickConfig from '../assets/config/declick.js'
 export default {
   created(){
     this.$http.get(declickConfig.url.cms+'pages/rows/2?access_token=jWNoVhWCng6odNLK').then((responce) => {
-      $('#contentContainerBienvenue').append($.parseHTML(responce.body.content))
+      $('#contentContainerWelcome').append($.parseHTML(responce.body.content))
     })
   }
 }
