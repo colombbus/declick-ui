@@ -24,6 +24,10 @@ TBD
 
 TBD
 
+# copy htaccess.example into .htaccess and set RewriteBase accorging to your configuration
+
+TBD
+
 # serve with hot reload at localhost:8080
 npm run dev
 
