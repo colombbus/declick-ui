@@ -55,7 +55,6 @@ import FooterBar from 'components/navigation/FooterBar'
 
 import ProgressSmallNavBar from 'components/ProgressSmallNavBar'
 
-import FooterBar from 'components/navigation/FooterBar'
 
 import { mapState } from 'vuex'
 export default {
