@@ -1,5 +1,5 @@
 <template>
-  <div id="authenticated-user-box">
+  <div class="authenticated-user-box">
     <router-link
       to="/me"
     >{{authenticatedUser.username}}</router-link>
@@ -21,19 +21,15 @@ export default {
 </script>
 
 <style>
-#authenticated-user-box {
-  position: relative;
-  top: -3px;
-  float: right;
+.authenticated-user-box {
   height: 38px;
   width: 150px;
-  margin-top: -38px;
   text-align: center;
   line-height: 35px;
   background-color: #642D46;
 }
 
-#authenticated-user-box a {
+.authenticated-user-box a {
   padding: 0;
   font-family: Rubik, sans-serif;
   font-size: 18.6667px;
@@ -42,7 +38,7 @@ export default {
   cursor: pointer;
 }
 
-#authenticated-user-box .glyphicon {
+.authenticated-user-box .glyphicon {
   position: relative;
   top: 3px;
 }
