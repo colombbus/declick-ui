@@ -1,7 +1,7 @@
 <template>
   <div id="application">
     <!--header -->
-    <div id="headerContainer" :class="minimized ? 'displayNone' : 'displayBlock'">
+    <div id="headerContainer" :class="minimized || progressIframe ? 'displayNone' : 'displayBlock'">
 
       <!-- navigation -->
       <header-bar></header-bar>
@@ -21,6 +21,9 @@
     <div  :class="minimized ? 'displayBlock' : 'displayNone'">
       <SmallNavigationBar></SmallNavigationBar>
     </div>
+    <div  :class="progressIframe ? 'displayBlock' : 'displayNone'">
+      <ProgressSmallNavBar></ProgressSmallNavBar>
+    </div>
     <!-- end header -->
 
     <!-- main -->
@@ -28,10 +31,12 @@
         :class="this.$route.path == '/create' ? 'displayBlock' : 'displayNone'" :src="urlCreate"
       ></iframe>
     <iframe id="declick-client-learn" class="fullscreen-iframe"
-        :class="this.$route.path == '/progress' && current_circuit == {} ? 'displayBlock' : 'displayNone'" :src="urlLearn"
+        :class="this.$route.path == '/progress/iframe' ? 'displayBlock' : 'displayNone'" :src="urlLearn"
       ></iframe>
     <div id="mainContainer" :class="this.$route.path == '/create' ? 'displayNone' : 'displayBlock'">
-      <router-view></router-view>
+      <keep-alive>
+        <router-view></router-view>
+      <keep-alive>
     </div>
     <!-- end main -->
 
@@ -66,6 +71,7 @@ import AuthenticatedUserBox from 'components/navigation/AuthenticatedUserBox'
 import AuthenticationModal from 'components/AuthenticationModal'
 import Breadcrumb from 'components/navigation/Breadcrumb'
 import HeaderBar from 'components/navigation/HeaderBar'
+import ProgressSmallNavBar from 'components/ProgressSmallNavBar'
 
 import { mapState } from 'vuex'
 export default {
@@ -80,15 +86,19 @@ export default {
     Breadcrumb,
     HeaderBar,
     NavigationBar,
-    SmallNavigationBar
+    SmallNavigationBar,
+    ProgressSmallNavBar
   },
   computed: {
     minimized () {
       /*return this.$route.matched[0] &&
         this.$route.matched[0].path === '/create'*/
         //return false
-        return this.$route.path==='/create' || this.$route.path==='/DeclickMap'
+        return this.$route.path==='/create'
 
+    },
+    progressIframe(){
+      return this.$route.path==='/progress/iframe'
     },
     urlCreate () {
       return declickConfig.url.client + 'index.html#token=' + this.$store.state.authorizations

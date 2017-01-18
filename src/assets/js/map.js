@@ -479,7 +479,7 @@ export default {
                this.displaySteps();
                // open chapter if required
                if (savedCurrentIndex>-1 && savedChapterOpen) {
-                   this.setCurrentStep5(this.steps[savedCurrentIndex].id, false);
+                   this.goToCurrentStep(this.steps[savedCurrentIndex].id, false);
                }
            },
 
@@ -643,7 +643,7 @@ export default {
                _this.current.scale(1.5);
                _this.current.onMouseDown = function(event) {
                    event.preventDefault();
-                   _this.setCurrentStep5(_this.steps[_this.currentIndex].id, false, true, function() {
+                   _this.goToCurrentStep(_this.steps[_this.currentIndex].id, false, true, function() {
                        if (_this.stepCallback) {
                            _this.stepCallback(_this.steps[_this.currentIndex].id);
                        }
@@ -658,7 +658,7 @@ export default {
              var _this = this
                return function(event) {
                    event.preventDefault();
-                   _this.setCurrentStep5(_this.steps[i].id, true, true, function() {
+                   _this.goToCurrentStep(_this.steps[i].id, true, true, function() {
                        if (_this.stepCallback) {
                            _this.stepCallback(_this.steps[i].id);
                        }
@@ -674,7 +674,7 @@ export default {
                };
            },
 
-           setCurrentStep5:function(index, animate, skipChapter, callback) {
+           goToCurrentStep:function(index, animate, skipChapter, callback) {
 
                var stepIndex = -1, chapterIndex = -1;
                // look for stepIndex
@@ -701,7 +701,7 @@ export default {
                            }
                        }
                        if (chapterIndex>-1) {
-                           openChapter(chapterIndex, animate);
+                           this.openChapter(chapterIndex, animate);
                        }
                    }
                    if (animate && this.current.visible === true) {

@@ -15,12 +15,13 @@ import {mapState} from 'vuex'
 export default {
   data () {
     return {
-      map,
-      declickToken:''
+      map
+
     }
   },
   computed: mapState(['map_visited','map_passed']),
   mounted () {
+
     this.map.init("map", bot, (index) => {
       this.$store.dispatch('set_map_visited',{id:index,visited:true})
 
@@ -37,10 +38,23 @@ export default {
   },
   watch:{
     map_visited(){
-      $('#declick-client-learn').attr('src',url.url.client+'learn/'+this.map.steps[this.map_visited.id].name.replace(' ','-').toLowerCase()+'-'+this.map_visited.id+'?token='+this.$store.state.authorizations)
-      this.map.updateState([this.map_visited])
-      $('#declick-client-learn').css('display','block')
-      $('#map').css('display','none')
+      if(this.map.steps[this.map_visited.id].chapter == false){
+
+        $('#declick-client-learn').attr('src',url.url.client+'learn.html#'+this.map_visited.id+'?token='+this.$store.state.authorizations)
+        this.$router.push('/progress/iframe')
+        this.$store.dispatch('set_map_current_step_name',this.map.steps[this.map_visited.id].name)
+        this.map.updateState([this.map_visited])
+        this.map.goToCurrentStep(this.map_visited.id+1, true);
+      }else{
+
+
+        this.$router.push('/declickMap')
+        console.log(this.map.steps);
+        this.map.updateState([{id:this.map_visited.id,passed:true}])
+        this.map.goToCurrentStep(this.map_visited.id+1, true);
+
+      }
+
     },
     map_passed(){
       this.map.updateState([this.map_passed])
