@@ -24,7 +24,7 @@ TBD
 
 TBD
 
-# copy htaccess.example into .htaccess and set RewriteBase accorging to your configuration
+# copy htaccess.example into .htaccess and set RewriteBase according to your configuration
 
 TBD
 
