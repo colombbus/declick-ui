@@ -46,18 +46,16 @@ export default {
         this.map.updateState([this.map_visited])
         this.map.goToCurrentStep(this.map_visited.id+1, true);
       }else{
-
-
         this.$router.push('/declickMap')
-        console.log(this.map.steps);
-        this.map.updateState([{id:this.map_visited.id,passed:true}])
         this.map.goToCurrentStep(this.map_visited.id+1, true);
 
       }
 
+      this.map.update()
+
     },
     map_passed(){
-      this.map.updateState([this.map_passed])
+      //this.map.updateState([this.map_passed])
     }
   }
 }

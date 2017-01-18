@@ -22,10 +22,8 @@ export default {
   methods:{
     previous(){
         this.$store.dispatch('set_map_visited',{'id':this.map_visited.id-1,'visited':true})
-        this.$store.dispatch('set_map_passed',{'id':this.map_visited.id,'passed':true})
     },
     next(){
-      this.$store.dispatch('set_map_passed',{'id':this.map_visited.id,'passed':true})
       this.$store.dispatch('set_map_visited',{'id':this.map_visited.id + 1,'visited':true})
     },
     toggleMapIframe(){
