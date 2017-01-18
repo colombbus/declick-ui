@@ -8,7 +8,6 @@
 
 <script>
 import  map  from'../assets/js/map.js'
-var bot = require('../assets/robot.svg')
 import url from '../assets/config/declick.js'
 import {mapState} from 'vuex'
 
@@ -22,7 +21,7 @@ export default {
   computed: mapState(['map_visited','map_passed']),
   mounted () {
 
-    this.map.init("map", bot, (index) => {
+    this.map.init("map", "static/robot.svg", (index) => {
       this.$store.dispatch('set_map_visited',{id:index,visited:true})
 
       if(index != this.map_visited.id)
