@@ -10,6 +10,9 @@ import * as types from './mutation-types.js'
 //     dispatch('get_user',response.body.owner_id)
 //   })
 // }
+export const set_map_current_step_name = ({commit},name) => {
+  commit(types.MAP_CURRENT_STEP_NAME,name)
+}
 export const set_map_visited = ({commit},visited) => {
   commit(types.SET_MAP_VISITED,visited)
 }

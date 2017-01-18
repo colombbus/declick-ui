@@ -334,10 +334,14 @@ export default new Vuex.Store({
     },
     map_passed: {
       id:0
-    }
+    },
+    current_step_name:''
   },
   actions,
   mutations: {
+    [type.MAP_CURRENT_STEP_NAME] (state,name){
+      state.current_step_name = name
+    },
     [type.SET_MAP_VISITED] (state,visited){
       state.map_visited = visited
     },
