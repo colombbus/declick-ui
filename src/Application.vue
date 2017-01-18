@@ -2,6 +2,7 @@
   <div id="application">
     <!--header -->
     <div v-show="!minimized & !progressIframe">
+
       <header-bar></header-bar>
       <authenticated-user-box
         v-if="authenticatedUser"
@@ -50,6 +51,7 @@ import AuthenticatedUserBox from 'components/navigation/AuthenticatedUserBox'
 import AuthenticationModal from 'components/AuthenticationModal'
 import Breadcrumb from 'components/navigation/Breadcrumb'
 import HeaderBar from 'components/navigation/HeaderBar'
+import FooterBar from 'components/navigation/FooterBar'
 
 import ProgressSmallNavBar from 'components/ProgressSmallNavBar'
 
