@@ -7,54 +7,40 @@
 </template>
 
 <script>
-import  map  from'../assets/js/map.js'
-import url from '../assets/config/declick.js'
+import  Map  from'../assets/js/map.js'
+import config from '../assets/config/declick.js'
 import {mapState} from 'vuex'
+
+var map = new Map();
 
 export default {
   data () {
     return {
-      map
-
     }
   },
-  computed: mapState(['map_visited','map_passed']),
+  computed: mapState(['current_step_index','current_step_name']),
   mounted () {
-
-    this.map.init("map", "static/robot.svg", (index) => {
-      this.$store.dispatch('set_map_visited',{id:index,visited:true})
-
-      if(index != this.map_visited.id)
-        this.$store.dispatch('set_map_passed',{id:index,passed:true})
-
+    map.init("map", "static/robot.svg", (index) => {
+      //$('#declick-client-learn').attr('src',config.url.client+'learn.html#'+index+'?token='+this.$store.state.authorizations)
+      this.$router.push('/progress/iframe')
+      this.$store.dispatch('set_current_step_index',index)
+      map.updateState([{id:index,visited:true}])
     }, () => {
         // Load path
-        this.map.loadPathFromUI(this.$store.state.json, () => {
+        map.loadPathFromUI(this.$store.state.json, () => {
             // Load steps
-            this.map.loadStepsFromUI(this.$store.state.steps)
+            map.loadStepsFromUI(this.$store.state.steps)
         })
     })
   },
-  watch:{
-    map_visited(){
-      if(this.map.steps[this.map_visited.id].chapter == false){
-
-        $('#declick-client-learn').attr('src',url.url.client+'learn.html#'+this.map_visited.id+'?token='+this.$store.state.authorizations)
-        this.$router.push('/progress/iframe')
-        this.$store.dispatch('set_map_current_step_name',this.map.steps[this.map_visited.id].name)
-        this.map.updateState([this.map_visited])
-        this.map.goToCurrentStep(this.map_visited.id+1, true);
-      }else{
-        this.$router.push('/declickMap')
-        this.map.goToCurrentStep(this.map_visited.id+1, true);
-
-      }
-
-      this.map.update()
-
-    },
-    map_passed(){
-      //this.map.updateState([this.map_passed])
+  activated () {
+    if (this.current_step_index > -1) {
+        map.setCurrentStep(this.current_step_index, false);
+    }
+  },
+  watch: {
+    current_step_index() {
+      this.$store.dispatch('set_current_step_name',map.getStepName(this.current_step_index))
     }
   }
 }

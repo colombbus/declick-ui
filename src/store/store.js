@@ -329,24 +329,16 @@ export default new Vuex.Store({
             "id": 58
         }
     ],
-    map_visited: {
-      id:0
-    },
-    map_passed: {
-      id:0
-    },
-    current_step_name:''
+    current_step_index: -1,
+    current_step_name : ''
   },
   actions,
   mutations: {
-    [type.MAP_CURRENT_STEP_NAME] (state,name){
+    [type.CURRENT_STEP_INDEX] (state,id){
+      state.current_step_index = id
+    },
+    [type.CURRENT_STEP_NAME] (state,name){
       state.current_step_name = name
-    },
-    [type.SET_MAP_VISITED] (state,visited){
-      state.map_visited = visited
-    },
-    [type.SET_MAP_PASSED] (state,passed){
-      state.map_passed = passed
     },
     [type.AUTHENTICATION_SUCCESS] (state, token) {
       state.authorizations = token

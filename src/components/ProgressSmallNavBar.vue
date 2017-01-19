@@ -18,13 +18,13 @@ export default {
   data () {
     return {}
   },
-  computed: mapState(['map_visited','map_passed','current_step_name']),
+  computed: mapState(['current_step_index', 'current_step_name']),
   methods:{
     previous(){
-        this.$store.dispatch('set_map_visited',{'id':this.map_visited.id-1,'visited':true})
+        this.$store.dispatch('set_current_step_index',this.current_step_index-1)
     },
     next(){
-      this.$store.dispatch('set_map_visited',{'id':this.map_visited.id + 1,'visited':true})
+      this.$store.dispatch('set_current_step_index',this.current_step_index + 1)
     },
     toggleMapIframe(){
       $('#declick-client-learn').css('display','none')
