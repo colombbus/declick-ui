@@ -22,7 +22,10 @@ module.exports = {
   },
   resolve: {
     extensions: ['', '.js', '.vue'],
-    fallback: [path.join(__dirname, '../node_modules')],
+    fallback: [
+      path.join(__dirname, '../bower_components'),
+      path.join(__dirname, '../node_modules'),
+    ],
     alias: {
       'vue$': 'vue/dist/vue',
       'src': path.resolve(__dirname, '../src'),
@@ -59,7 +62,7 @@ module.exports = {
         test: /\.js$/,
         loader: 'babel',
         include: projectRoot,
-        exclude: /node_modules/
+        exclude: /bower_components|node_modules/
       },
       {
         test: /\.json$/,
@@ -101,6 +104,8 @@ module.exports = {
       $: "jquery",
       jQuery: "jquery",
       "window.jQuery": "jquery"
-    })
+    }),
+    new webpack.IgnorePlugin(/\.\/node\/window/),
+    new webpack.IgnorePlugin(/\.\/node\/extend/)
   ]
 }
