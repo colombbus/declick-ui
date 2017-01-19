@@ -1,4 +1,4 @@
-import paper from'paper/dist/paper-core.min.js'
+import paper from'paper'
 import './jquery.mousewheel.min.js'
 
 

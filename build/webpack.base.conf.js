@@ -27,6 +27,7 @@ module.exports = {
       path.join(__dirname, '../node_modules'),
     ],
     alias: {
+      'paper$': 'paper/dist/paper-core.min.js',
       'vue$': 'vue/dist/vue',
       'src': path.resolve(__dirname, '../src'),
       'assets': path.resolve(__dirname, '../src/assets'),
@@ -105,7 +106,13 @@ module.exports = {
       jQuery: "jquery",
       "window.jQuery": "jquery"
     }),
-    new webpack.IgnorePlugin(/\.\/node\/window/),
-    new webpack.IgnorePlugin(/\.\/node\/extend/)
+    new webpack.IgnorePlugin(
+      /^\.\/node\/window$/,
+      new RegExp('paper\\' + path.sep + 'dist$')
+    ),
+    new webpack.IgnorePlugin(
+      /^\.\/node\/extend$/,
+      new RegExp('paper\\' + path.sep + 'dist$')
+    )
   ]
 }
