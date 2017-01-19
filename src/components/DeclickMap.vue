@@ -24,7 +24,6 @@ export default {
       //$('#declick-client-learn').attr('src',config.url.client+'learn.html#'+index+'?token='+this.$store.state.authorizations)
       this.$router.push('/progress/iframe')
       this.$store.dispatch('set_current_step_index',index)
-      map.updateState([{id:index,visited:true}])
     }, () => {
         // Load path
         map.loadPathFromUI(this.$store.state.json, () => {
@@ -40,6 +39,7 @@ export default {
   },
   watch: {
     current_step_index() {
+      map.updateState([{id:index,visited:true}])
       this.$store.dispatch('set_current_step_name',map.getStepName(this.current_step_index))
     }
   }
