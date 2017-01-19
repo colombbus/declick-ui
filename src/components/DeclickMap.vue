@@ -39,7 +39,7 @@ export default {
   },
   watch: {
     current_step_index() {
-      map.updateState([{id:index,visited:true}])
+      map.updateState([{id:this.current_step_index,visited:true}])
       this.$store.dispatch('set_current_step_name',map.getStepName(this.current_step_index))
     }
   }
