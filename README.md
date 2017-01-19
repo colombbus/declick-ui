@@ -7,6 +7,7 @@ Declick platform front-end
 ``` bash
 # install dependencies
 npm install
+bower install
 
 # set end point URL
 
