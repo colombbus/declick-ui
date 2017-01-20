@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
-//import Create from 'components/Create'
+import Create from 'components/Create'
 import UserProfile from 'components/UserProfile'
 import ResourceCreation from 'components/ResourceCreation'
 import CircuitList from 'components/CircuitList'
@@ -42,18 +42,18 @@ var routes = [
     name: 'Mon Profil'
   },
   { path: '/resources/new', component: ResourceCreation, name: 'Création de ressource' },
-  /*{ path: '/create', component: Create, name: 'Créer'/*, children: [
+  { path: '/create', component: Create, name: 'Créer', children: [
       { path: 'current', component: CurrentProjectInformations, name: 'Panneau d\'exemple'},
       { path: 'administration', component: Administration, name: 'Administration', children: [
-          { path: 'lists/:type', component: ListAdmin, name :'liste'}/*,
-          { path: 'projects', component: ProjectList, name :'liste des projets'},
-          { path: 'exercices', component: ExercicesList, name :'liste des exercices'}
+          { path: 'lists/:type', component: ListAdmin, name :'liste'},
+          // { path: 'projects', component: ProjectList, name :'liste des projets'},
+          // { path: 'exercices', component: ExercicesList, name :'liste des exercices'}
         ]
       },
       { path: 'edit/:id', component: EditProject, name: 'Edition'},
       { path: 'list/:type', component: MyList, name: 'list'}
-  ]},*/
-  { path: '/create', name: 'Créer' },
+  ]},
+  /*{ path: '/create', name: 'Créer' }*/,
   { path: '/DeclickMap', component: DeclickMap, name: 'DeclickMap' },
   { path: '/administration', component: Administration, name: 'Administration', children: [
     {
