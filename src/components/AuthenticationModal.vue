@@ -5,13 +5,13 @@
         <div class="modal-container" @click.stop>
           <div v-if="!inscription">
             <div class="form-group" >
-              <input v-model="username" type="text" :class="error_code == 422 ? 'alert alert-danger form-control':'form-control' " placeholder="nom d'utilisateur" name="username">
+              <input @keyup.enter="authenticate"  v-model="username" type="text" :class="error_code == 422 ? 'alert alert-danger form-control':'form-control' " placeholder="nom d'utilisateur" name="username">
               <p v-if="error_code == 422 " class="modalError bg-warning">
                 nom d'utilisateur non trouver !
               </p>
             </div>
             <div class="form-group">
-              <input v-model="password" :class="error_code == 401 ? 'alert alert-danger form-control':'form-control' " type="password" class="form-control" placeholder="mot de passe" name="password">
+              <input @keyup.enter="authenticate" v-model="password" :class="error_code == 401 ? 'alert alert-danger form-control':'form-control' " type="password" class="form-control" placeholder="mot de passe" name="password">
               <p v-if="error_code == 401 " class="modalError bg-warning">
                 erreur de nom de compte ou de mot de passe !
               </p>
