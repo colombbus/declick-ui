@@ -137,7 +137,7 @@ html, body, #application {
   footer-bar: 25px
   total: 195px
   */
-  height: calc(100% - 195px);
+  //height: calc(100% - 195px);
 }
 
 .right-aligned {
