@@ -1,7 +1,7 @@
 <template>
   <div class="authenticated-user-box">
     <router-link
-      to="/me"
+      to="/users/me"
     >{{authenticatedUser.username}}</router-link>
     <router-link to="/administration">
       <span
