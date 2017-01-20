@@ -11,7 +11,7 @@
 import declickConfig from '../assets/config/declick.js'
 export default {
   created(){
-    this.$http.get(declickConfig.url.cms+'pages/rows/2?access_token=jWNoVhWCng6odNLK').then((responce) => {
+    this.$http.get(declickConfig.url.cms+'api/1/tables/pages/rows/2?access_token=jWNoVhWCng6odNLK').then((responce) => {
       $('#onLoadGif').fadeOut()
       $('#contentContainerWelcome').append($.parseHTML(responce.body.content)).fadeIn()
     })
