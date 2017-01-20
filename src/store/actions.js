@@ -29,10 +29,11 @@ export const create_users = ({commit}, user) => {
     console.log(response)
   )
 }
-export const get_user = ({commit}, user_id) => {
-  Vue.http.get(types.ENDPOINT + 'users/' + user_id).then((response) =>
-    commit(types.SET_USER,response.body)//commit(types.GET_USERS_ID,response.body)
-  )
+export const get_user = ({commit,dispatch}, user_id) => {
+  Vue.http.get(types.ENDPOINT + 'users/' + user_id).then((response) =>{
+    commit(types.SET_USER,response.body)
+    dispatch('get_project',response.body.default_project_id)
+  })
 }
 export const update_users = ({commit}, user) => {
   Vue.http.path(types.ENDPOINT + 'users/' + user.id,user).then((response) =>
