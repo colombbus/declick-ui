@@ -2,7 +2,7 @@
   <div id="navigation-bar-small">
     <router-link to="/" id="home-control-small"></router-link>
     <div id="page-title">Créer</div>
-    <router-link to="/" id="map-control-small"></router-link>
+    <router-link to="/" id="close-control-small"></router-link>
   </div>
 </template>
 
@@ -41,7 +41,7 @@ export default {
   background-image: url('../assets/img/dk.png');
 }
 
-#map-control-small {
+#close-control-small {
   box-sizing: content-box;
   display: inline-block;
   float: right;
@@ -51,7 +51,7 @@ export default {
   background-image: url('../assets/img/back.png');
 }
 
-#map-control-small:hover {
+#close-control-small:hover {
   background-image: url('../assets/img/back-hover.png')
 }
 </style>
