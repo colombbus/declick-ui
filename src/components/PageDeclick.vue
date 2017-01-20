@@ -36,8 +36,6 @@ export default {
   }
 
 
-  #wrapper {margin-left:auto;margin-right:auto;/*overflow:hidden;*/padding:20px;}
-
   #content {text-align:justify;font-family: "DejaVu Sans",Helvetica,Arial,sans-serif;}
 
 
