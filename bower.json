@@ -11,6 +11,7 @@
     "node_modules"
   ],
   "dependencies": {
-    "paper": "^0.10.2"
+    "paper": "^0.10.2",
+    "pem-platform": "France-ioi/pem-platform#~2.12.0"
   }
 }
