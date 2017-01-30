@@ -6,12 +6,15 @@ Vue.use(VueRouter)
 import Create from 'components/Create'
 import UserProfile from 'components/UserProfile'
 import ResourceCreation from 'components/ResourceCreation'
-import CircuitList from 'components/CircuitList'
 import CommunityGameList from 'components/CommunityGameList'
 import Administration from 'components/Administration'
 import EditProject from 'components/EditProject'
 import ListAdmin from 'components/ListAdmin'
-import DeclickMap from 'components/DeclickMap'
+import Circuit from 'components/progress/Circuit'
+import CircuitList from 'components/progress/CircuitList'
+import Progress from 'components/progress/Progress'
+import DeclickMap from 'components/progress/DeclickMap'
+import CircuitRun from 'components/progress/CircuitRun'
 import MyList from 'components/MyList'
 import CurrentProjectInformations from 'components/CurrentProjectInformations'
 import declickConfig from 'assets/config/declick.js'
@@ -32,9 +35,13 @@ var routes = [
     component: CommunityGameList
   },
   {
-    path: '/progress',
-    component: CircuitList,
-    name: 'Parcours'
+    path: '/progress', component: Progress, name: 'Progresser', children: [
+      {path: '', component: CircuitList, name: 'Liste des parcours'},
+      {path: 'circuit', component: Circuit, children: [
+        {path: '', component: DeclickMap, name: 'Parcours'},
+        {path: 'run', component: CircuitRun, name:'Etape'}
+      ]}
+    ]
   },
   {
     path: '/users/me',
@@ -53,8 +60,6 @@ var routes = [
       { path: 'edit/:id', component: EditProject, name: 'Edition'},
       { path: 'list/:type', component: MyList, name: 'list'}
   ]},
-  /*{ path: '/create', name: 'Créer' }*/,
-  { path: '/DeclickMap', component: DeclickMap, name: 'DeclickMap' },
   { path: '/administration', component: Administration, name: 'Administration', children: [
     {
       path: 'circuits',

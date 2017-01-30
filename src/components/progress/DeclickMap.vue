@@ -1,14 +1,13 @@
 <template lang="html">
   <div id="declickMap">
-    <!--<div id="text"></div>-->
     <canvas id="map" ></canvas>
   </div>
 
 </template>
 
 <script>
-import  Map  from'../assets/js/map.js'
-import config from '../assets/config/declick.js'
+import  Map  from'../../assets/js/map.js'
+import config from '../../assets/config/declick.js'
 import {mapState} from 'vuex'
 
 var map = new Map();
@@ -20,9 +19,9 @@ export default {
   },
   computed: mapState(['current_step_index','current_step_name']),
   mounted () {
-    map.init("map", "static/robot.svg", (index) => {
+    map.init("map", "../static/robot.svg", (index) => {
       //$('#declick-client-learn').attr('src',config.url.client+'learn.html#'+index+'?token='+this.$store.state.authorizations)
-      this.$router.push('/progress/iframe')
+      this.$router.push('/progress/circuit/run')
       this.$store.dispatch('set_current_step_index',index)
     }, () => {
         // Load path

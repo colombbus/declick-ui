@@ -28,9 +28,11 @@
     <iframe id="declick-client-create" class="fullscreen-iframe"
         :class="this.$route.path == '/create' ? 'displayBlock' : 'displayNone'" :src="urlCreate"
       ></iframe>
+<!--
     <iframe id="declick-client-learn" class="fullscreen-iframe"
-        :class="this.$route.path == '/progress/iframe' ? 'displayBlock' : 'displayNone'" :src="urlLearn"
+        :class="this.$route.path == '/progress/circuit/run' ? 'displayBlock' : 'displayNone'" :src="urlLearn"
       ></iframe>
+-->
     <div id="mainContainer" :class="this.$route.path == '/create' ? 'displayNone' : 'displayBlock'">
       <keep-alive>
         <router-view></router-view>
@@ -82,7 +84,7 @@ export default {
 
     },
     progressIframe(){
-      return this.$route.path==='/progress/iframe'
+      return this.$route.path==='/progress/circuit/run'
     },
     urlCreate () {
       return declickConfig.url.client + 'index.html#token=' + this.$store.state.authorizations
