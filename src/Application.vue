@@ -19,25 +19,21 @@
     <div v-show="minimized">
       <SmallNavigationBar></SmallNavigationBar>
     </div>
-    <div  v-show="progressIframe">
+    <div v-show="progressIframe">
       <ProgressSmallNavBar></ProgressSmallNavBar>
     </div>
+
     <!-- end header -->
 
     <!-- main -->
-    <iframe id="declick-client-create" class="fullscreen-iframe"
-        :class="this.$route.path == '/create' ? 'displayBlock' : 'displayNone'" :src="urlCreate"
-      ></iframe>
-<!--
-    <iframe id="declick-client-learn" class="fullscreen-iframe"
-        :class="this.$route.path == '/progress/circuit/run' ? 'displayBlock' : 'displayNone'" :src="urlLearn"
-      ></iframe>
--->
-    <div id="mainContainer" :class="this.$route.path == '/create' ? 'displayNone' : 'displayBlock'">
+    <div id="mainContainer">
+      <CircuitRun></CircuitRun>
+      <Create></Create>
       <keep-alive>
         <router-view></router-view>
       <keep-alive>
     </div>
+
     <!-- end main -->
 
     <footer-bar v-show="!minimized"></footer-bar>
@@ -56,6 +52,8 @@ import HeaderBar from 'components/navigation/HeaderBar'
 import FooterBar from 'components/navigation/FooterBar'
 
 import ProgressSmallNavBar from 'components/ProgressSmallNavBar'
+import CircuitRun from 'components/progress/CircuitRun'
+import Create from 'components/Create'
 
 
 import { mapState } from 'vuex'
@@ -73,24 +71,17 @@ export default {
     HeaderBar,
     NavigationBar,
     SmallNavigationBar,
-    ProgressSmallNavBar
+    ProgressSmallNavBar,
+    CircuitRun,
+    Create
   },
   computed: {
     minimized () {
-      /*return this.$route.matched[0] &&
-        this.$route.matched[0].path === '/create'*/
-        //return false
         return this.$route.path==='/create'
 
     },
     progressIframe(){
       return this.$route.path==='/progress/circuit/run'
-    },
-    urlCreate () {
-      return declickConfig.url.client + 'index.html#token=' + this.$store.state.authorizations
-    },
-    urlLearn () {
-      return declickConfig.url.client + 'learn.html#id=4&token=' + this.$store.state.authorizations
     },
     ...mapState(['authenticatedUser', 'current_circuit'])
   },
@@ -102,12 +93,6 @@ export default {
 
 
 <style>
-.fullscreen-iframe {
-  height: calc(100vh - 60px);
-  width: 100%;
-  border: none;
-  overflow:hidden;
-}
 @font-face {
 	font-family: 'Rubik';
 	src: url('assets/font/Rubik-Regular.eot');
@@ -139,7 +124,7 @@ html, body, #application {
   footer-bar: 25px
   total: 195px
   */
-  //height: calc(100% - 195px);
+  /*height: calc(100% - 195px);*/
 }
 
 .right-aligned {

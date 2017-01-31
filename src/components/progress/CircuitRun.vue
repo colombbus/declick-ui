@@ -1,5 +1,5 @@
 <template lang="html">
-    <iframe id="declick-client-learn" class="fullscreen-iframe" :src="urlLearn"></iframe>
+    <iframe id="declick-client-learn" class="fullscreen-iframe" :src="urlLearn" v-show="this.$route.path == '/progress/circuit/run'"></iframe>
 </template>
 <script>
 import declickConfig from '../../assets/config/declick.js'
