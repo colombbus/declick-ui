@@ -8,9 +8,18 @@ window.Channel = Channel;
 import pem from 'exports-loader?TaskProxyManager&Platform!pem-platform/task-xd-pr.js'
 var task = false;
 export default {
-  computed: {
+    data () {
+        return {
+            initialized:false
+        }
+    },
+    computed: {
         urlLearn () {
-        return declickConfig.url.client + 'learn.html#id=4&token=' + this.$store.state.authorizations
+            if (!this.initialized) {
+                return declickConfig.url.client +"learn.html";
+            } else {
+                return declickConfig.url.client + 'learn.html#id=4&token=' + this.$store.state.authorizations;
+            }
         }
     },
     mounted() {
@@ -29,6 +38,7 @@ export default {
             window.console.log("setting platform");
             pem.TaskProxyManager.setPlatform(task, new pem.Platform());
             window.console.log("platform set");
+            this.initialized = true;
         });
     }
 }
