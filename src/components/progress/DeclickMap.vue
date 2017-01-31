@@ -48,6 +48,7 @@ export default {
 <style lang="css">
 #declickMap {
     background-color:#000000;
+    height: calc(100vh - 195px)
 }
 #map {
     width:100%;
