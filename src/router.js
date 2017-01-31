@@ -36,7 +36,7 @@ var routes = [
   },
   {
     path: '/progress', component: Progress, name: 'Progresser', children: [
-      {path: '', component: CircuitList, name: 'Liste des parcours'},
+      {path: '', component: CircuitList, name: 'Liste des parcours '},
       {path: 'circuit', component: Circuit, children: [
         {path: '', component: DeclickMap, name: 'Parcours'},
         {path: 'run', name:'Etape'}
@@ -50,6 +50,7 @@ var routes = [
   },
   { path: '/resources/new', component: ResourceCreation, name: 'Création de ressource' },
   { path: '/create', name: 'Créer'},
+
   { path: '/administration', component: Administration, name: 'Administration', children: [
     {
       path: 'circuits',

@@ -18,6 +18,7 @@
     </div>
     <div v-show="minimized">
       <SmallNavigationBar></SmallNavigationBar>
+      <CreateNavigationBar></CreateNavigationBar>
     </div>
     <div v-show="progressIframe">
       <ProgressSmallNavBar></ProgressSmallNavBar>
@@ -43,6 +44,8 @@
 <script>
 import NavigationBar from './components/navigation/NavigationBar'
 import SmallNavigationBar from './components/SmallNavigationBar'
+import CreateNavigationBar from './components/CreateNavigationBar'
+
 import declickConfig from './assets/config/declick.js'
 
 import AuthenticatedUserBox from 'components/navigation/AuthenticatedUserBox'
@@ -78,7 +81,12 @@ export default {
   computed: {
     minimized () {
         return this.$route.path==='/create'
+    },
 
+    displayCreate(){
+      if(this.$route.path.match(/\/create/) != null){
+        return true
+      }
     },
     progressIframe(){
       return this.$route.path==='/progress/circuit/run'
@@ -93,6 +101,18 @@ export default {
 
 
 <style>
+<<<<<<< HEAD
+=======
+#declick-client-create{
+  height: calc(100vh - 110px);
+}
+.fullscreen-iframe {
+  height: calc(100vh - 85px);
+  width: 100%;
+  border: none;
+  overflow:hidden;
+}
+>>>>>>> 694cf9f5ca12a9a04b7f0e50145742f54239bbc2
 @font-face {
 	font-family: 'Rubik';
 	src: url('assets/font/Rubik-Regular.eot');
