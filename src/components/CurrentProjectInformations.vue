@@ -4,6 +4,7 @@
       <h2>
         Projet > {{current_project.name}}
       </h2>
+      <router-link to="/create" id="closeAdminPanel"  v-show="displayCreate"></router-link>
       <div class="panel panel-default">
         <div class="pull-right">
           <small><span class="label label-default">Privé</span></small>
@@ -19,7 +20,7 @@
               <td>
                 <a href="/declick-server/web/app.php/profile/1"
                    class="content-link" data-active="profile"
-                >{{current_user.username}}</a>
+                >{{authenticatedUser.username}}</a>
               </td>
             </tr>
             <tr>
@@ -75,9 +76,16 @@
 <script>
   import {mapState} from 'vuex'
   export default{
-    computed: mapState(['current_project','current_user']),
+    computed:{
+       ...mapState(['current_project','authenticatedUser']),
+       displayCreate(){
+         if(this.$route.path.match(/\/create/) != null){
+           return true
+         }
+       }
+     },
     beforeCreate(){
-      this.$store.dispatch('get_project', this.$store.state.current_user.default_project_id)
+      this.$store.dispatch('get_project', this.$store.state.authenticatedUser.default_project_id)
     }
   }
 </script>

@@ -18,6 +18,7 @@
     </div>
     <div v-show="minimized">
       <SmallNavigationBar></SmallNavigationBar>
+      <CreateNavigationBar></CreateNavigationBar>
     </div>
     <div  v-show="progressIframe">
       <ProgressSmallNavBar></ProgressSmallNavBar>
@@ -26,7 +27,7 @@
 
     <!-- main -->
     <iframe id="declick-client-create" class="fullscreen-iframe"
-        :class="this.$route.path == '/create' ? 'displayBlock' : 'displayNone'" :src="urlCreate"
+        v-show="displayCreate" :src="urlCreate"
       ></iframe>
 <!--
     <iframe id="declick-client-learn" class="fullscreen-iframe"
@@ -47,6 +48,8 @@
 <script>
 import NavigationBar from './components/navigation/NavigationBar'
 import SmallNavigationBar from './components/SmallNavigationBar'
+import CreateNavigationBar from './components/CreateNavigationBar'
+
 import declickConfig from './assets/config/declick.js'
 
 import AuthenticatedUserBox from 'components/navigation/AuthenticatedUserBox'
@@ -73,15 +76,25 @@ export default {
     HeaderBar,
     NavigationBar,
     SmallNavigationBar,
-    ProgressSmallNavBar
+    ProgressSmallNavBar,
+    CreateNavigationBar
   },
   computed: {
     minimized () {
       /*return this.$route.matched[0] &&
         this.$route.matched[0].path === '/create'*/
         //return false
-        return this.$route.path==='/create'
+      if(this.$route.path.match(/\/create/) != null){
+        return true
 
+      }
+
+    },
+
+    displayCreate(){
+      if(this.$route.path.match(/\/create/) != null){
+        return true
+      }
     },
     progressIframe(){
       return this.$route.path==='/progress/circuit/run'
@@ -102,8 +115,11 @@ export default {
 
 
 <style>
+#declick-client-create{
+  height: calc(100vh - 110px);
+}
 .fullscreen-iframe {
-  height: calc(100vh - 60px);
+  height: calc(100vh - 85px);
   width: 100%;
   border: none;
   overflow:hidden;

@@ -1,13 +1,11 @@
 <template>
   <div id="create-screen">
-    <create-navigation-bar></create-navigation-bar>
+    <!-- <create-navigation-bar></create-navigation-bar> -->
     <transition :name="transitionName">
       <div id="AdminContentContainer">
         <router-view id="slideFromTop"></router-view>
       </div>
     </transition>
-    <iframe :src="iframeUrl"
-            id="declick-client-frame"></iframe>
   </div>
 </template>
 
@@ -36,7 +34,9 @@ export default {
 </script>
 
 <style>
-
+#slideFromTop .container{
+  background-color: white
+}
 .slideDown-enter-active{
   animation: slideDown .5s ease
 }
@@ -63,8 +63,10 @@ export default {
   }
 }
 #create-screen {
-  position: relative;
-  height: calc(100vh - 55px);
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 105px;
 }
 #create-screen iframe{
   position: absolute;

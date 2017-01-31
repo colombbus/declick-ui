@@ -36,7 +36,7 @@ var routes = [
   },
   {
     path: '/progress', component: Progress, name: 'Progresser', children: [
-      {path: '', component: CircuitList, name: 'Liste des parcours'},
+      {path: '', component: CircuitList, name: 'Liste des parcours '},
       {path: 'circuit', component: Circuit, children: [
         {path: '', component: DeclickMap, name: 'Parcours'},
         {path: 'run', component: CircuitRun, name:'Etape'}
@@ -49,16 +49,16 @@ var routes = [
     name: 'Mon Profil'
   },
   { path: '/resources/new', component: ResourceCreation, name: 'Création de ressource' },
-  { path: '/create', component: Create, name: 'Créer', children: [
-      { path: 'current', component: CurrentProjectInformations, name: 'Panneau d\'exemple'},
-      { path: 'administration', component: Administration, name: 'Administration', children: [
-          { path: 'lists/:type', component: ListAdmin, name :'liste'},
+   { path: '/create', component: Create, name: 'Créer', children: [
+      { path: 'current', component: CurrentProjectInformations, name: 'Panneau d\'exemple '},
+      { path: 'administration', component: Administration, name: 'Administration ', children: [
+          { path: 'lists/:type', component: ListAdmin, name :'liste '},
           // { path: 'projects', component: ProjectList, name :'liste des projets'},
           // { path: 'exercices', component: ExercicesList, name :'liste des exercices'}
         ]
       },
-      { path: 'edit/:id', component: EditProject, name: 'Edition'},
-      { path: 'list/:type', component: MyList, name: 'list'}
+      { path: 'edit/:id', component: EditProject, name: 'Edition '},
+      { path: 'list/:type', component: MyList, name: 'list '}
   ]},
   { path: '/administration', component: Administration, name: 'Administration', children: [
     {

@@ -2,6 +2,7 @@
   <div>
     <div class="container">
       <h2>Modification du projet</h2>
+      <router-link to="/create" id="closeAdminPanel" v-show="displayCreate"></router-link>
       <div class="form-group">
         <label for="project_name">Nom du projet</label>
         <input type="text" id="project_name"class="form-control"  v-model="current_project.name">
@@ -60,7 +61,9 @@
         </div>
       </div>
       <div class="form-group button-group">
-        <router-link to="/administration/current" class="btn btn-default" ><span class="glyphicon glyphicon-remove"></span>
+        <router-link v-show="!displayCreate" to="/administration/current" class="btn btn-default" ><span class="glyphicon glyphicon-remove"></span>
+       Annuler</router-link>
+        <router-link v-show="displayCreate" to="/create/current" class="btn btn-default" ><span class="glyphicon glyphicon-remove"></span>
        Annuler</router-link>
        <button type="button" name="button" @click="updateProject()" class="btn  btn-primary">Enregistrer
          <span class="glyphicon glyphicon-ok"></span></button>
@@ -73,12 +76,23 @@
 <script>
 import {mapState} from 'vuex'
 export default {
-  computed:mapState(['current_project','authorizations']),
+  computed:{
+    ...mapState(['current_project','authorizations']),
+    displayCreate(){
+      if(this.$route.path.match(/\/create/) != null){
+        return true
+      }
+    }
+  },
   methods: {
     updateProject () {
       this.$store.dispatch('update_projects', {data:this.current_project,token:this.authorizations}).then(() => {
         this.$store.dispatch('get_project', this.$store.state.current_project.id)
-        this.$router.push('/administration/current')
+        if(this.$route.path.match(/\/create/) == null){
+          this.$router.push('/administration/current')
+        }else{
+          this.$router.push('/create/current')
+        }
       })
     }
   }
