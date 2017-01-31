@@ -76,7 +76,8 @@ export default {
     SmallNavigationBar,
     ProgressSmallNavBar,
     CircuitRun,
-    Create
+    Create,
+    CreateNavigationBar
   },
   computed: {
     minimized () {
