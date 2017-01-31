@@ -102,18 +102,6 @@ export default {
 
 
 <style>
-<<<<<<< HEAD
-=======
-#declick-client-create{
-  height: calc(100vh - 110px);
-}
-.fullscreen-iframe {
-  height: calc(100vh - 85px);
-  width: 100%;
-  border: none;
-  overflow:hidden;
-}
->>>>>>> 694cf9f5ca12a9a04b7f0e50145742f54239bbc2
 @font-face {
 	font-family: 'Rubik';
 	src: url('assets/font/Rubik-Regular.eot');
