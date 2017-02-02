@@ -19,7 +19,9 @@ export default {
   },
   computed: mapState(['current_step_index','current_step_name']),
   mounted () {
-    map.init("map", "../static/robot.svg", (index) => {
+    // TODO: Find a better solution.
+    let robotPath = __webpack_public_path__ + 'static/map-robot.svg'
+    map.init("map", robotPath, (index) => {
       //$('#declick-client-learn').attr('src',config.url.client+'learn.html#'+index+'?token='+this.$store.state.authorizations)
       this.$router.push('/progress/circuit/run')
       this.$store.dispatch('set_current_step_index',index)
