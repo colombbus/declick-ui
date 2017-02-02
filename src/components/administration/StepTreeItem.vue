@@ -1,9 +1,17 @@
 <template>
   <li>
     <a @click="selectNode">{{ node.name }}</a>
-    <span v-show="node.children.length > 0">
-      <span v-show="!open" @click="openChildren" class="glyphicon glyphicon-plus"></span>
-      <span v-show="open" @click="closeChildren" class="glyphicon glyphicon-minus"></span>
+    <span v-show="node.children && node.children.length > 0">
+      <span
+        v-show="!open"
+        @click="openChildren"
+        class="glyphicon glyphicon-plus"
+      ></span>
+      <span
+        v-show="open"
+        @click="closeChildren"
+        class="glyphicon glyphicon-minus"
+      ></span>
       <transition name="fade">
         <ul v-show="open && node.children.length > 0" class="list-group">
           <step-tree-item
@@ -48,8 +56,8 @@ export default {
 <style>
 li {
   margin-left: 20px;
+  cursor: pointer;
 }
-
 .fade-enter-active, .fade-leave-active {
   transition: opacity .5s
 }

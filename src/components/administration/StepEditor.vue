@@ -5,11 +5,11 @@
       <input type="text" name="name" class="form-control" id="name" v-model="node.name">
     </div>
     <div class="form-group">
-      <label for="link">lien :</label>
-      <input type="text" name="link" class="form-control" id="link" v-model="node.link">
+      <label for="url">lien :</label>
+      <input type="text" name="url" class="form-control" id="url" v-model="node.url">
     </div>
-    <button class="btn btn-success" type="button" @click="save">enregistrer</button>
-    <button class="btn btn-success" type="button" @click="createChild">ajouter élément enfant</button>
+    <button class="btn btn-success" type="button" @click="saveNode">enregistrer</button>
+    <button class="btn btn-success" type="button" @click="createChildNode">ajouter élément</button>
   </div>
 </template>
 
@@ -19,11 +19,11 @@ export default {
     'node'
   ],
   methods: {
-    createChild: function () {
-      this.$emit('create-child', this.node)
+    createChildNode: function () {
+      this.$emit('create-child-node', this.node)
     },
-    save: function () {
-      this.$emit('save', this.node)
+    saveNode: function () {
+      this.$emit('save-node', this.node)
     }
   }
 }
