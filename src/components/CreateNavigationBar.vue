@@ -9,7 +9,7 @@
           <li><router-link to="/create/list/project">Projets</router-link></li>
           <li role="separator" class="divider"></li>
           <li><router-link to="/create/list/project">Exercises</router-link></li>
-          <li><router-link to="/create/administration">Administration</router-link></li>
+          <li><router-link to="/administration">Administration</router-link></li>
         </ul>
       </div>
       <span id="project-name">Mon projet</span>
