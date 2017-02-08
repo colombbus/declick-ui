@@ -1,15 +1,16 @@
 <template>
   <div>
     <div class="form-group">
-      <label for="name">nom :</label>
-      <input type="text" name="name" class="form-control" id="name" v-model="node.name">
+      <label for="name">nom</label>
+      <input type="text" name="name" class="form-control" id="name" v-model="node.data.name" :disabled="!node.editable">
     </div>
     <div class="form-group">
-      <label for="url">lien :</label>
-      <input type="text" name="url" class="form-control" id="url" v-model="node.url">
+      <label for="link">lien</label>
+      <input type="text" name="link" class="form-control" id="link" v-model="node.data.link" :disabled="!node.editable">
     </div>
-    <button class="btn btn-success" type="button" @click="saveNode">enregistrer</button>
-    <button class="btn btn-success" type="button" @click="createChildNode">ajouter élément</button>
+    <button class="btn btn-success" type="button" @click="save" :disabled="!node.editable">enregistrer</button>
+    <button class="btn btn-success" type="button" @click="createChild">ajouter étape enfant</button>
+    <button class="btn btn-danger" type="button" @click="remove" :disabled="!node.editable">supprimer</button>
   </div>
 </template>
 
@@ -18,12 +19,20 @@ export default {
   props: [
     'node'
   ],
+  watch: {
+    ['node.data.name'] () {
+      this.node.name = this.node.data.name
+    }
+  },
   methods: {
-    createChildNode: function () {
-      this.$emit('create-child-node', this.node)
+    createChild () {
+      this.$emit('create-child', this.node)
     },
-    saveNode: function () {
-      this.$emit('save-node', this.node)
+    save () {
+      this.$emit('save', this.node)
+    },
+    remove () {
+      this.$emit('remove', this.node)
     }
   }
 }

@@ -1,32 +1,34 @@
 <template>
-  <div v-if="tree">
-    <step-tree-item
-      :node="tree"
+  <div v-if="rootNode">
+    <tree-view
+      :node="rootNode"
       @select-node="selectNode"
-      id="root-node"
-    ></step-tree-item>
+      id="circuit-tree-view"
+    ></tree-view>
     <step-editor
       v-if="selectedNode"
       :node="selectedNode"
-      @create-child-node="createChildNode"
-      @save-node="saveNode"
-      id="node-editor"
+      @create-child="createChildStep"
+      @save="saveStep"
+      @remove="removeStep"
+      id="circuit-step-editor"
     ></step-editor>
   </div>
 </template>
 
 <script>
 import StepEditor from './StepEditor'
-import StepTreeItem from './StepTreeItem'
+import TreeView from './TreeView'
 
 import config from 'assets/config/declick'
+var apiUrl = config.url.api.slice(0, -1)
 
 export default {
   data: function () {
     return {
       circuitId: null,
       circuit: null,
-      tree: null,
+      rootNode: null,
       selectedNode: null
     }
   },
@@ -38,60 +40,136 @@ export default {
     retrieveCircuit () {
       $.ajax({
         method: 'GET',
-        url: `${config.url.api}circuits/${this.circuitId}`,
+        url: `${apiUrl}/circuits/${this.circuitId}`,
         success: circuit => {
           this.circuit = circuit
-          this.retrieveRootNode(this.circuit.root_node_id)
+          this.retrieveRootStep(this.circuit.root_node_id)
         }
       })
     },
-    retrieveRootNode (id) {
+    retrieveRootStep (stepId) {
       $.ajax({
         method: 'GET',
-        url: `${config.url.api}circuits/${this.circuitId}/nodes/${id}`,
-        success: node => {
-          node.children = []
-          this.tree = node
-          this.retrieveNodeChildren(this.tree)
+        url: `${apiUrl}/circuits/${this.circuitId}/nodes/${stepId}`,
+        success: rootStep => {
+          this.rootNode = this.makeNode(rootStep)
+          this.rootNode.name = 'nœud racine'
+          this.rootNode.editable = false
+          this.retrieveStepChildren(this.rootNode)
         }
       })
     },
-    retrieveNodeChildren (parent) {
+    retrieveStepChildren (parentNode) {
       $.ajax({
         method: 'GET',
-        url: `${config.url.api}circuits/${this.circuitId}/nodes/${parent.id}/children`,
-        success: nodes => {
-          for (let node of nodes) {
-            node.children = []
-            parent.children.push(node)
-            this.retrieveNodeChildren(parent.children[parent.children.length - 1])
+        url: `${apiUrl}` +
+          `/circuits/${this.circuitId}` +
+          `/nodes/${parentNode.data.id}` +
+          `/children`,
+        success: childSteps => {
+          for (let childStep of childSteps) {
+            let childNode = this.makeNode(childStep)
+            parentNode.children.push(childNode)
+            this.retrieveStepChildren(childNode)
           }
         }
       })
     },
-    createNode () {
+    createChildStep (parentNode) {
+      let newStep = this.makeStep()
+      newStep.parent_id = parentNode.data.id
+      newStep.position = parentNode.children.length
+      $.ajax({
+        method: 'POST',
+        url: `${apiUrl}/circuits/${this.circuitId}/nodes`,
+        data: newStep,
+        success: createdStep => {
+          let createdNode = this.makeNode(createdStep)
+          parentNode.children.push(createdNode)
+        }
+      })
+    },
+    saveStep (node) {
+      $.ajax({
+        method: 'PATCH',
+        url: `${config.url.api}circuits/${this.circuitId}/nodes/${node.data.id}`,
+        data: node.data,
+        success: step => {
+          node.data = step
+        }
+      })
+    },
+    removeStep (node) {
+      $.ajax({
+        method: 'DELETE',
+        url: `${config.url.api}circuits/${this.circuitId}/nodes/${node.data.id}`,
+        success: () => {
+          this.retrieveCircuit()
+        }
+      })
+    },
+    makeStep () {
       return {
         name: 'nouveau nœud',
         url: null,
-        children: []
+        parent_id: null,
+        position: null,
+      }
+    },
+    makeNode (step) {
+      if (!step) {
+        step = this.makeStep()
+      }
+      return {
+        name: step.name,
+        children: [],
+        data: step,
+        editable: true
       }
     },
     selectNode (node) {
       this.selectedNode = node
-    },
-    createChildNode (parent) {
-      parent.children.push(this.createNode())
-    },
-    saveNode () {}
+    }
   },
   components: {
     StepEditor,
-    StepTreeItem
+    TreeView
   }
 }
 </script>
 
 <style>
-#root-node { float: left; }
-#node-editor { float: left; margin-left: 20px; }
+#circuit-tree-view {
+  float: left;
+}
+
+#circuit-step-editor {
+  float: left;
+  margin-left: 20px;
+}
+
+#circuit-tree-view, #circuit-tree-view ol {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+#circuit-tree-view li {
+  margin: 0px;
+}
+
+#circuit-tree-view a {
+  text-decoration: none;
+}
+
+#circuit-tree-view .glyphicon {
+  color: #2A6698;
+}
+
+#circuit-tree-view .node-control {
+  display: inline-block;
+  width: 25px;
+  padding: 0 5px;
+  text-align: center;
+}
 </style>
