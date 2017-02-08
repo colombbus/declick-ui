@@ -4,5 +4,6 @@ export default {
     client: 'http://localhost/declick-client/dist/',
     cms: 'http://localhost/directus/cms/'
   },
-  basePath: '/'
+  basePath: '/',
+  domain: 'localhost'
 }

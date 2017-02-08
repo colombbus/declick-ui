@@ -12,6 +12,10 @@ import store from './store/store'
 
 import Application from './Application'
 
+import config from 'assets/config/declick'
+
+document.domain = config.domain
+
 /* eslint-disable no-new */
 new Vue({
   el: '#application',
