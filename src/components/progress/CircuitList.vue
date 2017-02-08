@@ -11,17 +11,14 @@
 
     <div v-for="circuit in filteredCircuits" class="circuit">
       <div class="imgLevel">
-        <img :src="circuit.imageUrl" :alt="circuit.title"/>
+        <img v-if="circuit.imageUrl" :src="circuit.imageUrl" :alt="circuit.title"/>
       </div>
       <div class="contentCircuit">
-        <router-link to="/progress/circuit">{{circuit.title}}</router-link>
-        <p class="descriptionCircuit">{{circuit.description}}</p>
-        <div v-if="circuit.info" class="moreInfo">
+        <router-link to="/progress/circuit">{{circuit.name}}</router-link>
+        <p class="descriptionCircuit">{{circuit.shortDescription}}</p>
+        <div v-if="circuit.description" class="moreInfo">
           <p @click="toggleShow(circuit)" v-show="!circuit.showInfo"><span class="glyphicon glyphicon-triangle-right"></span> plus d'infos</p>
-          <p @click="toggleShow(circuit)" v-show="circuit.showInfo"><span class="glyphicon glyphicon-triangle-bottom"></span> {{circuit.info[0]}}</p>
-          <div v-show="circuit.showInfo">
-            <p>{{circuit.info[1]}}</p>
-          </div>
+          <p @click="toggleShow(circuit)" v-show="circuit.showInfo"><span class="glyphicon glyphicon-triangle-bottom"></span> {{circuit.description}}</p>
         </div>
       </div>
     </div>
@@ -30,30 +27,32 @@
 </template>
 
 <script>
+import Vue from 'vue'
+import config from 'assets/config/declick'
+
 export default {
   data () {
     return {
       categoryFilter: 'official',
-      circuits: [{
+      circuits: []
+      /* [{
         title: "Bob & Max",
         category: 'official',
         description: "Apprends à créer un petit jeu..",
         imageUrl: "http://www.declick.net/images/default-level.png",
-        info: [ 'Niveau indicatif : Cycle 3',
-                'Compétences abordées : Objets, actions, paramètres '+
-                '(texte et numérique), boucles, conditions.'
-              ],
+        info: 'Niveau indicatif : Cycle 3\n\n'+
+              'Compétences abordées : Objets, actions, paramètres '+
+              '(texte et numérique), boucles, conditions.',
         showInfo: false
       }, {
         title: "D-Clics numériques",
         category: 'official',
         description: "Séances 4 à 7 du parcours D-Clics numériques",
         imageUrl: "http://www.declick.net/images/dclics.png",
-        info:[ 'Niveau indicatif : 8 à 14 ans',
-               'D-Clics numériques est un projet de formation, d’animation et'+
-               'de mobilisation autour des parcours éducatifs numériques destinés'+
-               ' aux enfants et aux jeunes de 8 à 14 ans.'
-             ],
+        info: 'Niveau indicatif : 8 à 14 ans\n\n'+
+              'D-Clics numériques est un projet de formation, d’animation et'+
+              'de mobilisation autour des parcours éducatifs numériques destinés'+
+              ' aux enfants et aux jeunes de 8 à 14 ans.',
         showInfo: false
       }, {
         title: "Castor",
@@ -63,7 +62,8 @@ export default {
         info: null,
         showInfo: false
       }
-    ]}
+    ]*/
+    }
   },
   computed: {
     filteredCircuits () {
@@ -71,6 +71,20 @@ export default {
         circuit.category === this.categoryFilter
       )
     }
+  },
+  created () {
+    Vue.http.get(config.url.api + 'circuits').then(data => {
+      for (let circuit of data.data.data) {
+        this.circuits.push({
+          name: circuit.name,
+          shortDescription: circuit.short_description,
+          description: circuit.description,
+          category: 'official',
+          imageUrl: 'http://www.declick.net/images/default-level.png',
+          showInfo: false
+        })
+      }
+    })
   },
   methods: {
     toggleShow (circuit) {
@@ -152,5 +166,9 @@ export default {
   }
   .moreInfo > div{
     margin-left: 17px;
+  }
+
+  .moreInfo p {
+    white-space: pre-line;
   }
 </style>
