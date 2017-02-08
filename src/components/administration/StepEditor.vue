@@ -1,16 +1,19 @@
 <template>
-  <div>
-    <div class="form-group">
-      <label for="name">nom</label>
-      <input type="text" name="name" class="form-control" id="name" v-model="node.data.name" :disabled="!node.editable">
+  <div class="panel panel-default" id="circuit-creator">
+    <div class="panel-heading">données d'étape</div>
+    <div class="panel-body">
+      <div class="form-group">
+        <label for="name">nom :</label>
+        <input type="text" name="name" class="form-control" id="name" v-model="node.data.name" :disabled="!node.editable">
+      </div>
+      <div class="form-group">
+        <label for="link">lien :</label>
+        <input type="text" name="link" class="form-control" id="link" v-model="node.data.link" :disabled="!node.editable">
+      </div>
+      <button class="btn btn-success" type="button" @click="save" :disabled="!node.editable">enregistrer</button>
+      <button class="btn btn-success" type="button" @click="createChild">ajouter étape enfant</button>
+      <button class="btn btn-danger" type="button" @click="remove" :disabled="!node.editable">supprimer</button>
     </div>
-    <div class="form-group">
-      <label for="link">lien</label>
-      <input type="text" name="link" class="form-control" id="link" v-model="node.data.link" :disabled="!node.editable">
-    </div>
-    <button class="btn btn-success" type="button" @click="save" :disabled="!node.editable">enregistrer</button>
-    <button class="btn btn-success" type="button" @click="createChild">ajouter étape enfant</button>
-    <button class="btn btn-danger" type="button" @click="remove" :disabled="!node.editable">supprimer</button>
   </div>
 </template>
 
@@ -21,7 +24,9 @@ export default {
   ],
   watch: {
     ['node.data.name'] () {
-      this.node.name = this.node.data.name
+      if (this.node.editable) {
+        this.node.name = this.node.data.name
+      }
     }
   },
   methods: {

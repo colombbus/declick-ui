@@ -43,13 +43,15 @@
         class="btn btn-default"
       >page suivante</router-link>
     </div>
+    <circuit-creator @circuit-created="loadCircuitList"></circuit-creator>
   </div>
 </template>
 
 <script>
 // TODO: use store
 
-import config from 'assets/config/declick.js'
+import CircuitCreator from './CircuitCreator'
+import config from 'assets/config/declick'
 
 export default {
   data () {
@@ -77,6 +79,9 @@ export default {
         this.circuits = response.body.data
       })
     }
+  },
+  components: {
+    CircuitCreator
   }
 }
 </script>

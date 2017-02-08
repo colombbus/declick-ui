@@ -20,7 +20,7 @@
         @click="selectNode"
       >{{ node.name }}</a>
     </span>
-    <transition name="grow">
+    <transition name="fade">
       <li v-show="node.children.length > 0 && open">
         <step-tree-item
           v-for="child in node.children"
@@ -70,21 +70,10 @@ li {
   cursor: pointer;
 }
 
-.grow-enter-active, .grow-enter-active {
-  transition: max-height 1.5s;
-  max-height: 126px;
-}
-
-.grow-enter, .grow-leave-active {
-  max-height: 0;
-}
-
-/*
 .fade-enter-active, .fade-leave-active {
   transition: opacity .5s
 }
 .fade-enter, .fade-leave-active {
   opacity: 0
 }
-*/
 </style>
