@@ -29,4 +29,8 @@
   position: relative;
   top: 2px;
 }
+
+#footer .right-aligned {
+  float: right;
+}
 </style>
