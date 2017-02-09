@@ -19,7 +19,7 @@ export default {
   computed: {
     matchedRoutes () {
       let routes = this.$route.matched.slice()
-      if (routes[0] && routes[0].name != 'home') {
+      if (routes[0] && routes[0].name !== 'home') {
         routes.unshift({
           path: '/',
           meta: {
