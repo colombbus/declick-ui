@@ -5,11 +5,11 @@
         v-if="index !== route.length - 1"
         :to="level.path"
         :class="'level-' + (index + 1)"
-      >{{level.name}}</router-link>
+      >{{level.meta.title}}</router-link>
       <span
         v-else
         :class="['level-' + (index + 1), 'current']"
-      >{{level.name}}</span>
+      >{{level.meta.title}}</span>
     </li>
   </div>
 </template>
@@ -18,14 +18,7 @@
 export default {
   computed: {
     route () {
-      let levels = this.$route.matched.slice()
-      if (levels[0] && levels[0].name != 'Accueil') {
-        levels.unshift({
-          name: 'Accueil',
-          path: '/'
-        })
-      }
-      return levels
+      return this.$route.matched.slice()
     }
   }
 }

@@ -25,47 +25,55 @@ import CircuitEditor from 'components/administration/CircuitEditor'
 
 var routes = [
   {
-    path:'/',
-    name:'Accueil',
-    component:PageDeclick
+    path: '/',
+    component: PageDeclick,
+    meta: { title: 'Accueil' }
   },
   {
     path: '/explore',
-    name: 'Découvrir',
-    component: CommunityGameList
+    component: CommunityGameList,
+    meta: { title: 'Découvrir' }
   },
   {
-    path: '/progress', component: Progress, name: 'Progresser', children: [
-      {path: '', component: CircuitList, name: 'Liste des parcours '},
+    path: '/progress', component: Progress, meta: { title: 'Progresser' }, children: [
+      {path: '', component: CircuitList, meta: { title: 'Liste des parcours' }},
       {path: 'circuit', component: Circuit, children: [
-        {path: '', component: DeclickMap, name: 'Parcours'},
-        {path: 'run', name:'Etape'}
+        {path: '', component: DeclickMap, meta: { title: 'Parcours' }},
+        {path: 'run', meta: { title: 'Étape' }}
       ]}
     ]
   },
   {
     path: '/users/me',
     component: UserProfile,
-    name: 'Mon Profil'
+    meta: { title: 'Mon Profil' }
   },
-  { path: '/resources/new', component: ResourceCreation, name: 'Création de ressource' },
-  { path: '/create', name: 'Créer'},
+  { path: '/resources/new', component: ResourceCreation, meta: { title: 'Création de ressource' }},
 
-  { path: '/administration', component: Administration, name: 'Administration', children: [
+  {
+    path: '/create',
+    name: 'Créer',
+    meta: {
+      title: 'Progresser',
+      useFullscreenMode: true
+    }
+  },
+
+  { path: '/administration', component: Administration, meta: { title: 'Administration' }, children: [
     {
       path: 'circuits',
       component: AdministrationCircuitList,
-      name: 'Liste des parcours'
+      meta: { title: 'Liste des parcours' }
     },
     {
       path: 'circuits/:id',
       component: CircuitEditor,
-      name: 'Modification de parcours'
+      meta: { title: 'Modification de parcours' }
     },
-      { path: 'lists/:type', component: ListAdmin, name :'liste'},
-      { path: 'current', component: CurrentProjectInformations, name: 'Panneau d\'exemple'},
-      { path: 'edit/:id', component: EditProject, name: 'Edition'},
-      { path: 'list/:type', component: MyList, name: 'list'}
+      { path: 'lists/:type', component: ListAdmin, meta: { title: 'liste' } },
+      { path: 'current', component: CurrentProjectInformations, meta: { title: 'Panneau d\'exemple' } },
+      { path: 'edit/:id', component: EditProject, meta: { title: 'Edition' } },
+      { path: 'list/:type', component: MyList, meta: { title: 'list' } }
     ]}
 ]
 
