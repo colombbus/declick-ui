@@ -21,8 +21,8 @@ export default {
       this.id +
       '?access_token=jWNoVhWCng6odNLK'
     this.$http.get(url).then((response) => {
-      $(this.el).find('.cms-document-loading-message').fadeOut()
-      $(this.el).find('.cms-document-loading-message').append(
+      $(this.$el).find('.cms-document-loading-message').fadeOut()
+      $(this.$el).find('.cms-document-loading-message').append(
         $.parseHTML(response.body.content)
       ).fadeIn()
     })
