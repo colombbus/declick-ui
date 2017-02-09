@@ -3,7 +3,7 @@
     <li v-for="(route, index) in matchedRoutes">
       <router-link
         v-if="index !== matchedRoutes.length - 1"
-        :to="route.path || '/'"
+        :to="route.path"
         :class="'level-' + (index + 1)"
       >{{route.meta.title}}</router-link>
       <span
@@ -18,7 +18,16 @@
 export default {
   computed: {
     matchedRoutes () {
-      return this.$route.matched.slice()
+      let routes = this.$route.matched.slice()
+      if (routes[0] && routes[0].name != 'home') {
+        routes.unshift({
+          path: '/',
+          meta: {
+            title: 'Accueil'
+          }
+        })
+      }
+      return routes
     }
   }
 }
