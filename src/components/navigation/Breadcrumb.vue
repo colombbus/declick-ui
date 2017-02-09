@@ -1,15 +1,15 @@
 <template>
   <ul id="breadcrumb">
-    <li v-for="(level, index) in route">
+    <li v-for="(route, index) in matchedRoutes">
       <router-link
-        v-if="index !== route.length - 1"
-        :to="level.path"
+        v-if="index !== matchedRoutes.length - 1"
+        :to="route.path || '/'"
         :class="'level-' + (index + 1)"
-      >{{level.meta.title}}</router-link>
+      >{{route.meta.title}}</router-link>
       <span
         v-else
         :class="['level-' + (index + 1), 'current']"
-      >{{level.meta.title}}</span>
+      >{{route.meta.title}}</span>
     </li>
   </div>
 </template>
@@ -17,7 +17,7 @@
 <script>
 export default {
   computed: {
-    route () {
+    matchedRoutes () {
       return this.$route.matched.slice()
     }
   }
@@ -25,7 +25,7 @@ export default {
 </script>
 
 <style>
-#breadcrumb{
+#breadcrumb {
   height: 25px;
   margin-bottom: 0;
   padding-left: 0px;
