@@ -16,28 +16,22 @@ export default {
     computed: {
         urlLearn () {
             if (!this.initialized) {
-                return declickConfig.url.client +"learn.html";
+                return declickConfig.url.client +'learn.html#id=4&token=' + this.$store.state.authorizations+"&?channelId=declick";
             } else {
-                return declickConfig.url.client + 'learn.html#id=4&token=' + this.$store.state.authorizations;
+                return declickConfig.url.client + 'learn.html#id=4&token=' + this.$store.state.authorizations+"&?channelId=declick";
             }
         }
     },
     mounted() {
         pem.Platform.prototype.showView = function(views, success, error) {
-            window.console.log("received show view");
-            success();
-            /*
-                task.reloadAnswer({score : 0,value : "coucou"}, () => {
-                console.log("done.");
+                task.reloadAnswer(JSON.stringify({score : 0,value : "coucou"}), () => {
+                success();
             });
-            */
-
+    
         };
         pem.TaskProxyManager.getTaskProxy("declick-client-learn",(ref) => {
             task = ref;
-            window.console.log("setting platform");
-            pem.TaskProxyManager.setPlatform(task, new pem.Platform());
-            window.console.log("platform set");
+            pem.TaskProxyManager.setPlatform(task, new pem.Platform(task));
             this.initialized = true;
         });
     }
