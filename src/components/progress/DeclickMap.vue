@@ -10,6 +10,8 @@ import  Map  from'../../assets/js/map.js'
 import config from '../../assets/config/declick.js'
 import {mapState} from 'vuex'
 
+import Api from '../../api.js'
+
 var map = new Map();
 
 export default {
@@ -28,8 +30,11 @@ export default {
     }, () => {
         // Load path
         map.loadPathFromUI(this.$store.state.json, () => {
-            // Load steps
-            map.loadStepsFromUI(this.$store.state.steps)
+          // Load steps
+          Api.retrieveSteps(1, steps => {
+            console.debug(steps)
+            map.loadStepsFromUI(steps)
+          })
         })
     })
   },
