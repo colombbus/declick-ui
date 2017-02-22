@@ -1,6 +1,7 @@
 <template>
   <ol>
     <span
+      @click="selectNode"
       class="list-group-item"
       :style="`padding-left: ${depth * 20}px`"
     >
@@ -16,9 +17,7 @@
           class="glyphicon glyphicon-minus"
         ></span>
       </span><!-- no space fix
-      --><a
-        @click="selectNode"
-      >{{ node.name }}</a>
+      --><a>{{ node.name }}</a>
     </span>
     <transition name="fade">
       <li v-show="node.children.length > 0 && open">
