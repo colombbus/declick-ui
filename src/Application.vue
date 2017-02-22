@@ -42,13 +42,13 @@
 </template>
 
 <script>
-import NavigationBar from './components/navigation/NavigationBar'
+import NavigationBar from './components/navigation/MainMenuBar'
 import SmallNavigationBar from './components/SmallNavigationBar'
 import CreateNavigationBar from './components/CreateNavigationBar'
 
 import declickConfig from './assets/config/declick.js'
 
-import AuthenticatedUserBox from 'components/navigation/AuthenticatedUserBox'
+import AuthenticatedUserBox from 'components/AuthenticatedUserBox'
 import AuthenticationModal from 'components/AuthenticationModal'
 import Breadcrumb from 'components/navigation/Breadcrumb'
 import HeaderBar from 'components/navigation/HeaderBar'
