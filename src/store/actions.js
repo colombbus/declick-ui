@@ -16,6 +16,9 @@ export const set_current_step_index = ({commit},id) => {
 export const set_current_step_name = ({commit},name) => {
   commit(types.CURRENT_STEP_NAME,name)
 }
+export const set_current_step_url = ({commit},url) => {
+  commit(types.CURRENT_STEP_URL,url)
+}
 export const set_project = ({commit}, project) =>{
   commit(types.UPDATE_CURRENT_PROJECT,project)
 }

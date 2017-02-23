@@ -298,6 +298,9 @@ function DeclickMap() {
             if (value.visited) {
                 object.visited = value.visited;
             }
+            if (value.url) {
+                object.url = value.url;
+            }
             return object;
         }
         $.each(data, function(key, value) {
@@ -621,7 +624,7 @@ function DeclickMap() {
             event.preventDefault();
             setCurrentStep(steps[currentIndex].id, false, true, function() {
                 if (stepCallback) {
-                    stepCallback(steps[currentIndex].id);
+                    stepCallback(steps[currentIndex]);
                 }
             });
         };
@@ -636,7 +639,7 @@ function DeclickMap() {
             event.preventDefault();
             setCurrentStep(steps[i].id, true, true, function() {
                 if (stepCallback) {
-                    stepCallback(steps[i].id);
+                    stepCallback(steps[i]);
                 }
             });
         };

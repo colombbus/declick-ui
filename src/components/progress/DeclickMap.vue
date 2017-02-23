@@ -23,10 +23,12 @@ export default {
   mounted () {
     // TODO: Find a better solution.
     let robotPath = __webpack_public_path__ + 'static/map-robot.svg'
-    map.init("map", robotPath, (index) => {
-      //$('#declick-client-learn').attr('src',config.url.client+'learn.html#'+index+'?token='+this.$store.state.authorizations)
+    map.init("map", robotPath, (step) => {
+      this.$store.dispatch('set_current_step_index',step.id)
+      if (step.url) {
+        this.$store.dispatch('set_current_step_url',step.url)
+      }
       this.$router.push('/progress/circuit/run')
-      this.$store.dispatch('set_current_step_index',index)
     }, () => {
         // Load path
         map.loadPathFromUI(this.$store.state.json, () => {
