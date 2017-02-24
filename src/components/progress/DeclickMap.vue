@@ -8,7 +8,7 @@
 <script>
 import  Map  from'../../assets/js/map.js'
 import config from '../../assets/config/declick.js'
-import { mapActions, mapState } from 'vuex'
+import { mapActions, mapState, mapMutations } from 'vuex'
 
 import * as mutations from '../../store/mutation-types.js'
 
@@ -21,22 +21,26 @@ export default {
     return {
     }
   },
-  computed: mapState(['currentStep', 'current_step_index','current_step_name']),
+  computed: mapState(['currentStep', 'current_step_index','current_step_name', 'steps']),
   mounted () {
     // TODO: Find a better solution.
     let robotPath = __webpack_public_path__ + 'static/map-robot.svg'
     map.init("map", robotPath, (step) => {
-      this.$store.dispatch('set_current_step_index',step.id)
+      this.setCurrentStep(step.index)
+      /*this.$store.dispatch('set_current_step_index',step.id)
       if (step.url) {
         this.$store.dispatch('set_current_step_url',step.url)
       }
-      this.$router.push('/progress/circuit/run')
+      this.$router.push('/progress/circuit/run')*/
     }, () => {
         // Load path
         map.loadPathFromUI(this.$store.state.json, () => {
           // Load steps
           Api.retrieveSteps(1, steps => {
             map.loadStepsFromUI(steps)
+            this.setSteps(steps)
+            console.log("setting current step")
+            this.setCurrentStep(1)
             /*
             this.$store.commit(mutations.SET_STEPS, steps)
             this.$store.commit(mutations.SET_CURRENT_STEP, 1000)
@@ -52,17 +56,30 @@ export default {
     })
   },
   activated () {
-    if (this.current_step_index > -1) {
-        map.setCurrentStep(this.current_step_index, false);
+    if (this.currentStep) {
+      map.setCurrentStep(this.currentStep.index, false)
     }
+    /*if (this.current_step_index > -1) {
+        map.setCurrentStep(this.current_step_index, false);
+    }*/
   },
   watch: {
+    currentStep() {
+      console.log("current step changed")
+      map.updateState([{id:this.currentStep.index,visited:true}])
+    }/*,
     current_step_index() {
       map.updateState([{id:this.current_step_index,visited:true}])
       this.$store.dispatch('set_current_step_name',map.getStepName(this.current_step_index))
-    }
-  }// ,
-  // methods: mapActions(['selectPreviousStep', 'selectNextStep'])
+    }*/
+  },
+  methods: {
+    ...mapMutations({
+      setSteps: mutations.SET_STEPS,
+      setCurrentStep: mutations.SET_CURRENT_STEP
+    }),
+    ...mapActions(['selectPreviousStep', 'selectNextStep'])
+  }
 }
 </script>
 
