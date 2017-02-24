@@ -34,8 +34,8 @@ export default {
         map.loadPathFromUI(this.$store.state.json, () => {
           // Load steps
           Api.retrieveSteps(1, steps => {
-            console.debug(steps)
             map.loadStepsFromUI(steps)
+            this.$store.state.steps = steps
           })
         })
     })

@@ -24,6 +24,8 @@ export default new Vuex.Store({
         "width": 7,
         "opacity": "0.4"
     },
+    currentStep: null,
+    steps: null,
     current_step_index: -1,
     current_step_url: '',
     current_step_name : ''
