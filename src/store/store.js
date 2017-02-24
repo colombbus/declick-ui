@@ -8,6 +8,16 @@ import * as type from './mutation-types.js'
 
 Vue.use(Vuex)
 
+function flattenStepTree (stepTree) {
+  return stepTree.reduce(function (accumulator, step) {
+    accumulator.push(step)
+    if (step.steps) {
+      Array.prototype.push.apply(accumulator, flattenStepTree(step.steps))
+    }
+    return accumulator
+  }, [])
+}
+
 export default new Vuex.Store({
   state: {
     lists: [],
@@ -32,6 +42,15 @@ export default new Vuex.Store({
   },
   actions,
   mutations: {
+    [type.SET_STEPS] (state, steps) {
+      state.steps = steps
+    },
+    [type.SET_CURRENT_STEP] (state, stepIndex) {
+      let steps = flattenStepTree(state.steps)
+      state.currentStep =
+        steps.filter(step => step.index === stepIndex)[0] ||
+        state.currentStep
+    },
     [type.CURRENT_STEP_INDEX] (state,id){
       state.current_step_index = id
     },

@@ -8,7 +8,9 @@
 <script>
 import  Map  from'../../assets/js/map.js'
 import config from '../../assets/config/declick.js'
-import {mapState} from 'vuex'
+import { mapActions, mapState } from 'vuex'
+
+import * as mutations from '../../store/mutation-types.js'
 
 import Api from '../../api.js'
 
@@ -19,7 +21,7 @@ export default {
     return {
     }
   },
-  computed: mapState(['current_step_index','current_step_name']),
+  computed: mapState(['currentStep', 'current_step_index','current_step_name']),
   mounted () {
     // TODO: Find a better solution.
     let robotPath = __webpack_public_path__ + 'static/map-robot.svg'
@@ -35,7 +37,16 @@ export default {
           // Load steps
           Api.retrieveSteps(1, steps => {
             map.loadStepsFromUI(steps)
-            this.$store.state.steps = steps
+            /*
+            this.$store.commit(mutations.SET_STEPS, steps)
+            this.$store.commit(mutations.SET_CURRENT_STEP, 1000)
+            console.debug(this.$store.state.currentStep)
+            this.selectNextStep()
+            console.debug(this.$store.state.currentStep)
+            this.selectPreviousStep()
+            this.selectPreviousStep()
+            console.debug(this.$store.state.currentStep)
+            */
           })
         })
     })
@@ -50,7 +61,8 @@ export default {
       map.updateState([{id:this.current_step_index,visited:true}])
       this.$store.dispatch('set_current_step_name',map.getStepName(this.current_step_index))
     }
-  }
+  }// ,
+  // methods: mapActions(['selectPreviousStep', 'selectNextStep'])
 }
 </script>
 

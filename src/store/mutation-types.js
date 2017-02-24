@@ -1,6 +1,8 @@
 import declickConfig from '../assets/config/declick.js'
 
 export const ENDPOINT = declickConfig.url.api
+export const SET_STEPS = 'SET_STEPS'
+export const SET_CURRENT_STEP = 'SET_CURRENT_STEP'
 export const CURRENT_STEP_INDEX = 'CURRENT_STEP_INDEX'
 export const CURRENT_STEP_NAME = 'CURRENT_STEP_NAME'
 export const CURRENT_STEP_URL = 'CURRENT_STEP_URL'

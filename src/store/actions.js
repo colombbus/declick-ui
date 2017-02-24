@@ -10,6 +10,19 @@ import * as types from './mutation-types.js'
 //     dispatch('get_user',response.body.owner_id)
 //   })
 // }
+
+export const selectNextStep = ({commit, state}) => {
+  if (state.currentStep) {
+    commit(types.SET_CURRENT_STEP, state.currentStep.index + 1)
+  }
+}
+
+export const selectPreviousStep = ({commit, state}) => {
+  if (state.currentStep) {
+    commit(types.SET_CURRENT_STEP, state.currentStep.index - 1)
+  }
+}
+
 export const set_current_step_index = ({commit},id) => {
   commit(types.CURRENT_STEP_INDEX,id)
 }
