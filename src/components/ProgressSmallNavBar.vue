@@ -2,7 +2,7 @@
   <div id="navigation-bar-small">
     <router-link to="/" id="home-control-small"></router-link>
     <div id="page-title">{{this.current_step_name}}</div>
-    <router-link to="/progress/circuit" id="map-control-small" ></router-link>
+    <router-link :to="'/progress/circuit/'+this.$route.params.id" id="map-control-small" ></router-link>
     <div id="mapController">
       <div id="leftLink" @click="previous()" ></div>
       <div id="rightLink" @click="next()"></div>

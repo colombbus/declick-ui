@@ -36,7 +36,7 @@ export default {
         // Load path
         map.loadPathFromUI(this.$store.state.json, () => {
           // Load steps
-          Api.retrieveSteps(1, steps => {
+          Api.retrieveSteps(this.$route.params.id, steps => {
             map.loadStepsFromUI(steps)
             this.setSteps(steps)
             console.log("setting current step")

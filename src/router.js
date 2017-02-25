@@ -45,7 +45,7 @@ var routes = [
         meta: { title: 'Liste des parcours' }
       },
       {
-        path: 'circuit',
+        path: 'circuit/:id',
         component: Circuit,
         children: [
           {
@@ -54,6 +54,7 @@ var routes = [
             meta: { title: 'Parcours' }
           },
           {
+            name: 'step',
             path: 'run',
             meta: { title: 'Étape' }
           }

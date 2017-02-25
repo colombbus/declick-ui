@@ -90,7 +90,7 @@ export default {
       }
     },
     progressIframe(){
-      return this.$route.path==='/progress/circuit/run'
+      return this.$route.name==='step'
     },
     ...mapState(['authenticatedUser', 'current_circuit'])
   },

@@ -14,7 +14,7 @@
         <img v-if="circuit.imageUrl" :src="circuit.imageUrl" :alt="circuit.title"/>
       </div>
       <div class="contentCircuit">
-        <router-link to="/progress/circuit">{{circuit.name}}</router-link>
+        <router-link :to="'/progress/circuit/' + circuit.id">{{circuit.name}}</router-link>
         <p class="descriptionCircuit">{{circuit.shortDescription}}</p>
         <div v-if="circuit.description" class="moreInfo">
           <p @click="toggleShow(circuit)" v-show="!circuit.showInfo"><span class="glyphicon glyphicon-triangle-right"></span> plus d'infos</p>
@@ -76,6 +76,7 @@ export default {
     Vue.http.get(config.url.api + 'circuits').then(data => {
       for (let circuit of data.data.data) {
         this.circuits.push({
+          id:circuit.id,
           name: circuit.name,
           shortDescription: circuit.short_description,
           description: circuit.description,
