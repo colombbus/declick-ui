@@ -26,7 +26,7 @@ export default {
     // TODO: Find a better solution.
     let robotPath = __webpack_public_path__ + 'static/map-robot.svg'
     map.init("map", robotPath, (step) => {
-      this.setCurrentStep(step.index)
+      this.setCurrentStep(step.id)
       this.$router.push({name: 'step', params: {id:this.$route.params.id}})
     }, () => {
         // Load path
@@ -59,9 +59,8 @@ export default {
     }*/
   },
   watch: {
-    currentStep() {
-      console.log("current step changed")
-      map.updateState([{id:this.currentStep.index,visited:true}])
+    currentStep(newStep) {
+      map.updateState([{id:newStep.index,visited:true}])
     }/*,
     current_step_index() {
       map.updateState([{id:this.current_step_index,visited:true}])
