@@ -16,12 +16,14 @@ export default {
     },
     computed: {
         urlLearn () {
-            if (this.current_step_url == '') {
-                this.$store.dispatch('set_current_step_url',declickConfig.url.client +'learn.html#id=4')                
+            if (this.currentStep) {
+                return this.currentStep.url+"&token="+ this.authorizations+"&channelId=declick"
+            } else {
+                return declickConfig.url.client +'learn.html#id=4&token='+ this.authorizations+"&channelId=declick"
             }
-            return this.current_step_url+"&token="+ this.authorizations+"&channelId=declick"
+
         },
-        ...mapState(['current_step_url', 'current_step_index', 'authorizations'])
+        ...mapState(['currentStep', 'current_step_index', 'authorizations'])
     },
     mounted() {
         pem.Platform.prototype.showView = function(views, success, error) {

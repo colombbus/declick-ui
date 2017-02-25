@@ -27,11 +27,7 @@ export default {
     let robotPath = __webpack_public_path__ + 'static/map-robot.svg'
     map.init("map", robotPath, (step) => {
       this.setCurrentStep(step.index)
-      /*this.$store.dispatch('set_current_step_index',step.id)
-      if (step.url) {
-        this.$store.dispatch('set_current_step_url',step.url)
-      }
-      this.$router.push('/progress/circuit/run')*/
+      this.$router.push({name: 'step', params: {id:this.$route.params.id}})
     }, () => {
         // Load path
         map.loadPathFromUI(this.$store.state.json, () => {
@@ -39,7 +35,6 @@ export default {
           Api.retrieveSteps(this.$route.params.id, steps => {
             map.loadStepsFromUI(steps)
             this.setSteps(steps)
-            console.log("setting current step")
             this.setCurrentStep(1)
             /*
             this.$store.commit(mutations.SET_STEPS, steps)
