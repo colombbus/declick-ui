@@ -289,8 +289,8 @@ function DeclickMap() {
         steps = [];
         function getObject(value, chapter) {
             var object = {chapter: chapter, name: value.name};
-            if (typeof value.id !== 'undefined') {
-                object.id = value.id;
+            if (typeof value.index !== 'undefined') {
+                object.id = value.index;
             }
             if (value.passed) {
                 object.passed = value.passed;
