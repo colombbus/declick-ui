@@ -24,7 +24,13 @@ export default {
     computed: {
         urlLearn () {
             if (this.currentStep) {
-                return this.currentStep.url+"&token="+ this.authorizations+"&channelId=declick"
+                if (this.currentStep.url) {
+                    return this.currentStep.url+"&token="+ this.authorizations+"&channelId=declick"
+                } else {
+                    // chapter
+                    this.$router.push({name: 'map', params: {id:this.$route.params.id}})
+                    return declickConfig.url.client +'learn.html#token='+ this.authorizations+"&channelId=declick"
+                }
             } else {
                 return declickConfig.url.client +'learn.html#token='+ this.authorizations+"&channelId=declick"
             }
