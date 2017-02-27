@@ -3,6 +3,7 @@ import declickConfig from '../assets/config/declick.js'
 export const ENDPOINT = declickConfig.url.api
 export const SET_STEPS = 'SET_STEPS'
 export const SET_CURRENT_STEP = 'SET_CURRENT_STEP'
+export const UPDATE_STEP_STATE = 'UPDATE_STEP_STATE'
 export const ERROR_CODE = 'ERROR_CODE'
 export const LOG_OUT = 'LOG_OUT'
 export const SET_USER = 'SET_USER'
