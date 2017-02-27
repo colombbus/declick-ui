@@ -35,10 +35,14 @@ export default new Vuex.Store({
         "opacity": "0.4"
     },
     currentStep: null,
-    steps: null
+    steps: null,
+    editor:true
   },
   actions,
   mutations: {
+    [type.SET_EDITOR] (state, value) {
+      state.editor = value
+    },
     [type.SET_STEPS] (state, steps) {
       state.steps = steps
     },

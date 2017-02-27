@@ -13,11 +13,27 @@
         </ul>
       </div>
       <span id="project-name">Mon projet</span>
-      <span id="switch-view-button"></span>
+      <span id="switch-view-button" @click="switchEditor" :class="{edit:!editor}"></span>
     </div>
   </div>
 </template>
 
+<script>
+import { mapState, mapMutations } from 'vuex'
+import * as mutations from '../store/mutation-types.js'
+
+export default {
+  methods: {
+    switchEditor () {
+      this.setEditor(!this.editor)
+    },
+    ...mapMutations({
+      setEditor: mutations.SET_EDITOR
+    })
+  },
+  computed: {...mapState(['editor'])}
+}
+</script>
 <style>
 #create-navigation-bar {
   height: 50px;
@@ -59,4 +75,13 @@
 #switch-view-button:hover {
   background-image: url('../assets/img/view_on.png');
 }
+
+#switch-view-button.edit {
+  background-image: url('../assets/img/edit.png');
+}
+
+#switch-view-button.edit:hover {
+  background-image: url('../assets/img/edit_on.png');
+}
+
 </style>

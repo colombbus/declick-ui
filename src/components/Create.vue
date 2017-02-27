@@ -4,6 +4,8 @@
 
 <script>
 import declickConfig from '../assets/config/declick.js'
+import { mapState, mapMutations } from 'vuex'
+import * as mutations from '../store/mutation-types.js'
 
 export default {
   data () {
@@ -14,8 +16,23 @@ export default {
   },
   computed: {
     urlCreate () {
-      return declickConfig.url.client + 'index.html#token=' + this.$store.state.authorizations
-    }
+      return declickConfig.url.client + 'index.html#editor='+this.editor+'&token=' + this.authorizations
+    },
+    ...mapState(['editor', 'authorizations'])
+  },
+  methods: {
+    ...mapMutations({
+      setEditor: mutations.SET_EDITOR
+    })
+  },
+  mounted() {
+    window.addEventListener("message", (e) => {
+      if (e.data == 'switchEditor') {
+        this.setEditor(true)
+      } else if (e.data == 'switchView') {
+        this.setEditor(false)
+      }
+    }, false)
   }
 }
 </script>
