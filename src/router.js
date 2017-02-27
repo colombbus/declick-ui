@@ -50,6 +50,7 @@ var routes = [
         children: [
           {
             path: '',
+            name: 'map',
             component: DeclickMap,
             meta: { title: 'Parcours' }
           },
