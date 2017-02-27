@@ -4,7 +4,7 @@
 <script>
 import declickConfig from '../../assets/config/declick.js'
 import Channel from 'exports-loader?Channel!jschannel/src/jschannel.js'
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 window.Channel = Channel;
 import pem from 'exports-loader?TaskProxyManager&Platform!pem-platform/task-xd-pr.js'
@@ -14,16 +14,19 @@ export default {
         return {
         }
     },
+    methods: {
+    ...mapActions(['selectNextStep'])
+    },
     computed: {
         urlLearn () {
             if (this.currentStep) {
                 return this.currentStep.url+"&token="+ this.authorizations+"&channelId=declick"
             } else {
-                return declickConfig.url.client +'learn.html#id=4&token='+ this.authorizations+"&channelId=declick"
+                return declickConfig.url.client +'learn.html#token='+ this.authorizations+"&channelId=declick"
             }
 
         },
-        ...mapState(['currentStep', 'current_step_index', 'authorizations'])
+        ...mapState(['currentStep', 'authorizations'])
     },
     mounted() {
         pem.Platform.prototype.showView = function(views, success, error) {
@@ -46,7 +49,7 @@ export default {
                         break
                     case "nextImmediate":
                         console.log("mode: nextImmediate")
-                        self.$store.dispatch('set_current_step_index',this.current_step_index + 1)
+                        this.selectNextStep()
                         break
                 }
                 success()
