@@ -14,7 +14,7 @@
         <li @click="loadPage( this.$store.state.current_page - 1 )"><a href="#">« Precedent</a></li>
         <li v-if="n <  this.$store.state.current_page + 5 && n >  this.$store.state.current_page - 5" v-for="n in this.$store.state.last_page" :class="{active : n ===  this.$store.state.current_page}" @click="loadPage(n)"><a href="#">{{n}}</a></li>
         <li @click="loadPage( this.$store.state.current_page + 1)"><a href="#">Suivant »</a></li>
-      </div>
+      </ul>
     </div>
   </table>
 </template>
