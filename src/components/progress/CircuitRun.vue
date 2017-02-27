@@ -44,7 +44,7 @@ export default {
                 // TODO: store answer
                 // TODO: set map accordingly
                 switch (mode) {
-                    case "stay": 
+                    case "stay":
                         console.log("mode: stay")
                         break
                     case "nextImmediate":
@@ -68,7 +68,7 @@ export default {
 </script>
 <style lang="css">
 .fullscreen-iframe {
-  height: calc(100vh - 60px);
+  height: calc(100vh - 55px);
   width: 100%;
   border: none;
   overflow:hidden;

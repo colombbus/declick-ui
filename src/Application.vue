@@ -1,5 +1,8 @@
 <template>
-  <div id="application">
+  <div
+    id="application"
+    :style="{ overflow: minimized ? 'hidden' : null }"
+  >
     <!--header -->
     <div v-show="!minimized & !progressIframe">
 
@@ -37,7 +40,7 @@
 
     <!-- end main -->
 
-    <footer-bar v-show="!minimized"></footer-bar>
+    <footer-bar v-show="showFooter"></footer-bar>
   </div>
 </template>
 
@@ -82,6 +85,9 @@ export default {
   computed: {
     minimized () {
         return this.$route.path==='/create'
+    },
+    showFooter () {
+      return this.$route.path !== '/create' && this.$route.name !== 'step'
     },
 
     displayCreate(){
@@ -130,7 +136,8 @@ html, body, #application {
   footer-bar: 25px
   total: 195px
   */
-  /*height: calc(100% - 195px);*/
+  min-height: calc(100% - 195px);
+  overflow: hidden;
 }
 
 .right-aligned {
