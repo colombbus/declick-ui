@@ -11,6 +11,7 @@ function convertNodes (parentNode, nodes, state) {
     id: parentNode.id,
     name: parentNode.name,
     url: parentNode.link,
+    visited: false,
     passed: false
   }
   if (childrenNodes.length > 0) {

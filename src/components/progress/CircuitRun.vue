@@ -4,7 +4,10 @@
 <script>
 import declickConfig from '../../assets/config/declick.js'
 import Channel from 'exports-loader?Channel!jschannel/src/jschannel.js'
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions, mapMutations } from 'vuex'
+
+import * as mutations from '../../store/mutation-types.js'
+
 
 window.Channel = Channel;
 import pem from 'exports-loader?TaskProxyManager&Platform!pem-platform/task-xd-pr.js'
@@ -15,7 +18,8 @@ export default {
         }
     },
     methods: {
-    ...mapActions(['selectNextStep'])
+    ...mapActions(['selectNextStep']),
+    ...mapMutations({updateStepState: mutations.UPDATE_STEP_STATE})
     },
     computed: {
         urlLearn () {
@@ -30,10 +34,10 @@ export default {
     },
     mounted() {
         pem.Platform.prototype.showView = function(views, success, error) {
-                console.log("show view received")
-                task.reloadAnswer(JSON.stringify({score : 0,value : "coucou"}), () => {
+                /*task.reloadAnswer(JSON.stringify({score : 0,value : "coucou"}), () => {
                 success()
-            })
+            })*/
+            success()
         }
         var self = this
         pem.Platform.prototype.validate = function(mode, success, error) {
@@ -41,6 +45,7 @@ export default {
             task.getAnswer((answer)=> {
                 console.log("answer received")
                 console.debug(answer)
+                self.updateStepState({passed:true})
                 // TODO: store answer
                 // TODO: set map accordingly
                 switch (mode) {
@@ -49,7 +54,7 @@ export default {
                         break
                     case "nextImmediate":
                         console.log("mode: nextImmediate")
-                        this.selectNextStep()
+                        self.selectNextStep()
                         break
                 }
                 success()

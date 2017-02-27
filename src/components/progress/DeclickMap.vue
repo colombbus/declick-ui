@@ -56,8 +56,12 @@ export default {
   },
   watch: {
     currentStep(newStep) {
-      map.updateState([{id:newStep.position,visited:true}])
+      map.updateState([{id:newStep.position,visited:newStep.visited, passed:newStep.passed}])
+    },
+    ['currentStep.passed'](value) {
+      map.updateState([{id:this.currentStep.position, passed:value}])
     }
+
   },
   methods: {
     ...mapMutations({

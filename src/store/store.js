@@ -51,7 +51,16 @@ export default new Vuex.Store({
       state.currentStep =
         steps.filter(step => step.position === stepIndex)[0] ||
         state.currentStep
+      state.currentStep.visited = true
     },
+    [type.UPDATE_STEP_STATE] (state, value) {
+      if (typeof value.visited !== 'undefined') {
+        state.currentStep.visited = value.visited
+      }
+      if (typeof value.passed !== 'undefined') {
+        state.currentStep.passed = value.passed
+      }
+    },    
     [type.AUTHENTICATION_SUCCESS] (state, token) {
       state.authorizations = token
       state.connected = true
