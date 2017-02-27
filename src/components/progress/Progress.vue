@@ -1,5 +1,7 @@
 <template lang="html">
-    <router-view></router-view>
+    <keep-alive>
+        <router-view></router-view>
+    </keep-alive>
 </template>
 <script>
 export default {}
