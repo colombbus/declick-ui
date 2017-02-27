@@ -32,7 +32,7 @@
       <Create></Create>
       <keep-alive>
         <router-view></router-view>
-      <keep-alive>
+      </keep-alive>
     </div>
 
     <!-- end main -->
@@ -93,9 +93,6 @@ export default {
       return this.$route.name==='step'
     },
     ...mapState(['authenticatedUser', 'current_circuit'])
-  },
-  updated () {
-    console.log(this.$route.name)
   }
 }
 </script>
