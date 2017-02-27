@@ -23,9 +23,6 @@ export const selectPreviousStep = ({commit, state}) => {
   }
 }
 
-export const set_current_step_url = ({commit},url) => {
-  commit(types.CURRENT_STEP_URL,url)
-}
 export const set_project = ({commit}, project) =>{
   commit(types.UPDATE_CURRENT_PROJECT,project)
 }
