@@ -1,5 +1,5 @@
 <template lang="html">
-    <iframe id="declick-client-learn" class="fullscreen-iframe" :src="urlLearn" v-show="this.$route.name == 'step'"></iframe>
+    <iframe id="declick-client-learn" class="fullscreen-iframe2" :src="urlLearn" v-show="this.$route.name == 'step'"></iframe>
 </template>
 <script>
 import declickConfig from '../../assets/config/declick.js'
@@ -72,8 +72,8 @@ export default {
 
 </script>
 <style lang="css">
-.fullscreen-iframe {
-  height: calc(100vh - 55px);
+.fullscreen-iframe2 {
+  height: calc(100vh - 60px);
   width: 100%;
   border: none;
   overflow:hidden;
