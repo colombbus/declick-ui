@@ -21,7 +21,7 @@ export default {
     return {
     }
   },
-  computed: mapState(['currentStep', 'current_step_index','current_step_name', 'steps']),
+  computed: mapState(['currentStep', 'steps']),
   mounted () {
     // TODO: Find a better solution.
     let robotPath = __webpack_public_path__ + 'static/map-robot.svg'
@@ -53,9 +53,6 @@ export default {
     if (this.currentStep) {
       map.setCurrentStep(this.currentStep.position, false)
     }
-    /*if (this.current_step_index > -1) {
-        map.setCurrentStep(this.current_step_index, false);
-    }*/
   },
   watch: {
     currentStep(newStep) {

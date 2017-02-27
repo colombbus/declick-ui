@@ -35,10 +35,7 @@ export default new Vuex.Store({
         "opacity": "0.4"
     },
     currentStep: null,
-    steps: null,
-    current_step_index: -1,
-    current_step_url: '',
-    current_step_name : ''
+    steps: null
   },
   actions,
   mutations: {
@@ -50,15 +47,6 @@ export default new Vuex.Store({
       state.currentStep =
         steps.filter(step => step.position === stepIndex)[0] ||
         state.currentStep
-    },
-    [type.CURRENT_STEP_INDEX] (state,id){
-      state.current_step_index = id
-    },
-    [type.CURRENT_STEP_NAME] (state,name){
-      state.current_step_name = name
-    },
-    [type.CURRENT_STEP_URL] (state,url){
-      state.current_step_url = url
     },
     [type.AUTHENTICATION_SUCCESS] (state, token) {
       state.authorizations = token

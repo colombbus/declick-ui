@@ -1,7 +1,7 @@
 <template>
   <div id="navigation-bar-small">
     <router-link to="/" id="home-control-small"></router-link>
-    <div id="page-title">{{this.current_step_name}}</div>
+    <div id="page-title">{{this.stepName}}</div>
     <router-link :to="'/progress/circuit/'+this.$route.params.id" id="map-control-small" ></router-link>
     <div id="mapController">
       <div id="leftLink" @click="previous()" ></div>
@@ -18,7 +18,16 @@ export default {
   data () {
     return {}
   },
-  computed: mapState(['current_step_index', 'current_step_name']),
+  computed: {
+     stepName () {
+          if (this.currentStep) {
+            return this.currentStep.name
+          } else {
+            return ""
+          }
+     },
+     ...mapState(['currentStep'])
+  },
   methods:{
     previous(){
       this.selectPreviousStep()
