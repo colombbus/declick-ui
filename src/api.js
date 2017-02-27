@@ -5,7 +5,7 @@ import config from 'assets/config/declick'
 var apiUrl = config.url.api.slice(0, -1)
 
 function convertNodes (parentNode, nodes, state) {
-  let childrenNodes = nodes.filter(node => node.parent_id === parentNode.id)
+  let childrenNodes = nodes.filter(node => parseInt(node.parent_id) === parentNode.id)
   let parentStep = {
     position: state.position++,
     id: parentNode.id,
