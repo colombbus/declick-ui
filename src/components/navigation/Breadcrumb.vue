@@ -42,7 +42,7 @@ export default {
 }
 
 #breadcrumb li {
-  float: left;
+  display: inline-block;
   height: 25px;
   margin-left: 0px;
   margin-right: 5px;
