@@ -40,7 +40,7 @@ export default {
     },
     mounted() {
         pem.Platform.prototype.showView = function(views, success, error) {
-                /*task.reloadAnswer(JSON.stringify({score : 0,value : "coucou"}), () => {
+            /*task.reloadAnswer(JSON.stringify({score : 0,value : "coucou"}), () => {
                 success()
             })*/
             success()
@@ -68,10 +68,16 @@ export default {
             })
         }
 
-        pem.TaskProxyManager.getTaskProxy("declick-client-learn",(ref) => {
-            task = ref
-            pem.TaskProxyManager.setPlatform(task, new pem.Platform(task))
-        })
+        var iframe = document.getElementById("declick-client-learn");
+        var initProxy = function() {
+            pem.TaskProxyManager.getTaskProxy("declick-client-learn",(ref) => {
+                task = ref
+                pem.TaskProxyManager.setPlatform(task, new pem.Platform(task))
+            })
+            iframe.removeEventListener("load", initProxy)
+        }
+        iframe.addEventListener("load", initProxy)
+
     }
 }
 
