@@ -7,7 +7,7 @@ var apiUrl = config.url.api.slice(0, -1)
 function convertNodes (parentNode, nodes, state) {
   let childrenNodes = nodes.filter(node => node.parent_id === parentNode.id)
   let parentStep = {
-    index: state.index++,
+    position: state.position++,
     id: parentNode.id,
     name: parentNode.name,
     url: parentNode.link,
@@ -28,7 +28,7 @@ export default {
       url: `${apiUrl}/circuits/${circuitId}/nodes`,
       success: nodes => {
         let rootNode = nodes.filter(node => node.parent_id === null)[0]
-        let tree = convertNodes(rootNode, nodes, { index: 0 }).steps
+        let tree = convertNodes(rootNode, nodes, { position: 0 }).steps
         callback(tree)
       }
     })

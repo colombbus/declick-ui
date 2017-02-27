@@ -48,7 +48,7 @@ export default new Vuex.Store({
     [type.SET_CURRENT_STEP] (state, stepIndex) {
       let steps = flattenStepTree(state.steps)
       state.currentStep =
-        steps.filter(step => step.index === stepIndex)[0] ||
+        steps.filter(step => step.position === stepIndex)[0] ||
         state.currentStep
     },
     [type.CURRENT_STEP_INDEX] (state,id){

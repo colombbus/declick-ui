@@ -289,8 +289,8 @@ function DeclickMap() {
         steps = [];
         function getObject(value, chapter) {
             var object = {chapter: chapter, name: value.name};
-            if (typeof value.index !== 'undefined') {
-                object.id = value.index;
+            if (typeof value.position !== 'undefined') {
+                object.id = value.position;
             }
             if (value.passed) {
                 object.passed = value.passed;
@@ -698,11 +698,15 @@ function DeclickMap() {
                         }
                     } else {
                         step = displayedSteps[currentIndex+delta];
-                        setTargetCurrent(step.position, factor);
+                        if (step && step.position) {
+                            setTargetCurrent(step.position, factor);
+                        }
                     }
                 }
                 step = displayedSteps[currentIndex+delta];
-                setTargetCurrent(step.position, factor);
+                if (step && step.position) {
+                    setTargetCurrent(step.position, factor);
+                }
             } else {
                 current.visible = true;
                 currentIndex = stepIndex;
@@ -825,7 +829,7 @@ function DeclickMap() {
                         old.remove();
                         var symbol = getSymbol(steps[i]);
                         var placed = symbol.place(point);
-                        everything.addChild(placed);
+                        placed.insertBelow(current);
                         displayedSteps[i] = placed;
                         placed.onMouseDown = getStepMouseHandler(i);
                         break;

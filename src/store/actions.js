@@ -13,13 +13,13 @@ import * as types from './mutation-types.js'
 
 export const selectNextStep = ({commit, state}) => {
   if (state.currentStep) {
-    commit(types.SET_CURRENT_STEP, state.currentStep.index + 1)
+    commit(types.SET_CURRENT_STEP, state.currentStep.position + 1)
   }
 }
 
 export const selectPreviousStep = ({commit, state}) => {
   if (state.currentStep) {
-    commit(types.SET_CURRENT_STEP, state.currentStep.index - 1)
+    commit(types.SET_CURRENT_STEP, state.currentStep.position - 1)
   }
 }
 

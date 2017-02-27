@@ -35,7 +35,6 @@ export default {
           Api.retrieveSteps(this.$route.params.id, steps => {
             map.loadStepsFromUI(steps)
             this.setSteps(steps)
-            this.setCurrentStep(1)
             /*
             this.$store.commit(mutations.SET_STEPS, steps)
             this.$store.commit(mutations.SET_CURRENT_STEP, 1000)
@@ -52,7 +51,7 @@ export default {
   },
   activated () {
     if (this.currentStep) {
-      map.setCurrentStep(this.currentStep.index, false)
+      map.setCurrentStep(this.currentStep.position, false)
     }
     /*if (this.current_step_index > -1) {
         map.setCurrentStep(this.current_step_index, false);
@@ -60,12 +59,8 @@ export default {
   },
   watch: {
     currentStep(newStep) {
-      map.updateState([{id:newStep.index,visited:true}])
-    }/*,
-    current_step_index() {
-      map.updateState([{id:this.current_step_index,visited:true}])
-      this.$store.dispatch('set_current_step_name',map.getStepName(this.current_step_index))
-    }*/
+      map.updateState([{id:newStep.position,visited:true}])
+    }
   },
   methods: {
     ...mapMutations({
