@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import {mapState} from 'vuex'
+import {mapState, mapActions} from 'vuex'
 
 export default {
   data () {
@@ -21,15 +21,16 @@ export default {
   computed: mapState(['current_step_index', 'current_step_name']),
   methods:{
     previous(){
-        this.$store.dispatch('set_current_step_index',this.current_step_index-1)
+      this.selectPreviousStep()
     },
     next(){
-      this.$store.dispatch('set_current_step_index',this.current_step_index + 1)
+      this.selectNextStep()
     },
     toggleMapIframe(){
       $('#declick-client-learn').css('display','none')
       $('#map').css('display','block')
-    }
+    },
+    ...mapActions(['selectPreviousStep', 'selectNextStep'])
   }
 }
 </script>
