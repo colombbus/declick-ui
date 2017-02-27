@@ -11,7 +11,7 @@
         :class="['level-' + (index + 1), 'current']"
       >{{route.meta.title}}</span>
     </li>
-  </div>
+  </ul>
 </template>
 
 <script>
