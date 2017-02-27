@@ -41,12 +41,8 @@ export default {
   background-color: #480A2A;
 }
 
-#breadcrumb ul {
-  margin-bottom: 10px;
-}
-
 #breadcrumb li {
-  float: left;
+  display: inline-block;
   height: 25px;
   margin-left: 0px;
   margin-right: 5px;

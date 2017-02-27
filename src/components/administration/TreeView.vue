@@ -20,7 +20,10 @@
       --><a>{{ node.name }}</a>
     </span>
     <transition name="fade">
-      <li v-show="node.children.length > 0 && open">
+      <li
+        v-show="node.children.length > 0 && open"
+        class="tree-view-children"
+      >
         <step-tree-item
           v-for="child in node.children"
           :depth="depth + 1"
@@ -64,7 +67,7 @@ export default {
 </script>
 
 <style>
-li {
+.tree-view-children {
   margin-left: 20px;
   cursor: pointer;
 }
