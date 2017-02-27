@@ -51,6 +51,8 @@ export default {
 <style>
 #main-menu ul {
   float: right;
+  margin-bottom: 0;
+  padding-left: 0;
 }
 
 #main-menu li {
