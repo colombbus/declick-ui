@@ -1,41 +1,45 @@
-# Declick Platform - front-end part
+# Declick User Interface
 
-Declick platform front-end
+This component is part of [Declick v2 platform](https://github.com/colombbus/declick-v2).
 
-## Build Setup
+It is built on [Vue.js](https://vuejs.org).
 
-``` bash
-# install dependencies
-npm install
-bower install
+## Installation
 
-# set end point URL
+1. Install [node.js](https://nodejs.org/)
+2. Install [bower](https://bower.io) `npm install -g bower`
+3. Run `npm install`
+4. Run `bower install`
 
-TBD
+## Configuration
 
-# set social services ID
+1. copy config/index.example.js into config/index.js and set the following parameters:
+    * assetsPublicPath: the path to your application (e.g. http://[server-address]/declick-ui/dist)
+    * assetsSubdirectory: the subpath where assets are stored, usually 'static' (unless you change build parameters)
 
-TBD
+2. copy src/assets/config/declick.example.js into src/assets/config/declick.js and set parameters according to your configuration:
+    * url.api: URL to server endpoint, e.g. 'http://localhost/declick-server-v2/api/v1/',
+    * url.client: URL to declick-client, e.g. 'http://localhost/declick-client/dist/',
+    * url.cms: URL to CMS storing static pages, e.g. 'http://localhost/cms/'
+    * basePath: base path following your server address. For instance if access url is 'http://localhost/declick-ui/dist', basePath should be set to '/declick-ui/dist' 
+    * domain: you can specify a domain in order to be able to load content from a cms located on another domain (CSRF protection)
 
-# copy config/index.example.js into config/index.js and set paths
+3. copy src/assets/config/social-services-example.js into src/assets/config/social-service.js. If you want to use social services (FB, Google), you have to set the corresponding ids.
 
-TBD
+4. At the application root copy htaccess.example into .htaccess and set parameter RewriteBase according to your configuration. For instance if access url is 'http://localhost/declick-ui/dist', RewriteBase should be '/declick-ui/dist/'
 
-# copy src/assets/config/declick.example.js into src/assets/config/declick.js and set urls to server and client
+## Development
+To test development version, you may serve files with hot reload at localhost:8080
 
-TBD
-
-# copy htaccess.example into .htaccess and set RewriteBase according to your configuration
-
-TBD
-
-# serve with hot reload at localhost:8080
+```
 npm run dev
-
-# build for production with minification
-npm run build
 ```
 
+# Build
+To build for production with minifaction, user the following command:
 
+```
+npm run build
+```
 
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
