@@ -1,8 +1,12 @@
 {
   "name": "declick-ui",
   "version": "1.0.0",
-  "description": "Declick platform front-end",
-  "author": "Colombbus",
+  "license": "GPL-3.0",  
+  "description": "Declick v2 User Interface",
+  "author": {
+      "name": "Colombbus",
+      "email": "contact@colombbus.org"
+  },
   "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",
