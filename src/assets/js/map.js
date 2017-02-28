@@ -817,7 +817,7 @@ function DeclickMap() {
             if (value.id) {
                 // find corresponding step
                 for (var i=0;i<steps.length;i++) {
-                    if (steps[i].id && steps[i].id === value.id) {
+                    if (steps[i].id && steps[i].id === value.id && !steps[i].chapter) {
                         if (typeof value.passed !=='undefined') {
                             steps[i].passed = value.passed;
                         }
