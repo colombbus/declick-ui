@@ -122,7 +122,7 @@ export default {
   }
 
   #sommaire td {
-  	padding-right:15px;
+  	padding: 0 10px;
   	position:relative;
   }
 
@@ -161,6 +161,10 @@ export default {
 
   #quoi {
   	margin:7px;
+  }
+
+  #quoi td {
+    width: 30%;
   }
 
   #quoi td ul li {
