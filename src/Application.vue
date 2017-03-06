@@ -10,9 +10,9 @@
       <authenticated-user-box
         v-if="authenticatedUser"
       ></authenticated-user-box>
-      <navigation-bar
+      <main-menu
         @show-authentication-modal="isAuthenticationModalVisible = true"
-      ></navigation-bar>
+      ></main-menu>
       <breadcrumb></breadcrumb>
       <authentication-modal
         v-if="isAuthenticationModalVisible"
@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import NavigationBar from './components/navigation/MainMenuBar'
+import MainMenu from './components/navigation/MainMenu'
 import SmallNavigationBar from './components/SmallNavigationBar'
 import CreateNavigationBar from './components/CreateNavigationBar'
 
@@ -75,7 +75,7 @@ export default {
     Breadcrumb,
     FooterBar,
     HeaderBar,
-    NavigationBar,
+    MainMenu,
     SmallNavigationBar,
     ProgressSmallNavBar,
     CircuitRun,
