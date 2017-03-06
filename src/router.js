@@ -57,7 +57,10 @@ var routes = [
           {
             name: 'step',
             path: 'run',
-            meta: { title: 'Étape' }
+            meta: {
+              title: 'Étape',
+              useFullscreen: true
+            }
           }
         ]
       }
@@ -78,7 +81,7 @@ var routes = [
     name: 'Créer',
     meta: {
       title: 'Créer',
-      useFullscreenMode: true
+      useFullscreen: true
     }
   },
   {

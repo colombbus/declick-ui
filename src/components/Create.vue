@@ -1,11 +1,22 @@
 <template>
-    <iframe id="declick-client-create" class="fullscreen-iframe" :src="urlCreate" v-show="this.$route.path == '/create'"></iframe>
+  <div>
+    <SmallNavigationBar></SmallNavigationBar>
+    <CreateNavigationBar></CreateNavigationBar>
+    <iframe
+      id="declick-client-create"
+      class="fullscreen-iframe"
+      :src="urlCreate"
+    ></iframe>
+  </div>
 </template>
 
 <script>
 import declickConfig from '../assets/config/declick.js'
 import { mapState, mapMutations } from 'vuex'
 import * as mutations from '../store/mutation-types.js'
+
+import SmallNavigationBar from './SmallNavigationBar'
+import CreateNavigationBar from './CreateNavigationBar'
 
 export default {
   data () {
@@ -33,6 +44,10 @@ export default {
         this.setEditor(false)
       }
     }, false)
+  },
+  components: {
+    CreateNavigationBar,
+    SmallNavigationBar
   }
 }
 </script>

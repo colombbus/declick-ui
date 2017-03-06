@@ -1,11 +1,9 @@
 <template>
   <div
     id="application"
-    :style="{ overflow: minimized ? 'hidden' : null }"
+    :style="{ overflow: viewUseFullscreen ? 'hidden' : null }"
   >
-    <!--header -->
-    <div v-show="!minimized & !progressIframe">
-
+    <div v-show="!viewUseFullscreen">
       <header-bar></header-bar>
       <authenticated-user-box
         v-if="authenticatedUser"
@@ -19,35 +17,21 @@
         @close="isAuthenticationModalVisible = false"
       ></authentication-modal>
     </div>
-    <div v-show="minimized">
-      <SmallNavigationBar></SmallNavigationBar>
-      <CreateNavigationBar></CreateNavigationBar>
-    </div>
-    <div v-show="progressIframe">
-      <ProgressSmallNavBar></ProgressSmallNavBar>
-    </div>
 
-    <!-- end header -->
-
-    <!-- main -->
     <div id="mainContainer">
-      <CircuitRun></CircuitRun>
-      <Create></Create>
+      <CircuitRun v-show="this.$route.name == 'step'"></CircuitRun>
+      <Create v-show="this.$route.path == '/create'"></Create>
       <keep-alive>
         <router-view></router-view>
       </keep-alive>
     </div>
 
-    <!-- end main -->
-
-    <footer-bar v-show="showFooter"></footer-bar>
+    <footer-bar v-show="!viewUseFullscreen"></footer-bar>
   </div>
 </template>
 
 <script>
 import MainMenu from './components/navigation/MainMenu'
-import SmallNavigationBar from './components/SmallNavigationBar'
-import CreateNavigationBar from './components/CreateNavigationBar'
 
 import declickConfig from './assets/config/declick.js'
 
@@ -57,7 +41,6 @@ import Breadcrumb from 'components/navigation/Breadcrumb'
 import HeaderBar from 'components/navigation/HeaderBar'
 import FooterBar from 'components/navigation/FooterBar'
 
-import ProgressSmallNavBar from 'components/ProgressSmallNavBar'
 import CircuitRun from 'components/progress/CircuitRun'
 import Create from 'components/Create'
 
@@ -69,6 +52,12 @@ export default {
       isAuthenticationModalVisible: false
     }
   },
+  computed: {
+    viewUseFullscreen () {
+      return this.$route.matched.some(match => match.meta.useFullscreen)
+    },
+    ...mapState(['authenticatedUser', 'current_circuit'])
+  },
   components: {
     AuthenticatedUserBox,
     AuthenticationModal,
@@ -76,29 +65,8 @@ export default {
     FooterBar,
     HeaderBar,
     MainMenu,
-    SmallNavigationBar,
-    ProgressSmallNavBar,
     CircuitRun,
     Create,
-    CreateNavigationBar
-  },
-  computed: {
-    minimized () {
-        return this.$route.path==='/create'
-    },
-    showFooter () {
-      return this.$route.path !== '/create' && this.$route.name !== 'step'
-    },
-
-    displayCreate(){
-      if(this.$route.path.match(/\/create/) != null){
-        return true
-      }
-    },
-    progressIframe(){
-      return this.$route.name==='step'
-    },
-    ...mapState(['authenticatedUser', 'current_circuit'])
   }
 }
 </script>

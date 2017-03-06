@@ -1,6 +1,14 @@
-<template lang="html">
-    <iframe id="declick-client-learn" class="fullscreen-iframe2" :src="urlLearn" v-show="this.$route.name == 'step'"></iframe>
+<template>
+  <div>
+    <progress-small-nav-bar></progress-small-nav-bar>
+    <iframe
+      :src="urlLearn"
+      id="declick-client-learn"
+      class="fullscreen-iframe2"
+    ></iframe>
+  </div>
 </template>
+
 <script>
 import declickConfig from '../../assets/config/declick.js'
 import Channel from 'exports-loader?Channel!jschannel/src/jschannel.js'
@@ -8,6 +16,7 @@ import { mapState, mapActions, mapMutations } from 'vuex'
 
 import * as mutations from '../../store/mutation-types.js'
 
+import ProgressSmallNavBar from '../ProgressSmallNavBar'
 
 window.Channel = Channel;
 import pem from 'exports-loader?TaskProxyManager&Platform!pem-platform/task-xd-pr.js'
@@ -78,7 +87,10 @@ export default {
         }
         iframe.addEventListener("load", initProxy)
 
-    }
+    },
+  components: {
+    ProgressSmallNavBar
+  }
 }
 
 
