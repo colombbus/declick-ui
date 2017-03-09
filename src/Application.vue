@@ -8,44 +8,30 @@
       <authenticated-user-box
         v-if="authenticatedUser"
       ></authenticated-user-box>
-      <main-menu
-        @show-authentication-modal="isAuthenticationModalVisible = true"
-      ></main-menu>
+      <main-menu></main-menu>
       <breadcrumb></breadcrumb>
-      <authentication-modal
-        v-if="isAuthenticationModalVisible"
-        @close="isAuthenticationModalVisible = false"
-      ></authentication-modal>
     </div>
-
-    <div id="mainContainer">
+    <div id="main-container">
       <CircuitRun v-show="this.$route.name == 'step'"></CircuitRun>
       <Create v-show="this.$route.path == '/create'"></Create>
       <keep-alive>
         <router-view></router-view>
       </keep-alive>
     </div>
-
     <footer-bar v-show="!viewUseFullscreen"></footer-bar>
   </div>
 </template>
 
 <script>
-import MainMenu from './components/navigation/MainMenu'
-
-import declickConfig from './assets/config/declick.js'
-
 import AuthenticatedUserBox from 'components/AuthenticatedUserBox'
-import AuthenticationModal from 'components/AuthenticationModal'
 import Breadcrumb from 'components/navigation/Breadcrumb'
-import HeaderBar from 'components/navigation/HeaderBar'
-import FooterBar from 'components/navigation/FooterBar'
-
 import CircuitRun from 'components/progress/CircuitRun'
 import Create from 'components/Create'
-
-
+import FooterBar from 'components/navigation/FooterBar'
+import HeaderBar from 'components/navigation/HeaderBar'
+import MainMenu from 'components/navigation/MainMenu'
 import { mapState } from 'vuex'
+
 export default {
   data () {
     return {
@@ -56,21 +42,19 @@ export default {
     viewUseFullscreen () {
       return this.$route.matched.some(match => match.meta.useFullscreen)
     },
-    ...mapState(['authenticatedUser', 'current_circuit'])
+    ...mapState(['authenticatedUser'])
   },
   components: {
     AuthenticatedUserBox,
-    AuthenticationModal,
     Breadcrumb,
-    FooterBar,
-    HeaderBar,
-    MainMenu,
     CircuitRun,
     Create,
+    FooterBar,
+    HeaderBar,
+    MainMenu
   }
 }
 </script>
-
 
 <style>
 @font-face {
@@ -96,7 +80,7 @@ html, body, #application {
   padding: 0;
 }
 
-#mainContainer {
+#main-container {
   /*
   header-bar: 100px
   main-menu: 45px
@@ -107,44 +91,4 @@ html, body, #application {
   min-height: calc(100% - 195px);
   overflow: hidden;
 }
-
-.right-aligned {
-  float: right;
-}
-
-  .displayNone {
-    display:none;
-  }
-
-  #footerBottom{
-    background-color: #480A2A;
-    flex-direction: row;
-    justify-content: space-around;
-    color: #D1D718;
-    font-weight: normal;
-    font-size: 12pt;
-    margin-top: 50px;
-    border-top: 1px solid #D1D718;
-    height:25px;
-  }
-  #footerBottom  p{
-    margin: 0;
-  }
-  #footerBottom  a {
-    color: #D1D718;
-    border-bottom: 1px solid #E52C20;
-  }
-  #footerBottom div{
-    display: inline-block;
-    width: 49.880222222%;
-  }
-  #footerBottomLeft{
-    float: left;
-    text-align: left;
-    padding-left: 25px;
-  }
-  #footerBottomRight{
-    padding-right: 25px;
-    text-align: right;
-  }
 </style>

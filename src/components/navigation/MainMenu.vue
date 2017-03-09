@@ -24,7 +24,7 @@
       </li>
       <li v-if="!authenticatedUser">
         <a
-          @click="$emit('show-authentication-modal')"
+          @click="isAuthenticationModalVisible = true"
           id="main-menu-log-in-link"
           class="menu-link menu-illustrated-link"
         >Se connecter</a>
@@ -36,15 +36,28 @@
         >Se déconnecter</a>
       </li>
     </ul>
+    <authentication-modal
+      v-if="isAuthenticationModalVisible"
+      @close="isAuthenticationModalVisible = false"
+    ></authentication-modal>
   </div>
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
+import AuthenticationModal from 'components/AuthenticationModal'
+import { mapState, mapActions } from 'vuex'
 
 export default {
+  data () {
+    return {
+      isAuthenticationModalVisible: false
+    }
+  },
   computed: mapState(['authenticatedUser']),
-  methods: mapActions(['logOut'])
+  methods: mapActions(['logOut']),
+  components: {
+    AuthenticationModal
+  }
 }
 </script>
 
