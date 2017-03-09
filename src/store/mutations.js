@@ -2,6 +2,10 @@ import R from 'ramda'
 import * as types from './mutation-types.js'
 
 export default {
+  [types.PASS_STEP] (state, stepId) {
+    let steps = flattenTree(state.steps, 'steps')
+    steps.forEach(step => step.id === stepId && (step.passed = true))
+  },
   [types.SET_EDITOR] (state, value) {
     state.editor = value
   },
@@ -9,7 +13,7 @@ export default {
     state.steps = steps
   },
   [types.SET_CURRENT_STEP] (state, stepIndex) {
-    let steps = flattenTree({steps: state.steps}, 'steps')
+    let steps = flattenTree(state.steps, 'steps')
     state.currentStep =
       steps.filter(step => step.position === stepIndex)[0] ||
       state.currentStep
@@ -65,5 +69,5 @@ function flattenTree (tree, key) {
   const level = element => element[key]
     ? [element, element[key].map(level)]
     : element
-  return R.flatten(level(tree))
+  return R.flatten(tree.map(level))
 }
