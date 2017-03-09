@@ -11,10 +11,11 @@ import config from '../../assets/config/declick.js'
 import { mapActions, mapState, mapMutations } from 'vuex'
 
 import * as mutations from '../../store/mutation-types.js'
+import mapSettings from './mapSettings'
 
 import Api from '../../api.js'
 
-var map = new Map();
+var map = new Map()
 
 export default {
   data () {
@@ -30,7 +31,7 @@ export default {
       this.$router.push({name: 'step', params: {id:this.$route.params.id}})
     }, () => {
         // Load path
-        map.loadPathFromUI(this.$store.state.json, () => {
+        map.loadPathFromUI(mapSettings, () => {
           // Load steps
           Api.retrieveSteps(this.$route.params.id, steps => {
             map.loadStepsFromUI(steps)
