@@ -8,7 +8,7 @@ import VueResource from 'vue-resource'
 Vue.use(VueResource)
 
 import router from './router'
-import store from './store/store'
+import store from './store'
 
 import Application from './Application'
 
