@@ -4,12 +4,28 @@ import VueResource from 'vue-resource'
 Vue.use(VueResource)
 import * as types from './mutation-types.js'
 
+var apiUrl = types.ENDPOINT
+
 // export const authenticate = ({ commit, dispatch }, credentials) => {
 //   Vue.http.post(types.ENDPOINT + 'authorizations', credentials).then((response) =>{
 //     commit(types.AUTHENTICATION_SUCCESS, response.body.token);
 //     dispatch('get_user',response.body.owner_id)
 //   })
 // }
+
+export const setExerciseResult = ({commit, state}, payload) => {
+  let endpoint = `${apiUrl}users/${state.authenticatedUser.id}/results`
+  let body = {
+    id: state.currentStep.id,
+    passed: payload.passed,
+    solution: payload.solution
+  }
+  Vue.http.post(endpoint, body, {
+    headers: {Authorization: 'Token ' + state.authorizations}
+  }).then(response =>
+    commit(types.SET_EXERCISE_RESULT, body)
+  )
+}
 
 export const selectNextStep = ({commit, state}) => {
   if (state.currentStep) {

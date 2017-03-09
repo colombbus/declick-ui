@@ -37,6 +37,15 @@ export default {
             map.loadStepsFromUI(steps)
             this.setSteps(steps)
             /*
+            // exemple
+            this.$store.commit(mutations.SET_CURRENT_STEP, 20)
+            this.$store.dispatch('setExerciseResult', {
+              passed: true,
+              solution: 'bob = new Maçon()'
+            })
+            */
+            /*
+            // exemple
             this.$store.commit(mutations.SET_STEPS, steps)
             this.$store.commit(mutations.SET_CURRENT_STEP, 1000)
             console.debug(this.$store.state.currentStep)
