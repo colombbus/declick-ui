@@ -1,5 +1,3 @@
-/* global: localStorage */
-
 import R from 'ramda'
 import * as types from './mutation-types.js'
 
