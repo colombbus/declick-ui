@@ -3,19 +3,18 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
+import R from 'ramda'
+
 import * as actions from './actions.js'
 import * as type from './mutation-types.js'
 
 Vue.use(Vuex)
 
-function flattenStepTree (stepTree) {
-  return stepTree.reduce(function (accumulator, step) {
-    accumulator.push(step)
-    if (step.steps) {
-      Array.prototype.push.apply(accumulator, flattenStepTree(step.steps))
-    }
-    return accumulator
-  }, [])
+function flattenTree (tree, key) {
+  const level = element => element[key]
+    ? [element, element[key].map(level)]
+    : element
+  return R.flatten(level(tree))
 }
 
 export default new Vuex.Store({
@@ -47,7 +46,7 @@ export default new Vuex.Store({
       state.steps = steps
     },
     [type.SET_CURRENT_STEP] (state, stepIndex) {
-      let steps = flattenStepTree(state.steps)
+      let steps = flattenTree({steps: state.steps}, 'steps')
       state.currentStep =
         steps.filter(step => step.position === stepIndex)[0] ||
         state.currentStep
@@ -60,7 +59,7 @@ export default new Vuex.Store({
       if (typeof value.passed !== 'undefined') {
         state.currentStep.passed = value.passed
       }
-    },    
+    },
     [type.AUTHENTICATION_SUCCESS] (state, token) {
       state.authorizations = token
       state.connected = true
