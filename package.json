@@ -1,11 +1,11 @@
 {
   "name": "declick-ui",
   "version": "1.0.0",
-  "license": "GPL-3.0",  
+  "license": "GPL-3.0",
   "description": "Declick v2 User Interface",
   "author": {
-      "name": "Colombbus",
-      "email": "contact@colombbus.org"
+    "name": "Colombbus",
+    "email": "contact@colombbus.org"
   },
   "private": true,
   "scripts": {
@@ -19,9 +19,10 @@
     "font-awesome": "^4.7.0",
     "jquery": "^3.1.1",
     "jstree": "^3.3.3",
+    "ramda": "^0.23.0",
     "vue": "^2.2.1",
-    "vue-router": "^2.3.0",
     "vue-resource": "^1.2.0",
+    "vue-router": "^2.3.0",
     "vuex": "^2.2.1"
   },
   "devDependencies": {
