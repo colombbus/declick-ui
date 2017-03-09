@@ -3,9 +3,9 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
+import CmsDocument from 'components/CmsDocument'
 import UserProfile from 'components/UserProfile'
 import ResourceCreation from 'components/ResourceCreation'
-import CommunityGameList from 'components/CommunityGameList'
 import Administration from 'components/Administration'
 import EditProject from 'components/EditProject'
 import ListAdmin from 'components/ListAdmin'
@@ -17,7 +17,6 @@ import DeclickMap from 'components/progress/DeclickMap'
 import MyList from 'components/MyList'
 import CurrentProjectInformations from 'components/CurrentProjectInformations'
 import declickConfig from 'assets/config/declick.js'
-import PageDeclick from 'components/PageDeclick'
 
 import AdministrationCircuitList from 'components/administration/CircuitList'
 import CircuitEditor from 'components/administration/CircuitEditor'
@@ -26,13 +25,15 @@ var routes = [
   {
     path: '/',
     name: 'home',
-    component: PageDeclick,
-    meta: { title: 'Accueil' }
+    component: CmsDocument,
+    meta: { title: 'Accueil', reuseKey: 1 },
+    props: { id: 1 }
   },
   {
     path: '/explore',
-    component: CommunityGameList,
-    meta: { title: 'Découvrir' }
+    component: CmsDocument,
+    meta: { title: 'Découvrir', reuseKey: 2 },
+    props: { id: 2 }
   },
   {
     path: '/progress',

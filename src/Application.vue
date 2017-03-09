@@ -15,7 +15,7 @@
       <CircuitRun v-show="this.$route.name == 'step'"></CircuitRun>
       <Create v-show="this.$route.path == '/create'"></Create>
       <keep-alive>
-        <router-view></router-view>
+        <router-view :key="viewReuseKey"></router-view>
       </keep-alive>
     </div>
     <footer-bar v-show="!viewUseFullscreen"></footer-bar>
@@ -23,6 +23,7 @@
 </template>
 
 <script>
+import R from 'ramda'
 import AuthenticatedUserBox from 'components/AuthenticatedUserBox'
 import Breadcrumb from 'components/navigation/Breadcrumb'
 import CircuitRun from 'components/progress/CircuitRun'
@@ -39,6 +40,9 @@ export default {
     }
   },
   computed: {
+    viewReuseKey () {
+      return R.last(this.$route.matched).meta.reuseKey || null
+    },
     viewUseFullscreen () {
       return this.$route.matched.some(match => match.meta.useFullscreen)
     },
