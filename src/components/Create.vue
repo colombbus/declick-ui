@@ -27,7 +27,7 @@ export default {
   },
   computed: {
     urlCreate () {
-      return declickConfig.url.client + 'index.html#editor='+this.editor+'&token=' + this.authorizations
+      return declickConfig.url.client + 'index.html#editor=' + this.editor + '&token=' + this.authorizations
     },
     ...mapState(['editor', 'authorizations'])
   },
@@ -36,11 +36,11 @@ export default {
       setEditor: mutations.SET_EDITOR
     })
   },
-  mounted() {
-    window.addEventListener("message", (e) => {
-      if (e.data == 'switchEditor') {
+  mounted () {
+    window.addEventListener('message', e => {
+      if (e.data === 'switchEditor') {
         this.setEditor(true)
-      } else if (e.data == 'switchView') {
+      } else if (e.data === 'switchView') {
         this.setEditor(false)
       }
     }, false)

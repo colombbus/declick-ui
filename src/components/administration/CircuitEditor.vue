@@ -17,6 +17,8 @@
 </template>
 
 <script>
+/* global $ */
+
 import StepEditor from './StepEditor'
 import TreeView from './TreeView'
 
@@ -113,7 +115,7 @@ export default {
         name: 'nouveau nœud',
         url: null,
         parent_id: null,
-        position: null,
+        position: null
       }
     },
     makeNode (step) {

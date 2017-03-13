@@ -12,6 +12,8 @@
 </template>
 
 <script>
+/* global $ */
+
 import {mapState, mapActions} from 'vuex'
 
 export default {
@@ -19,25 +21,25 @@ export default {
     return {}
   },
   computed: {
-     stepName () {
-          if (this.currentStep) {
-            return this.currentStep.name
-          } else {
-            return ""
-          }
-     },
-     ...mapState(['currentStep'])
+    stepName () {
+      if (this.currentStep) {
+        return this.currentStep.name
+      } else {
+        return ''
+      }
+    },
+    ...mapState(['currentStep'])
   },
-  methods:{
-    previous(){
+  methods: {
+    previous () {
       this.selectPreviousStep()
     },
-    next(){
+    next () {
       this.selectNextStep()
     },
-    toggleMapIframe(){
-      $('#declick-client-learn').css('display','none')
-      $('#map').css('display','block')
+    toggleMapIframe () {
+      $('#declick-client-learn').css('display', 'none')
+      $('#map').css('display', 'block')
     },
     ...mapActions(['selectPreviousStep', 'selectNextStep'])
   }

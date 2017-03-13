@@ -76,21 +76,24 @@
 <script>
 import {mapState} from 'vuex'
 export default {
-  computed:{
-    ...mapState(['current_project','authorizations']),
-    displayCreate(){
-      if(this.$route.path.match(/\/create/) != null){
+  computed: {
+    ...mapState(['current_project', 'authorizations']),
+    displayCreate () {
+      if (this.$route.path.match(/\/create/) != null) {
         return true
       }
     }
   },
   methods: {
     updateProject () {
-      this.$store.dispatch('update_projects', {data:this.current_project,token:this.authorizations}).then(() => {
+      this.$store.dispatch('update_projects', {
+        data: this.current_project,
+        token: this.authorizations
+      }).then(() => {
         this.$store.dispatch('get_project', this.$store.state.current_project.id)
-        if(this.$route.path.match(/\/create/) == null){
+        if (this.$route.path.match(/\/create/) == null) {
           this.$router.push('/administration/current')
-        }else{
+        } else {
           this.$router.push('/create/current')
         }
       })

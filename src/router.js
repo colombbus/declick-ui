@@ -5,7 +5,6 @@ Vue.use(VueRouter)
 
 import CmsDocument from 'components/CmsDocument'
 import UserProfile from 'components/UserProfile'
-import ResourceCreation from 'components/ResourceCreation'
 import Administration from 'components/Administration'
 import EditProject from 'components/EditProject'
 import ListAdmin from 'components/ListAdmin'
@@ -71,11 +70,6 @@ var routes = [
     path: '/users/me',
     component: UserProfile,
     meta: { title: 'Mon Profil' }
-  },
-  {
-    path: '/resources/new',
-    component: ResourceCreation,
-    meta: { title: 'Création de ressource' }
   },
   {
     path: '/create',

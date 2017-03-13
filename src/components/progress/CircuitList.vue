@@ -35,34 +35,6 @@ export default {
     return {
       categoryFilter: 'official',
       circuits: []
-      /* [{
-        title: "Bob & Max",
-        category: 'official',
-        description: "Apprends à créer un petit jeu..",
-        imageUrl: "http://www.declick.net/images/default-level.png",
-        info: 'Niveau indicatif : Cycle 3\n\n'+
-              'Compétences abordées : Objets, actions, paramètres '+
-              '(texte et numérique), boucles, conditions.',
-        showInfo: false
-      }, {
-        title: "D-Clics numériques",
-        category: 'official',
-        description: "Séances 4 à 7 du parcours D-Clics numériques",
-        imageUrl: "http://www.declick.net/images/dclics.png",
-        info: 'Niveau indicatif : 8 à 14 ans\n\n'+
-              'D-Clics numériques est un projet de formation, d’animation et'+
-              'de mobilisation autour des parcours éducatifs numériques destinés'+
-              ' aux enfants et aux jeunes de 8 à 14 ans.',
-        showInfo: false
-      }, {
-        title: "Castor",
-        category: 'custom',
-        description: '',
-        imageUrl: 'http://www.castor-informatique.fr/img/castor_small.png',
-        info: null,
-        showInfo: false
-      }
-    ]*/
     }
   },
   computed: {
@@ -76,7 +48,7 @@ export default {
     Vue.http.get(config.url.api + 'circuits').then(data => {
       for (let circuit of data.data.data) {
         this.circuits.push({
-          id:circuit.id,
+          id: circuit.id,
           name: circuit.name,
           shortDescription: circuit.short_description,
           description: circuit.description,

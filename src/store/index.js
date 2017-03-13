@@ -15,10 +15,10 @@ export default new Vuex.Store({
     authenticatedUser: null,
     current_project: {},
     authorizations: '',
-    error_code:0,
+    error_code: 0,
     currentStep: null,
     steps: null,
-    editor:true
+    editor: true
   },
   mutations,
   actions

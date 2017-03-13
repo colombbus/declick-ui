@@ -25,46 +25,43 @@ import {mapState} from 'vuex'
 export default {
   data: function () {
     return {
-      get_lists : '',
-      nextPage : '',
+      get_lists: '',
+      nextPage: '',
       prevPage: ''
     }
   },
-  computed:mapState(['lists','current_page','last_page']),
-  beforeCreate() {
-    ///console.log(this.$route.params.type);
-    if(this.$route.params.type === 'users'){
-
+  computed: mapState(['lists', 'current_page', 'last_page']),
+  beforeCreate () {
+    // console.log(this.$route.params.type);
+    if (this.$route.params.type === 'users') {
       this.$store.dispatch('get_users')
     }
-    if(this.$route.params.type === 'projects'){
-
+    if (this.$route.params.type === 'projects') {
       this.$store.dispatch('get_projects')
     }
   },
-  watch:{
-    '$route'(to,from){
-      if(this.$route.params.type === 'users'){
-
+  watch: {
+    '$route' (to, from) {
+      if (this.$route.params.type === 'users') {
         this.$store.dispatch('get_users')
       }
-      if(this.$route.params.type === 'projects'){
-
+      if (this.$route.params.type === 'projects') {
         this.$store.dispatch('get_projects')
       }
     }
   },
   methods: {
     loadList: function () {
-      this.$http.get(this.$store.state.endpoint + this.get_lists).then(function(response){
-        console.log(response)
-        this.current_page = response.body.current_page
-        this.lastPage = response.body.last_page
-        this.lists = response.body.data.sort((a, b) => a.id < b.id)
-      })
+      this.$http.get(this.$store.state.endpoint + this.get_lists).then(
+        (response) => {
+          console.log(response)
+          this.current_page = response.body.current_page
+          this.lastPage = response.body.last_page
+          this.lists = response.body.data.sort((a, b) => a.id < b.id)
+        })
     },
     loadPage (page) {
-      this.$http.get(this.$store.state.endpoint + this.get_lists +'?page=' + page).then(function(response){
+      this.$http.get(this.$store.state.endpoint + this.get_lists + '?page=' + page).then((response) => {
         this.current_page = response.body.current_page
         this.lastPage = response.body.last_page
         this.lists = response.body.data.sort((a, b) => a.id < b.id)
