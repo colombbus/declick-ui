@@ -39,7 +39,7 @@ export default {
 
 <style>
 .fullscreen-iframe {
-  height: calc(100vh - 100px);
+  height: calc(100vh - 105px);
   padding: 8px;
   width: 100%;
   border: none;
