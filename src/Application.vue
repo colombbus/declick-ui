@@ -1,108 +1,64 @@
 <template>
   <div
     id="application"
-    :style="{ overflow: minimized ? 'hidden' : null }"
+    :style="{ overflow: viewUseFullscreen ? 'hidden' : null }"
   >
-    <!--header -->
-    <div v-show="!minimized & !progressIframe">
-
+    <div v-show="!viewUseFullscreen">
       <header-bar></header-bar>
       <authenticated-user-box
         v-if="authenticatedUser"
       ></authenticated-user-box>
-      <navigation-bar
-        @show-authentication-modal="isAuthenticationModalVisible = true"
-      ></navigation-bar>
+      <main-menu></main-menu>
       <breadcrumb></breadcrumb>
-      <authentication-modal
-        v-if="isAuthenticationModalVisible"
-        @close="isAuthenticationModalVisible = false"
-      ></authentication-modal>
     </div>
-    <div v-show="minimized">
-      <SmallNavigationBar></SmallNavigationBar>
-      <CreateNavigationBar></CreateNavigationBar>
-    </div>
-    <div v-show="progressIframe">
-      <ProgressSmallNavBar></ProgressSmallNavBar>
-    </div>
-
-    <!-- end header -->
-
-    <!-- main -->
-    <div id="mainContainer">
-      <CircuitRun></CircuitRun>
-      <Create></Create>
+    <div id="main-container">
+      <CircuitRun v-show="this.$route.name == 'step'"></CircuitRun>
+      <Create v-show="this.$route.path == '/create'"></Create>
       <keep-alive>
-        <router-view></router-view>
+        <router-view :key="viewReuseKey"></router-view>
       </keep-alive>
     </div>
-
-    <!-- end main -->
-
-    <footer-bar v-show="showFooter"></footer-bar>
+    <footer-bar v-show="!viewUseFullscreen"></footer-bar>
   </div>
 </template>
 
 <script>
-import NavigationBar from './components/navigation/MainMenuBar'
-import SmallNavigationBar from './components/SmallNavigationBar'
-import CreateNavigationBar from './components/CreateNavigationBar'
-
-import declickConfig from './assets/config/declick.js'
-
+import R from 'ramda'
 import AuthenticatedUserBox from 'components/AuthenticatedUserBox'
-import AuthenticationModal from 'components/AuthenticationModal'
 import Breadcrumb from 'components/navigation/Breadcrumb'
-import HeaderBar from 'components/navigation/HeaderBar'
-import FooterBar from 'components/navigation/FooterBar'
-
-import ProgressSmallNavBar from 'components/ProgressSmallNavBar'
 import CircuitRun from 'components/progress/CircuitRun'
 import Create from 'components/Create'
-
-
+import FooterBar from 'components/navigation/FooterBar'
+import HeaderBar from 'components/navigation/HeaderBar'
+import MainMenu from 'components/navigation/MainMenu'
 import { mapState } from 'vuex'
+
 export default {
   data () {
     return {
       isAuthenticationModalVisible: false
     }
   },
+  computed: {
+    viewReuseKey () {
+      return R.last(this.$route.matched).meta.reuseKey || null
+    },
+    viewUseFullscreen () {
+      return this.$route.matched.some(match => match.meta.useFullscreen)
+    },
+    ...mapState(['authenticatedUser'])
+  },
   components: {
     AuthenticatedUserBox,
-    AuthenticationModal,
     Breadcrumb,
-    FooterBar,
-    HeaderBar,
-    NavigationBar,
-    SmallNavigationBar,
-    ProgressSmallNavBar,
     CircuitRun,
     Create,
-    CreateNavigationBar
-  },
-  computed: {
-    minimized () {
-        return this.$route.path==='/create'
-    },
-    showFooter () {
-      return this.$route.path !== '/create' && this.$route.name !== 'step'
-    },
-
-    displayCreate(){
-      if(this.$route.path.match(/\/create/) != null){
-        return true
-      }
-    },
-    progressIframe(){
-      return this.$route.name==='step'
-    },
-    ...mapState(['authenticatedUser', 'current_circuit'])
+    FooterBar,
+    HeaderBar,
+    MainMenu
   }
 }
 </script>
-
 
 <style>
 @font-face {
@@ -128,7 +84,7 @@ html, body, #application {
   padding: 0;
 }
 
-#mainContainer {
+#main-container {
   /*
   header-bar: 100px
   main-menu: 45px
@@ -139,44 +95,4 @@ html, body, #application {
   min-height: calc(100% - 195px);
   overflow: hidden;
 }
-
-.right-aligned {
-  float: right;
-}
-
-  .displayNone {
-    display:none;
-  }
-
-  #footerBottom{
-    background-color: #480A2A;
-    flex-direction: row;
-    justify-content: space-around;
-    color: #D1D718;
-    font-weight: normal;
-    font-size: 12pt;
-    margin-top: 50px;
-    border-top: 1px solid #D1D718;
-    height:25px;
-  }
-  #footerBottom  p{
-    margin: 0;
-  }
-  #footerBottom  a {
-    color: #D1D718;
-    border-bottom: 1px solid #E52C20;
-  }
-  #footerBottom div{
-    display: inline-block;
-    width: 49.880222222%;
-  }
-  #footerBottomLeft{
-    float: left;
-    text-align: left;
-    padding-left: 25px;
-  }
-  #footerBottomRight{
-    padding-right: 25px;
-    text-align: right;
-  }
 </style>

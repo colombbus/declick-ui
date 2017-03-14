@@ -23,7 +23,7 @@ export default {
     'node'
   ],
   watch: {
-    ['node.data.name'] () {
+    'node.data.name' () {
       if (this.node.editable) {
         this.node.name = this.node.data.name
       }

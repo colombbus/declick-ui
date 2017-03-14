@@ -6,15 +6,17 @@
 </template>
 
 <script>
-import  Map  from'../../assets/js/map.js'
-import config from '../../assets/config/declick.js'
+/* global __webpack_public_path__ */
+
+import Map from '../../assets/js/map.js'
 import { mapActions, mapState, mapMutations } from 'vuex'
 
 import * as mutations from '../../store/mutation-types.js'
+import mapSettings from './mapSettings'
 
 import Api from '../../api.js'
 
-var map = new Map();
+var map = new Map()
 
 export default {
   data () {
@@ -24,29 +26,39 @@ export default {
   computed: mapState(['currentStep', 'steps']),
   mounted () {
     // TODO: Find a better solution.
-    let robotPath = __webpack_public_path__ + 'static/map-robot.svg'
-    map.init("map", robotPath, (step) => {
+    let robotPath = __webpack_public_path__ + // eslint-disable-line camelcase
+      'static/map-robot.svg'
+    map.init('map', robotPath, (step) => {
       this.setCurrentStep(step.id)
-      this.$router.push({name: 'step', params: {id:this.$route.params.id}})
+      this.$router.push({name: 'step', params: {id: this.$route.params.id}})
     }, () => {
-        // Load path
-        map.loadPathFromUI(this.$store.state.json, () => {
-          // Load steps
-          Api.retrieveSteps(this.$route.params.id, steps => {
-            map.loadStepsFromUI(steps)
-            this.setSteps(steps)
-            /*
-            this.$store.commit(mutations.SET_STEPS, steps)
-            this.$store.commit(mutations.SET_CURRENT_STEP, 1000)
-            console.debug(this.$store.state.currentStep)
-            this.selectNextStep()
-            console.debug(this.$store.state.currentStep)
-            this.selectPreviousStep()
-            this.selectPreviousStep()
-            console.debug(this.$store.state.currentStep)
-            */
+      // Load path
+      map.loadPathFromUI(mapSettings, () => {
+        // Load steps
+        Api.retrieveSteps(this.$route.params.id, steps => {
+          map.loadStepsFromUI(steps)
+          this.setSteps(steps)
+          /*
+          // exemple
+          this.$store.commit(mutations.SET_CURRENT_STEP, 20)
+          this.$store.dispatch('setExerciseResult', {
+            passed: true,
+            solution: 'bob = new Maçon()'
           })
+          */
+          /*
+          // exemple
+          this.$store.commit(mutations.SET_STEPS, steps)
+          this.$store.commit(mutations.SET_CURRENT_STEP, 1000)
+          console.debug(this.$store.state.currentStep)
+          this.selectNextStep()
+          console.debug(this.$store.state.currentStep)
+          this.selectPreviousStep()
+          this.selectPreviousStep()
+          console.debug(this.$store.state.currentStep)
+          */
         })
+      })
     })
   },
   activated () {
@@ -55,13 +67,19 @@ export default {
     }
   },
   watch: {
-    currentStep(newStep) {
-      map.updateState([{id:newStep.position,visited:newStep.visited, passed:newStep.passed}])
+    currentStep (newStep) {
+      map.updateState([{
+        id: newStep.position,
+        visited: newStep.visited,
+        passed: newStep.passed
+      }])
     },
-    ['currentStep.passed'](value) {
-      map.updateState([{id:this.currentStep.position, passed:value}])
+    'currentStep.passed' (value) {
+      map.updateState([{
+        id: this.currentStep.position,
+        passed: value
+      }])
     }
-
   },
   methods: {
     ...mapMutations({

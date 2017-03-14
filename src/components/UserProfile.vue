@@ -32,49 +32,57 @@
 </template>
 
 <script>
+/* global $ */
+
 import { mapState } from 'vuex'
 import declickConfig from '../assets/config/declick.js'
 
 export default {
-  data(){
+  data () {
     return {
-      password:'',
-      saveMail:''
+      password: '',
+      saveMail: ''
     }
   },
-  computed: mapState(['authenticatedUser','authorizations']),
-  created(){
-    this.saveMail =  this.authenticatedUser.email
+  computed: mapState(['authenticatedUser', 'authorizations']),
+  created () {
+    this.saveMail = this.authenticatedUser.email
   },
-  methods:{
-    haveUpdate(){
-      return this.saveMail != this.authenticatedUser.email || this.password != ""
+  methods: {
+    haveUpdate () {
+      return this.saveMail !== this.authenticatedUser.email ||
+        this.password !== ''
     },
-    updateUser(){
+    updateUser () {
       var userUpdate = {}
 
-      if(this.password !== "")
+      if (this.password !== '') {
         userUpdate.password = this.password
+      }
 
-      if(this.saveMail !== this.authenticatedUser.email)
+      if (this.saveMail !== this.authenticatedUser.email) {
         userUpdate.email = this.authenticatedUser.email
+      }
 
-
-      if(userUpdate.email  || userUpdate.password ){
-        this.$http.patch(declickConfig.url.api+'users/'+this.authenticatedUser.id, userUpdate, {headers:{Authorization:'Token '+ this.authorizations}}).then((responce) => {
-
-          this.$store.commit('SET_USER',responce.body)
-          this.saveMail = this.authenticatedUser.email
-          this.password = ''
-          $('.confirmation').css('display','block').delay(2500).fadeOut()
-
-        },(error) => {
-          if(error.body.email){
-            $('.error').css('display','block').delay(2500).fadeOut()
-          }
-        })
-      }else{
-        console.log('tu a merdé');
+      if (userUpdate.email || userUpdate.password) {
+        this.$http.patch(
+          declickConfig.url.api + 'users/' +
+          this.authenticatedUser.id,
+          userUpdate,
+          {headers:
+            {Authorization: 'Token ' + this.authorizations}
+          }).then(responce => {
+            this.$store.commit('SET_USER', responce.body)
+            this.saveMail = this.authenticatedUser.email
+            this.password = ''
+            $('.confirmation').css('display', 'block').delay(2500).fadeOut()
+          }, (error) => {
+            if (error.body.email) {
+              $('.error').css('display', 'block').delay(2500).fadeOut()
+            }
+          })
+      } else {
+        console.log('tu a merdé')
       }
     }
   }

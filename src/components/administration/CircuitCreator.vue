@@ -42,7 +42,7 @@ export default {
       }
       Vue.http.post(endpoint, circuit).then(() =>
         this.$emit('circuit-created')
-      );
+      )
     }
   }
 }

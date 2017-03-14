@@ -1,7 +1,16 @@
-<template lang="html">
+<template>
+<!-- Uncomment when ready to clean-up.
+  <div>
+    <div class="cms-document-loading-message">
+      <img src="assets/img/spinner.gif">
+      <p>Chargement...</p>
+    </div>
+    <div class="cms-document-content"></div>
+  </div>
+-->
   <div id="contentContainerHome">
     <div id="onLoadGif">
-      <img src="../assets/img/spinner.gif" alt="" />
+      <img src="../assets/img/spinner.gif">
       <p>Chargement...</p>
     </div>
     <div id="content"></div>
@@ -9,18 +18,43 @@
 </template>
 
 <script>
-import declickConfig from '../assets/config/declick.js'
+/* global $ */
+
+import config from 'assets/config/declick'
+
 export default {
-  created(){
-    this.$http.get( declickConfig.url.cms+'api/1/tables/pages/rows/1?access_token=jWNoVhWCng6odNLK').then((responce) => {
+  props: [
+    'id'
+  ],
+  created () {
+    let url = config.url.cms +
+      'api/1/tables/pages/rows/' +
+      this.id +
+      '?access_token=jWNoVhWCng6odNLK'
+    this.$http.get(url).then(response => {
+      /* Uncomment when ready to clean-up.
+      $(this.$el).find('.cms-document-loading-message').fadeOut()
+      $(this.$el).find('.cms-document-content').append(
+        $.parseHTML(response.body.content)
+      ).fadeIn()
+      */
       $('#onLoadGif').fadeOut()
-      $('#content').append($.parseHTML(responce.body.content)).fadeIn()
+      $('#content').append($.parseHTML(response.body.content)).fadeIn()
     })
   }
 }
 </script>
 
-<style lang="css">
+<style>
+.cms-document-loading-message img {
+  height: 50px;
+}
+
+.cms-document-loading-message p {
+  font-weight: bold;
+}
+
+/* TODO: Clean this up. */
   #onLoadGif{
     height: 100vh;
     display: flex;
@@ -122,7 +156,7 @@ export default {
   }
 
   #sommaire td {
-  	padding-right:15px;
+  	padding: 0 10px;
   	position:relative;
   }
 
@@ -161,6 +195,10 @@ export default {
 
   #quoi {
   	margin:7px;
+  }
+
+  #quoi td {
+    width: 30%;
   }
 
   #quoi td ul li {
@@ -265,4 +303,63 @@ export default {
   #enseignants-animateurs #content table a:hover,
   #enseignants-animateurs #content table a:active
   {text-decoration:none;color:#ba0000;}
+
+#onLoadGif{
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#onLoadGif img{
+  height: 50px
+}
+#onLoadGif p{
+  font-weight: bolder;
+}
+#content{
+    font-size: 13px;
+    color: #480A2A;
+    text-align: center;
+}
+
+#content h1 {
+    font-size: 24pt;
+    line-height: 40px;
+    letter-spacing: -2px;
+    margin: 30px 0 40px 0;
+    text-align: left;
+    text-transform: uppercase;
+    font-family: "rubik";
+    text-align: center;
+    font-weight: 500;
+}
+#content .page-text {
+    font-size: 16px;
+    line-height: 22px;
+}
+#sommaire {
+  text-align: left;
+    margin: 7px;
+    box-sizing: border-box;
+    border-spacing: 15px;
+}
+#content table td {
+    vertical-align: top;
+}
+
+#sommaire td {
+    padding-right: 15px;
+    position: relative;
+}
+#content h3 {
+    font-family: arial;
+    font-size: 18px;
+    margin: 20px 0 7px 0;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+#content #sommaire td p {
+    margin: 0 0 50px 0;
+}
 </style>

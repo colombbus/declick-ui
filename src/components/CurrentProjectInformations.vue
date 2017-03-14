@@ -76,15 +76,15 @@
 <script>
   import {mapState} from 'vuex'
   export default{
-    computed:{
-       ...mapState(['current_project','authenticatedUser']),
-       displayCreate(){
-         if(this.$route.path.match(/\/create/) != null){
-           return true
-         }
-       }
-     },
-    beforeCreate(){
+    computed: {
+      ...mapState(['current_project', 'authenticatedUser']),
+      displayCreate () {
+        if (this.$route.path.match(/\/create/) != null) {
+          return true
+        }
+      }
+    },
+    beforeCreate () {
       this.$store.dispatch('get_project', this.$store.state.authenticatedUser.default_project_id)
     }
   }
