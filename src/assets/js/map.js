@@ -290,7 +290,7 @@ function DeclickMap() {
         function getObject(value, chapter) {
             var object = {chapter: chapter, name: value.name};
             if (typeof value.position !== 'undefined') {
-                object.id = value.position;
+                object.position = value.position;
             }
             if (value.passed) {
                 object.passed = value.passed;
@@ -300,6 +300,9 @@ function DeclickMap() {
             }
             if (value.url) {
                 object.url = value.url;
+            }
+            if (value.id) {
+                object.id = value.id;
             }
             return object;
         }
@@ -464,7 +467,7 @@ function DeclickMap() {
         displaySteps();
         // open chapter if required
         if (savedCurrentIndex>-1 && savedChapterOpen) {
-            setCurrentStep(steps[savedCurrentIndex].id, false);
+            setCurrentStep(steps[savedCurrentIndex].position, false);
         }
     };
 
@@ -622,7 +625,7 @@ function DeclickMap() {
         current.scale(1.5);
         current.onMouseDown = function(event) {
             event.preventDefault();
-            setCurrentStep(steps[currentIndex].id, false, true, function() {
+            setCurrentStep(steps[currentIndex].position, false, true, function() {
                 if (stepCallback) {
                     stepCallback(steps[currentIndex]);
                 }
@@ -637,7 +640,7 @@ function DeclickMap() {
     var getStepMouseHandler = function(i) {
         return function(event) {
             event.preventDefault();
-            setCurrentStep(steps[i].id, true, true, function() {
+            setCurrentStep(steps[i].position, true, true, function() {
                 if (stepCallback) {
                     stepCallback(steps[i]);
                 }
@@ -652,11 +655,11 @@ function DeclickMap() {
         };
     };
 
-    var setCurrentStep = function(index, animate, skipChapter, callback) {
+    var setCurrentStep = function(position, animate, skipChapter, callback) {
         var stepIndex = -1, chapterIndex = -1;
         // look for stepIndex
         for (var i=0;i<steps.length;i++) {
-            if (steps[i].id && steps[i].id === index) {
+            if (steps[i].position && steps[i].position === position) {
                 stepIndex = i;
                 break;
             }
@@ -718,7 +721,7 @@ function DeclickMap() {
             }
 
         } else {
-            console.error("Step with index "+index+" not found");
+            console.error("Step with position "+position+" not found");
         }
     };
 
@@ -814,10 +817,10 @@ function DeclickMap() {
     // Update data
     this.updateState = function(udpatedSteps) {
         $.each(udpatedSteps, function(key, value) {
-            if (value.id) {
+            if (value.position) {
                 // find corresponding step
                 for (var i=0;i<steps.length;i++) {
-                    if (steps[i].id && steps[i].id === value.id && !steps[i].chapter) {
+                    if (steps[i].position && steps[i].position === value.position && !steps[i].chapter) {
                         if (typeof value.passed !=='undefined') {
                             steps[i].passed = value.passed;
                         }
@@ -840,11 +843,11 @@ function DeclickMap() {
     };
 
     // Set current step
-    this.setCurrentStep = function(index, animate) {
+    this.setCurrentStep = function(position, animate) {
         if (typeof animate === 'undefined') {
             animate = false;
         }
-        setCurrentStep(index, animate);
+        setCurrentStep(position, animate);
     };
 
     // Remove all steps
@@ -869,10 +872,6 @@ function DeclickMap() {
         // remove any precedently bound mousemove handlers
         $canvas.off("mousemove");
     }; 
-
-    this.getStepName = function(index) {
-        return steps[index].name;
-    }
 
 }
 
