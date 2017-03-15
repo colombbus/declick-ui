@@ -69,7 +69,7 @@ export default {
   watch: {
     currentStep (newStep) {
       map.updateState([{
-        id: newStep.position,
+        position: newStep.position,
         visited: newStep.visited,
         passed: newStep.passed
       }])
