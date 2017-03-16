@@ -12,7 +12,7 @@ import Map from '../../assets/js/map.js'
 import { mapActions, mapState, mapMutations } from 'vuex'
 
 import * as mutations from '../../store/mutation-types.js'
-import mapSettings from './mapSettings'
+import mapConfig from './mapConfig'
 
 import Api from '../../api.js'
 
@@ -33,7 +33,7 @@ export default {
       this.$router.push({name: 'step', params: {id: this.$route.params.id}})
     }, () => {
       // Load path
-      map.loadPathFromUI(mapSettings, () => {
+      map.loadPathFromUI(mapConfig, () => {
         // Load steps
         Api.retrieveSteps(this.$route.params.id, steps => {
           map.loadStepsFromUI(steps)
