@@ -21,9 +21,7 @@
 
 import StepEditor from './StepEditor'
 import TreeView from './TreeView'
-
 import config from 'assets/config/declick'
-var apiUrl = config.url.api.slice(0, -1)
 
 export default {
   data: function () {
@@ -42,7 +40,7 @@ export default {
     retrieveCircuit () {
       $.ajax({
         method: 'GET',
-        url: `${apiUrl}/circuits/${this.circuitId}`,
+        url: `${config.apiUrl}v1/circuits/${this.circuitId}`,
         success: circuit => {
           this.circuit = circuit
           this.retrieveRootStep(this.circuit.root_node_id)
@@ -52,7 +50,7 @@ export default {
     retrieveRootStep (stepId) {
       $.ajax({
         method: 'GET',
-        url: `${apiUrl}/circuits/${this.circuitId}/nodes/${stepId}`,
+        url: `${config.apiUrl}v1/circuits/${this.circuitId}/nodes/${stepId}`,
         success: rootStep => {
           this.rootNode = this.makeNode(rootStep)
           this.rootNode.name = 'nœud racine'
@@ -64,7 +62,7 @@ export default {
     retrieveStepChildren (parentNode) {
       $.ajax({
         method: 'GET',
-        url: `${apiUrl}` +
+        url: `${config.apiUrl}v1` +
           `/circuits/${this.circuitId}` +
           `/nodes/${parentNode.data.id}` +
           `/children`,
@@ -83,7 +81,7 @@ export default {
       newStep.position = parentNode.children.length
       $.ajax({
         method: 'POST',
-        url: `${apiUrl}/circuits/${this.circuitId}/nodes`,
+        url: `${config.apiUrl}v1/circuits/${this.circuitId}/nodes`,
         data: newStep,
         success: createdStep => {
           let createdNode = this.makeNode(createdStep)
@@ -94,7 +92,7 @@ export default {
     saveStep (node) {
       $.ajax({
         method: 'PATCH',
-        url: `${config.url.api}circuits/${this.circuitId}/nodes/${node.data.id}`,
+        url: `${config.apiUrl}v1/circuits/${this.circuitId}/nodes/${node.data.id}`,
         data: node.data,
         success: step => {
           node.data = step
@@ -104,7 +102,7 @@ export default {
     removeStep (node) {
       $.ajax({
         method: 'DELETE',
-        url: `${config.url.api}circuits/${this.circuitId}/nodes/${node.data.id}`,
+        url: `${config.apiUrl}v1/circuits/${this.circuitId}/nodes/${node.data.id}`,
         success: () => {
           this.retrieveCircuit()
         }

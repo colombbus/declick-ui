@@ -1,9 +1,7 @@
 export default {
-  url: {
-    api: 'http://localhost/declick-server/api/v1/',
-    client: 'http://localhost/declick-client/dist/',
-    cms: 'http://localhost/directus/cms/'
-  },
+  domain: 'localhost',
   basePath: '/',
-  domain: 'localhost'
+  apiUrl: 'http://localhost/declick-server/api/',
+  clientUrl: 'http://localhost/declick-client/dist/',
+  cmsUrl: 'http://localhost/directus/cms/'
 }

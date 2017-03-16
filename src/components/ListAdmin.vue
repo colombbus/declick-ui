@@ -21,6 +21,7 @@
 
 <script>
 import {mapState} from 'vuex'
+import config from 'assets/config/declick'
 
 export default {
   data: function () {
@@ -52,7 +53,7 @@ export default {
   },
   methods: {
     loadList: function () {
-      this.$http.get(this.$store.state.endpoint + this.get_lists).then(
+      this.$http.get(config.apiUrl + 'v1/' + this.get_lists).then(
         (response) => {
           console.log(response)
           this.current_page = response.body.current_page
@@ -61,7 +62,7 @@ export default {
         })
     },
     loadPage (page) {
-      this.$http.get(this.$store.state.endpoint + this.get_lists + '?page=' + page).then((response) => {
+      this.$http.get(config.apiUrl + 'v1/' + this.get_lists + '?page=' + page).then((response) => {
         this.current_page = response.body.current_page
         this.lastPage = response.body.last_page
         this.lists = response.body.data.sort((a, b) => a.id < b.id)

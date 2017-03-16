@@ -3,11 +3,10 @@ import VueResource from 'vue-resource'
 
 Vue.use(VueResource)
 import * as types from './mutation-types.js'
-
-var apiUrl = types.ENDPOINT
+import config from 'assets/config/declick'
 
 export const setExerciseResult = ({commit, state}, payload) => {
-  let endpoint = `${apiUrl}users/${state.authenticatedUser.id}/results`
+  let endpoint = `${config.apiUrl}users/${state.authenticatedUser.id}/results`
   let body = {
     id: state.currentStep.id,
     passed: payload.passed,
@@ -37,77 +36,77 @@ export const set_project = ({commit}, project) => {
   commit(types.UPDATE_CURRENT_PROJECT, project)
 }
 export const get_users = ({commit}) => {
-  Vue.http.get(types.ENDPOINT + 'users').then((response) =>
+  Vue.http.get(config.apiUrl + 'v1/users').then((response) =>
       commit(types.SET_LISTS, response)
   )
 }
 export const create_users = ({commit}, user) => {
-  Vue.http.post(types.ENDPOINT + 'users', user).then((response) =>
+  Vue.http.post(config.apiUrl + 'v1/users', user).then((response) =>
     console.log(response)
   )
 }
 export const get_user = ({commit, dispatch}, user_id) => {
-  Vue.http.get(types.ENDPOINT + 'users/' + user_id).then((response) => {
+  Vue.http.get(config.apiUrl + 'v1/users/' + user_id).then((response) => {
     commit(types.SET_USER, response.body)
     dispatch('get_project', response.body.default_project_id)
   })
 }
 export const update_users = ({commit}, user) => {
-  Vue.http.path(types.ENDPOINT + 'users/' + user.id, user).then((response) =>
+  Vue.http.path(config.apiUrl + 'v1/users/' + user.id, user).then((response) =>
     console.log(response)
   )
 }
 export const delete_user = ({commit}, user_id) => {
-  Vue.http.delete(types.ENDPOINT + 'users/' + user_id).then((response) =>
+  Vue.http.delete(config.apiUrl + 'v1/users/' + user_id).then((response) =>
     console.log(response)
   )
 }
 export const get_authorizations = ({commit}) => {
-  Vue.http.get(types.ENDPOINT + 'authorizations').then((response) =>
+  Vue.http.get(config.apiUrl + 'v1/authorizations').then((response) =>
     commit(types.SET_LISTS, response)
   )
 }
 export const create_authorizations = ({commit}, authorizations) => {
-  Vue.http.post(types.ENDPOINT + 'authorizations', authorizations).then((response) =>
+  Vue.http.post(config.apiUrl + 'v1/authorizations', authorizations).then((response) =>
     console.log(response)
   )
 }
 export const show_authorizations = ({commit}, authorizations_id) => {
-  Vue.http.get(types.ENDPOINT + 'authorizations/' + authorizations_id).then((response) =>
+  Vue.http.get(config.apiUrl + 'v1/authorizations/' + authorizations_id).then((response) =>
     console.log(response)
   )
 }
 export const delete_authorizations = ({commit}, authorizations_id) => {
-  Vue.http.delete(types.ENDPOINT + 'authorizations/' + authorizations_id).then((response) =>
+  Vue.http.delete(config.apiUrl + 'v1/authorizations/' + authorizations_id).then((response) =>
     console.log(response)
   )
 }
 export const get_user_projects = ({commit}, user) => {
   Vue.http.get(
-    types.ENDPOINT + 'users/' + user.id + '/projects',
+    config.apiUrl + 'v1/users/' + user.id + '/projects',
     {headers: {Authorization: 'Token ' + user.token}}
   ).then((response) =>
     commit(types.SET_LISTS, response)
   )
 }
 export const get_projects = ({commit}) => {
-  Vue.http.get(types.ENDPOINT + 'projects').then((response) =>
+  Vue.http.get(config.apiUrl + 'v1/projects').then((response) =>
     commit(types.SET_LISTS, response)
   )
 }
 export const get_project = ({commit}, project_id) => {
-  Vue.http.get(types.ENDPOINT + 'projects/' + project_id).then((response) => {
+  Vue.http.get(config.apiUrl + 'v1/projects/' + project_id).then((response) => {
     commit(types.CURRENT_PROJECT, response.body)
   })
 }
 export const create_project = ({commit}, project) => {
-  Vue.http.post(types.ENDPOINT + 'projects', project).then((response) =>
+  Vue.http.post(config.apiUrl + 'v1/projects', project).then((response) =>
     console.log(response)
   )
 }
 export const update_projects = ({commit, dispatch}, project) => {
   Vue.http.patch(
-    types.ENDPOINT + 'projects/' + project.data.id,
+    config.apiUrl + 'v1/projects/' + project.data.id,
     project.data,
     {headers: {Authorization: 'Token ' + project.token}}
   ).then((response) =>
@@ -115,31 +114,31 @@ export const update_projects = ({commit, dispatch}, project) => {
   )
 }
 export const delete_project = ({commit}, project_id) => {
-  Vue.http.delete(types.ENDPOINT + 'project/' + project_id).then((response) =>
+  Vue.http.delete(config.apiUrl + 'v1/project/' + project_id).then((response) =>
     console.log(response)
   )
 }
 export const get_project_resource = ({commit}, project_id) => {
-  Vue.http.get(types.ENDPOINT + 'project/' + project_id + '/resources').then((response) =>
+  Vue.http.get(config.apiUrl + 'v1/project/' + project_id + '/resources').then((response) =>
     commit(types.SET_LISTS, response)
   )
 }
 export const create_project_resources = ({commit}, project_id, resource) => {
   Vue.http.post(
-    types.ENDPOINT + 'projects/' + project_id + '/resources',
+    config.apiUrl + 'v1/projects/' + project_id + '/resources',
     resource
   ).then((response) =>
     console.log(response)
   )
 }
 export const get_resource_id = ({commit}, project_id, resources_id) => {
-  Vue.http.post(types.ENDPOINT + 'projects/' + project_id + '/resources/' + resources_id).then((response) =>
+  Vue.http.post(config.apiUrl + 'v1/projects/' + project_id + '/resources/' + resources_id).then((response) =>
     console.log(response)
   )
 }
 
 export const logIn = async ({commit, dispatch}, {username, password}) => {
-  let endpoint = `${types.ENDPOINT}authorizations`
+  let endpoint = `${config.apiUrl}v1/authorizations`
   let {body: response} = await Vue.http.post(endpoint, {username, password})
   commit(types.AUTHENTICATION_SUCCESS, response.token)
   dispatch('get_user', response.owner_id)

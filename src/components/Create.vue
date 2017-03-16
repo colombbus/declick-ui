@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import declickConfig from '../assets/config/declick.js'
+import config from 'assets/config/declick'
 import { mapState, mapMutations } from 'vuex'
 import * as mutations from '../store/mutation-types.js'
 
@@ -27,7 +27,7 @@ export default {
   },
   computed: {
     urlCreate () {
-      return declickConfig.url.client + 'index.html#editor=' + this.editor + '&token=' + this.authorizations
+      return config.clientUrl + 'index.html#editor=' + this.editor + '&token=' + this.authorizations
     },
     ...mapState(['editor', 'authorizations'])
   },

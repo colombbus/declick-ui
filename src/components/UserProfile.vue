@@ -35,7 +35,7 @@
 /* global $ */
 
 import { mapState } from 'vuex'
-import declickConfig from '../assets/config/declick.js'
+import config from 'assets/config/declick'
 
 export default {
   data () {
@@ -66,7 +66,7 @@ export default {
 
       if (userUpdate.email || userUpdate.password) {
         this.$http.patch(
-          declickConfig.url.api + 'users/' +
+          config.apiUrl + 'v1/users/' +
           this.authenticatedUser.id,
           userUpdate,
           {headers:

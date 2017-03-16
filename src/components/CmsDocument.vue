@@ -27,7 +27,7 @@ export default {
     'id'
   ],
   created () {
-    let url = config.url.cms +
+    let url = config.cmsUrl +
       'api/1/tables/pages/rows/' +
       this.id +
       '?access_token=jWNoVhWCng6odNLK'

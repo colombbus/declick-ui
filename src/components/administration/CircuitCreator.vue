@@ -21,8 +21,7 @@
 
 <script>
 import Vue from 'vue'
-
-import config from 'assets/config/declick.js'
+import config from 'assets/config/declick'
 
 export default {
   data () {
@@ -34,13 +33,12 @@ export default {
   },
   methods: {
     create () {
-      let endpoint = `${config.url.api}circuits`
       let circuit = {
         name: this.name,
         short_description: this.shortDescription,
         description: this.description
       }
-      Vue.http.post(endpoint, circuit).then(() =>
+      Vue.http.post(`${config.apiUrl}v1/circuits`, circuit).then(() =>
         this.$emit('circuit-created')
       )
     }

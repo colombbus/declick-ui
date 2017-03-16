@@ -45,7 +45,7 @@ export default {
     }
   },
   created () {
-    Vue.http.get(config.url.api + 'circuits').then(data => {
+    Vue.http.get(config.apiUrl + 'v1/circuits').then(data => {
       for (let circuit of data.data.data) {
         this.circuits.push({
           id: circuit.id,

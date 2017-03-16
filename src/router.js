@@ -15,7 +15,7 @@ import DeclickMap from 'components/progress/DeclickMap'
 
 import MyList from 'components/MyList'
 import CurrentProjectInformations from 'components/CurrentProjectInformations'
-import declickConfig from 'assets/config/declick.js'
+import config from 'assets/config/declick'
 
 import AdministrationCircuitList from 'components/administration/CircuitList'
 import CircuitEditor from 'components/administration/CircuitEditor'
@@ -121,5 +121,5 @@ var routes = [
 export default new VueRouter({
   mode: 'history',
   routes,
-  base: declickConfig.basePath
+  base: config.basePath
 })

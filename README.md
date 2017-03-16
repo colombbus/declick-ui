@@ -18,11 +18,11 @@ It is built on [Vue.js](https://vuejs.org).
     * assetsSubdirectory: the subpath where assets are stored, usually 'static' (unless you change build parameters)
 
 2. copy src/assets/config/declick.example.js into src/assets/config/declick.js and set parameters according to your configuration:
-    * url.api: URL to server endpoint, e.g. 'http://localhost/declick-server-v2/api/v1/',
-    * url.client: URL to declick-client, e.g. 'http://localhost/declick-client/dist/',
-    * url.cms: URL to CMS storing static pages, e.g. 'http://localhost/cms/'
-    * basePath: base path following your server address. For instance if access url is 'http://localhost/declick-ui/dist', basePath should be set to '/declick-ui/dist' 
     * domain: you can specify a domain in order to be able to load content from a cms located on another domain (CSRF protection)
+    * basePath: base path following your server address. For instance if access url is 'http://localhost/declick-ui/dist', basePath should be set to '/declick-ui/dist'
+    * apiUrl: URL to server endpoint, e.g. 'http://localhost/declick-server-v2/api/',
+    * clientUrl: URL to declick-client, e.g. 'http://localhost/declick-client/dist/',
+    * cmsUrl: URL to CMS storing static pages, e.g. 'http://localhost/cms/'
 
 3. copy src/assets/config/social-services-example.js into src/assets/config/social-service.js. If you want to use social services (FB, Google), you have to set the corresponding ids.
 

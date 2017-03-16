@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import declickConfig from '../../assets/config/declick.js'
+import config from 'assets/config/declick'
 import Channel from 'exports-loader?Channel!jschannel/src/jschannel.js'
 import { mapState, mapActions, mapMutations } from 'vuex'
 
@@ -34,10 +34,10 @@ export default {
         } else {
           // chapter
           this.$router.push({name: 'map', params: {id: this.$route.params.id}})
-          return declickConfig.url.client + 'learn.html#token=' + this.authorizations + '&channelId=declick'
+          return config.clientUrl + 'learn.html#token=' + this.authorizations + '&channelId=declick'
         }
       } else {
-        return declickConfig.url.client + 'learn.html#token=' + this.authorizations + '&channelId=declick'
+        return config.clientUrl + 'learn.html#token=' + this.authorizations + '&channelId=declick'
       }
     },
     ...mapState(['currentStep', 'authorizations'])

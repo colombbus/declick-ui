@@ -74,7 +74,7 @@ export default {
   methods: {
     loadCircuitList () {
       let options = {params: {page: this.currentPage}}
-      this.$http.get(config.url.api + 'circuits', options).then((response) => {
+      this.$http.get(config.apiUrl + 'v1/circuits', options).then((response) => {
         this.lastPage = response.body.last_page
         this.circuits = response.body.data
       })
