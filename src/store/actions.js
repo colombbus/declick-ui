@@ -6,13 +6,6 @@ import * as types from './mutation-types.js'
 
 var apiUrl = types.ENDPOINT
 
-// export const authenticate = ({ commit, dispatch }, credentials) => {
-//   Vue.http.post(types.ENDPOINT + 'authorizations', credentials).then((response) =>{
-//     commit(types.AUTHENTICATION_SUCCESS, response.body.token);
-//     dispatch('get_user',response.body.owner_id)
-//   })
-// }
-
 export const setExerciseResult = ({commit, state}, payload) => {
   let endpoint = `${apiUrl}users/${state.authenticatedUser.id}/results`
   let body = {
@@ -143,6 +136,13 @@ export const get_resource_id = ({commit}, project_id, resources_id) => {
   Vue.http.post(types.ENDPOINT + 'projects/' + project_id + '/resources/' + resources_id).then((response) =>
     console.log(response)
   )
+}
+
+export const logIn = async ({commit, dispatch}, {username, password}) => {
+  let endpoint = `${types.ENDPOINT}authorizations`
+  let {body: response} = await Vue.http.post(endpoint, {username, password})
+  commit(types.AUTHENTICATION_SUCCESS, response.token)
+  dispatch('get_user', response.owner_id)
 }
 
 export const logOut = ({commit}) =>

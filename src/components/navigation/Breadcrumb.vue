@@ -1,17 +1,15 @@
-<template>
-  <ul id="breadcrumb">
-    <li v-for="(route, index) in matchedRoutes">
-      <router-link
-        v-if="index !== matchedRoutes.length - 1"
-        :to="route.path"
-        :class="'level-' + (index + 1)"
-      >{{route.meta.title}}</router-link>
-      <span
-        v-else
-        :class="['level-' + (index + 1), 'current']"
-      >{{route.meta.title}}</span>
-    </li>
-  </ul>
+<template lang="pug">
+ul
+  li(v-for='(route, index) in matchedRoutes')
+    router-link(
+      v-if='index !== matchedRoutes.length - 1',
+      :to='route.path',
+      :class="'level-' + (index + 1)"
+    ) {{route.meta.title}}
+    span(
+      v-else
+      :class="['level-' + (index + 1), 'current']"
+    ) {{route.meta.title}}
 </template>
 
 <script>
@@ -33,43 +31,35 @@ export default {
 }
 </script>
 
-<style>
-#breadcrumb {
-  height: 25px;
-  margin-bottom: 0;
-  padding-left: 0px;
-  background-color: #480A2A;
-}
+<style lang="sass" scoped>
+ul
+  height: 25px
+  margin-bottom: 0
+  padding-left: 0px
+  background-color: #480A2A
 
-#breadcrumb li {
-  display: inline-block;
-  height: 25px;
-  margin-left: 0px;
-  margin-right: 5px;
-  list-style-type: none;
-}
+li
+  display: inline-block
+  height: 25px
+  margin-left: 0px
+  margin-right: 5px
+  list-style-type: none
 
-#breadcrumb a,
-#breadcrumb span {
-  display: inline-block;
-  padding: 0 5px;
-  border-left: 5px solid;
-  border-color: #E42C20;
-  line-height: 25px;
-  font-size: 12pt;
-  font-weight: bold;
-  color: white;
-}
+a, span
+  display: inline-block
+  padding: 0 5px
+  border-left: 5px solid #E42C20
+  line-height: 25px
+  font-size: 12pt
+  font-weight: bold
+  color: white
 
-#breadcrumb .level-1 {
-  border-color: #0FAC8E;
-}
+.level-1
+  border-color: #0FAC8E
 
-#breadcrumb .level-2 {
-  border-color: #E11782;
-}
+.level-2
+  border-color: #E11782
 
-#breadcrumb .current {
-  color: #D1D718;
-}
+.current
+  color: #D1D718
 </style>

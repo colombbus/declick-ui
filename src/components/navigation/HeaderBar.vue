@@ -1,26 +1,33 @@
-<template>
-  <router-link
-    to="/"
-    id="header-home-link"
-  >Entre 8 et 15 ans ?<br>Apprends à programmer des jeux !</router-link>
+<template lang="pug">
+div
+  slogan-bar
+  authenticated-user-box.user-box(v-if='authenticatedUser')
+  main-menu
+  breadcrumb
 </template>
 
-<style>
-#header-home-link {
-  display: block;
-  height: 100px;
-  padding-top: 30px;
-  padding-left: 180px;
-  border-bottom: 3px solid #D1D718;
-  line-height: 18pt;
-  font-size: 13pt;
-  font-weight: bold;
-  color: #A88996;
-  text-decoration: none;
-  outline: 0;
-  background-color: #480A2A;
-  background-image: url(~assets/image/logo.png);
-  background-repeat: no-repeat;
-  background-position: 5px 5px;
+<script>
+import AuthenticatedUserBox from 'components/AuthenticatedUserBox'
+import Breadcrumb from 'components/navigation/Breadcrumb'
+import MainMenu from 'components/navigation/MainMenu'
+import SloganBar from 'components/navigation/SloganBar'
+import { mapState } from 'vuex'
+
+export default {
+  computed: mapState(['authenticatedUser']),
+  components: {
+    AuthenticatedUserBox,
+    Breadcrumb,
+    MainMenu,
+    SloganBar
+  }
 }
+</script>
+
+<style lang="sass" scoped>
+.user-box
+  float: right
+  position: relative
+  top: -3px
+  margin-top: -38px
 </style>
