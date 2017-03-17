@@ -5,18 +5,19 @@ Vue.use(VueResource)
 import * as types from './mutation-types.js'
 import config from 'assets/config/declick'
 
-export const setExerciseResult = ({commit, state}, payload) => {
-  let endpoint = `${config.apiUrl}users/${state.authenticatedUser.id}/results`
-  let body = {
-    id: state.currentStep.id,
-    passed: payload.passed,
-    solution: payload.solution
+export const setCurrentStepResult = ({commit, state}, payload) => {
+  if (state.authenticatedUser) {
+    let endpoint = `${config.apiUrl}v1/users/${state.authenticatedUser.id}/results`
+    let body = {
+      step_id: state.currentStep.id,
+      passed: payload.passed,
+      solution: payload.solution
+    }
+    Vue.http.post(endpoint, body, {
+      headers: {Authorization: 'Token ' + state.authorizations}
+    })
   }
-  Vue.http.post(endpoint, body, {
-    headers: {Authorization: 'Token ' + state.authorizations}
-  }).then(response =>
-    commit(types.SET_EXERCISE_RESULT, body)
-  )
+  commit(types.SET_CURRENT_STEP_RESULT, payload)
 }
 
 export const selectNextStep = ({commit, state}) => {
