@@ -11,7 +11,7 @@
 
 <script>
 import R from 'ramda'
-import CircuitRun from 'components/progress/CircuitRun'
+import CircuitRun from 'components/learn/CircuitRun'
 import Create from 'components/Create'
 import FooterBar from 'components/navigation/FooterBar'
 import HeaderBar from 'components/navigation/HeaderBar'
