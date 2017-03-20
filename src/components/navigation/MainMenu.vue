@@ -26,7 +26,7 @@ mixin router-item(path, type, title)
 
 <script>
 import AuthenticationModal from 'components/AuthenticationModal'
-import { mapState, mapActions } from 'vuex'
+import {mapState, mapActions} from 'vuex'
 
 export default {
   data () {

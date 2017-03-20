@@ -11,7 +11,7 @@ import AuthenticatedUserBox from 'components/AuthenticatedUserBox'
 import Breadcrumb from 'components/navigation/Breadcrumb'
 import MainMenu from 'components/navigation/MainMenu'
 import SloganBar from 'components/navigation/SloganBar'
-import { mapState } from 'vuex'
+import {mapState} from 'vuex'
 
 export default {
   computed: mapState(['authenticatedUser']),
