@@ -38,16 +38,33 @@ export default {
         Api.retrieveSteps(this.$route.params.id, steps => {
           map.loadStepsFromUI(steps)
           this.setSteps(steps)
+          // examples
           /*
-          // exemple
-          this.$store.commit(mutations.SET_CURRENT_STEP, 20)
-          this.$store.dispatch('setExerciseResult', {
+          this.$store.commit(mutations.SET_CURRENT_STEP, 21)
+          this.$store.dispatch('setCurrentStepResult', {
             passed: true,
             solution: 'bob = new Maçon()'
           })
+          setTimeout(() => {
+            this.$store.commit(mutations.SET_CURRENT_STEP, 22)
+            this.$store.dispatch('setCurrentStepResult', {
+              passed: false,
+              solution: 'bab = new Barki()'
+            })
+          }, 2000)
+          setTimeout(() => {
+            this.$store.commit(mutations.SET_CURRENT_STEP, 24)
+            this.$store.dispatch('setCurrentStepResult', {})
+          }, 4000)
+          setTimeout(() => {
+            this.$store.commit(mutations.SET_CURRENT_STEP, 24)
+            this.$store.dispatch('setCurrentStepResult', {
+              passed: true
+            })
+          }, 6000)
           */
           /*
-          // exemple
+          // examples
           this.$store.commit(mutations.SET_STEPS, steps)
           this.$store.commit(mutations.SET_CURRENT_STEP, 1000)
           console.debug(this.$store.state.currentStep)

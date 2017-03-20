@@ -2,12 +2,17 @@ import R from 'ramda'
 import * as types from './mutation-types.js'
 
 export default {
-  [types.SET_EXERCISE_RESULT] (state, {id, passed, solution}) {
+  [types.SET_CURRENT_STEP_RESULT] (state, payload) {
     let steps = flattenTree(state.steps, 'steps')
-    let step = R.find(R.propEq('id', id), steps)
+    let step = R.find(R.propEq('position', state.currentStep.position), steps)
     if (step) {
-      step.passed = passed
-      step.solution = solution
+      step.visited = true
+      if (payload.passed) {
+        step.passed = payload.passed
+      }
+      if (payload.solution) {
+        step.solution = payload.solution
+      }
     }
   },
   [types.SET_EDITOR] (state, value) {
@@ -16,9 +21,9 @@ export default {
   [types.SET_STEPS] (state, steps) {
     state.steps = steps
   },
-  [types.SET_CURRENT_STEP] (state, id) {
+  [types.SET_CURRENT_STEP] (state, position) {
     let steps = flattenTree(state.steps, 'steps')
-    let step = R.find(R.propEq('id', id), steps)
+    let step = R.find(R.propEq('position', position), steps)
     state.currentStep = step || null
   },
   [types.UPDATE_STEP_STATE] (state, value) {
