@@ -1,6 +1,7 @@
 /* globals $ */
 
 import R from 'ramda'
+import Vue from 'vue'
 import store from './store'
 import config from 'assets/config/declick'
 
@@ -41,6 +42,24 @@ function convertNodes (parentNode, nodes, state) {
 }
 
 export default {
+  getCircuits () {
+    return new Promise((resolve, reject) => {
+      Vue.http.get(config.apiUrl + 'v1/circuits').then(data => {
+        let circuits = []
+        for (let circuit of data.data.data) {
+          circuits.push({
+            id: circuit.id,
+            name: circuit.name,
+            imageUrl: 'http://www.declick.net/images/default-level.png',
+            summary: circuit.short_description,
+            details: circuit.description,
+            showDetails: false
+          })
+        }
+        resolve(circuits)
+      })
+    })
+  },
   retrieveSteps (circuitId, callback) {
     $.ajax({
       url: `${config.apiUrl}v1/circuits/${circuitId}/nodes`,

@@ -1,147 +1,89 @@
-<template lang="html">
-  <div id="progresserContainer">
-    <nav id="circuits-tabs">
-      <a @click="categoryFilter = 'official'"
-         v-bind:class="{ active: categoryFilter === 'official' }"
-      >Parcours officiels</a>
-      <a @click="categoryFilter = 'custom'"
-         v-bind:class="{ active: categoryFilter === 'custom' }"
-      >Parcours personnalisés</a>
-    </nav>
-
-    <div v-for="circuit in filteredCircuits" class="circuit">
-      <div class="imgLevel">
-        <img v-if="circuit.imageUrl" :src="circuit.imageUrl" :alt="circuit.title"/>
-      </div>
-      <div class="contentCircuit">
-        <router-link :to="'/progress/circuit/' + circuit.id">{{circuit.name}}</router-link>
-        <p class="descriptionCircuit">{{circuit.shortDescription}}</p>
-        <div v-if="circuit.description" class="moreInfo">
-          <p @click="toggleShow(circuit)" v-show="!circuit.showInfo"><span class="glyphicon glyphicon-triangle-right"></span> plus d'infos</p>
-          <p @click="toggleShow(circuit)" v-show="circuit.showInfo"><span class="glyphicon glyphicon-triangle-bottom"></span> {{circuit.description}}</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
+<template lang="pug">
+.self
+  .circuit(v-for='circuit in circuits')
+    .image-area
+      img(v-if='circuit.imageUrl', :src='circuit.imageUrl')
+    p.fields-area
+      router-link.name(:to="'/progress/circuit/' + circuit.id") {{circuit.name}}
+      br
+      span.summary {{circuit.summary}}
+      br
+      span(v-if='!circuit.showDetails')
+        a.toggle-details-link(@click='circuit.showDetails = true')
+          span.glyphicon.glyphicon-triangle-right
+          |
+          | afficher les détails
+      span(v-else)
+        a.toggle-details-link(@click='circuit.showDetails = false')
+          span.glyphicon.glyphicon-triangle-bottom
+          |
+          | masquer les détails
+        br
+        span.details {{circuit.details}}
 </template>
 
 <script>
-import Vue from 'vue'
-import config from 'assets/config/declick'
+import Api from '../../api'
 
 export default {
   data () {
     return {
-      categoryFilter: 'official',
       circuits: []
     }
   },
-  computed: {
-    filteredCircuits () {
-      return this.circuits.filter((circuit) =>
-        circuit.category === this.categoryFilter
-      )
-    }
-  },
-  created () {
-    Vue.http.get(config.apiUrl + 'v1/circuits').then(data => {
-      for (let circuit of data.data.data) {
-        this.circuits.push({
-          id: circuit.id,
-          name: circuit.name,
-          shortDescription: circuit.short_description,
-          description: circuit.description,
-          category: 'official',
-          imageUrl: 'http://www.declick.net/images/default-level.png',
-          showInfo: false
-        })
-      }
-    })
-  },
-  methods: {
-    toggleShow (circuit) {
-      circuit.showInfo = !circuit.showInfo
-    }
+  async created () {
+    this.circuits = await Api.getCircuits()
   }
 }
 </script>
 
-<style lang="css">
+<style lang="sass" scoped>
+*
+  font-size: 14pt
 
-#circuits-tabs {
-	border-bottom: 3px solid #480A2A;
-}
+.self
+  max-width: 750px
+  // @todo Find a workaround to override a property in Vue scoped CSS mode.
+  margin: 0 auto !important
 
-#circuits-tabs a {
+.circuit
+  margin-top: 20px
+  padding-left: 150px
+  border: 2px solid #E7E6E6
 
-  display: inline-block;
-  position: relative;
-  padding: 10px 15px;
-  font-family: 'Rubik', sans-serif;
-  font-size: 14pt;
-  cursor: pointer;
-  text-decoration: none;
+.circuit:after
+  content: ''
+  display: block
+  clear: both
 
-  color: white;
-  cursor: default;
-  background-color: #642D46;
-  border-bottom-color: transparent;
+.image-area
+  float: left
+  width: 150px
+  margin-left: -150px
 
+.fields-area
+  padding: 10px
 
-  margin-right: 5px;
-  line-height: 1.42857143;
-  border-radius: 16px 16px 0 0;
+.name
+  font-size: 18pt
+  font-weight: 700
 
-}
+.summary
+  color: #2E75B6
 
-#circuits-tabs a.active {
-  background-color: #480A2A;
-}
+.toggle-details-link, .details
+  color: #A6A6A6
 
-  #progresserContainer{
-    margin: 50px auto;
-    max-width: 800px;
-  }
-  .circuit div{
-    vertical-align: top;
-    display: inline-block;
-    color: #337ab7;
-  }
-  .circuit div .titleCircuit:hover{
-    color:#23527c
-  }
-  .circuit{
-    border: 2px solid #e7e6e6;
-    margin-top: 20px;
-  }
-  .circuit .imgLevel{
-    width: 150px;
-  }
-  .titleCircuit{
-    cursor: pointer;
-    font-weight: 700;
-    font-size: 18pt;
-  }
-  .descritionCircuit{
-    font-size: 14pt;
-  }
-  .contentCircuit{
-    padding: 15px;
-    max-width: 80%;
-  }
-  .moreInfo p{
-    cursor: pointer
-  }
-  .moreInfo p,
-  .moreInfo div{
-    color: #a6a6a6
-  }
-  .moreInfo > div{
-    margin-left: 17px;
-  }
+.toggle-details-link
+  text-decoration: none
+  cursor: pointer
 
-  .moreInfo p {
-    white-space: pre-line;
-  }
+.details
+  display: block
+  margin-left: 25px
+  white-space: pre-wrap
+
+.glyphicon
+  position: relative
+  top: 3px
 </style>
