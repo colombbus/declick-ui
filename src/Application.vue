@@ -1,5 +1,5 @@
 <template lang="pug">
-.self(:style="{ overflow: viewUseFullscreen ? 'hidden' : null }")
+.self(:style="{overflow: viewUseFullscreen ? 'hidden' : null}")
   header-bar(v-show='!viewUseFullscreen')
   .content
     circuit-run(v-show="this.$route.name === 'step'")
