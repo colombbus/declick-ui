@@ -1,6 +1,6 @@
 <template lang="pug">
 .self(:style="{overflow: viewUseFullscreen ? 'hidden' : null}")
-  header-bar(v-show='!viewUseFullscreen')
+  header-bar.header(v-show='!viewUseFullscreen')
   .content
     circuit-run(v-show="this.$route.name === 'step'")
     create(v-show="this.$route.path == '/create'")
@@ -55,6 +55,9 @@ html, body
   height: 100%
   margin: 0
   padding: 0
+
+.header
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .25)
 
 .content
   // header-bar:
