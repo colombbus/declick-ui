@@ -25,14 +25,18 @@ var routes = [
     path: '/',
     name: 'home',
     component: CmsDocument,
-    meta: { title: 'Accueil', reuseKey: 1 },
-    props: { id: 1 }
+    meta: {
+      id: 1,
+      title: 'Accueil'
+    }
   },
   {
     path: '/explore',
     component: CmsDocument,
-    meta: { title: 'Découvrir', reuseKey: 2 },
-    props: { id: 2 }
+    meta: {
+      id: 2,
+      title: 'Découvrir'
+    }
   },
   {
     path: '/progress',

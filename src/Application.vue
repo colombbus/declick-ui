@@ -5,7 +5,7 @@
     circuit-run(v-show="this.$route.name === 'step'")
     create(v-show="this.$route.path == '/create'")
     keep-alive
-      router-view(:key='viewReuseKey')
+      router-view(:key='viewId', :id='viewId')
   footer-bar(v-show='!viewUseFullscreen')
 </template>
 
@@ -18,8 +18,8 @@ import HeaderBar from 'components/navigation/HeaderBar'
 
 export default {
   computed: {
-    viewReuseKey () {
-      return R.last(this.$route.matched).meta.reuseKey || null
+    viewId () {
+      return R.last(this.$route.matched).meta.id || null
     },
     viewUseFullscreen () {
       return this.$route.matched.some(match => match.meta.useFullscreen)
