@@ -23,10 +23,10 @@
       ) Se connecter
     li(v-else)
       a(@click='logOut') Se déconnecter
-    authentication-modal(
-      @close='isAuthenticationModalVisible = false'
-      v-if='isAuthenticationModalVisible'
-    )
+  authentication-modal(
+    @close='isAuthenticationModalVisible = false'
+    v-if='isAuthenticationModalVisible'
+  )
 </template>
 
 <script>
