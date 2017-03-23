@@ -73,14 +73,8 @@ a
   cursor: pointer
 
 .self
-  min-height: 45px
   height: 45px
-  margin: 0
-  border-radius: 0
   border-top: 7px solid #6F3B51
-  border-bottom: 0
-  border-left: 0
-  border-right: 0
   background-color: #642D46
   background-image: url(~assets/image/waves.png)
   background-repeat: repeat-x
