@@ -1,16 +1,21 @@
 <template lang="pug">
-mixin router-item(path, type, title)
-  li
-    router-link(
-      to=path
-      class=`illustrated-link ${type}`
-    )= title
-
 .self
   ul
-    +router-item('/explore', 'explore-link', 'Découvrir')
-    +router-item('/progress', 'progress-link', 'Progresser')
-    +router-item('/create', 'create-link', 'Créer')
+    li
+      router-link(
+        to='/explore'
+        class='illustrated-link explore-link'
+      ) Découvrir
+    li
+      router-link(
+        to='/progress'
+        class='illustrated-link progress-link'
+      ) Progresser
+    li
+      router-link(
+        to='/create'
+        class='illustrated-link create-link'
+      ) Créer
     li(v-if='!authenticatedUser')
       a(
         @click='isAuthenticationModalVisible = true'
