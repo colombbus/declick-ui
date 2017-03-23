@@ -29,7 +29,7 @@ export default {
     let robotPath = __webpack_public_path__ + // eslint-disable-line camelcase
       'static/map-robot.svg'
     map.init('map', robotPath, (step) => {
-      this.setCurrentStep(step.id)
+      this.setCurrentStep(step.position)
       this.$router.push({name: 'step', params: {id: this.$route.params.id}})
     }, () => {
       // Load path
@@ -93,7 +93,7 @@ export default {
     },
     'currentStep.passed' (value) {
       map.updateState([{
-        id: this.currentStep.position,
+        position: this.currentStep.position,
         passed: value
       }])
     }

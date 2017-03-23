@@ -23,7 +23,7 @@ import pem from 'exports-loader?TaskProxyManager&Platform!pem-platform/task-xd-p
 var task = false
 export default {
   methods: {
-    ...mapActions(['selectNextStep']),
+    ...mapActions(['selectNextStep', 'setCurrentStepResult']),
     ...mapMutations({updateStepState: mutations.UPDATE_STEP_STATE})
   },
   computed: {
@@ -43,23 +43,21 @@ export default {
     ...mapState(['currentStep', 'authorizations'])
   },
   mounted () {
-    pem.Platform.prototype.showView = function (views, success, error) {
-      /*
-      task.reloadAnswer(JSON.stringify({score : 0,value : "coucou"}), () => {
-      success()
-      })
-      */
-      success()
-    }
     var self = this
+    pem.Platform.prototype.showView = function (views, success, error) {
+      if (self.currentStep && self.currentStep.solution) {
+        task.reloadAnswer(self.currentStep.solution, () => {
+          success()
+        })
+      } else {
+        success()
+      }
+    }
+
     pem.Platform.prototype.validate = function (mode, success, error) {
-      console.log('validate received')
       task.getAnswer(answer => {
-        console.log('answer received')
-        console.debug(answer)
         self.updateStepState({passed: true})
-        // TODO: store answer
-        // TODO: set map accordingly
+        self.setCurrentStepResult({passed: true, solution: answer})
         switch (mode) {
           case 'stay':
             console.log('mode: stay')
