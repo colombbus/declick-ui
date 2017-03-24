@@ -58,16 +58,19 @@ export default {
       task.getAnswer(answer => {
         self.updateStepState({passed: true})
         self.setCurrentStepResult({passed: true, solution: answer})
-        switch (mode) {
-          case 'stay':
-            console.log('mode: stay')
-            break
-          case 'nextImmediate':
-            console.log('mode: nextImmediate')
-            self.selectNextStep()
-            break
-        }
-        success()
+        // wait for all watchers to be triggered
+        self.$nextTick(() => {
+          switch (mode) {
+            case 'stay':
+              console.log('mode: stay')
+              break
+            case 'nextImmediate':
+              console.log('mode: nextImmediate')
+              self.selectNextStep()
+              break
+          }
+          success()
+        })
       })
     }
 
