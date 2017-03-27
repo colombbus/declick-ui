@@ -3,7 +3,7 @@ transition(name='modal')
   .mask(@click="$emit('close')")
     .wrapper
       .container(@click.stop='')
-        div(v-if="mode === 'connection'")
+        div(v-show="mode === 'connection'")
           .input-group
             .input-group-addon: span.glyphicon.glyphicon-user
             input(
@@ -44,9 +44,10 @@ transition(name='modal')
             type='button'
             class='btn btn-block btn-link'
           ) s'inscrire
-        keep-alive(v-if="mode === 'registration'"): registration-form(
+        registration-form(
           @switch-to-connection="mode = 'connection'"
           @close="$emit('close')"
+          v-show="mode === 'registration'"
         )
 </template>
 
