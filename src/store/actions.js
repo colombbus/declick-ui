@@ -138,6 +138,13 @@ export const get_resource_id = ({commit}, project_id, resources_id) => {
   )
 }
 
+export const register = async ({commit}, {username, email, password}) => {
+  let endpoint = `${config.apiUrl}v1/users`
+  let {body: response} =
+    await Vue.http.post(endpoint, {username, email, password})
+  return response
+}
+
 export const logIn = async ({commit, dispatch}, {username, password}) => {
   let endpoint = `${config.apiUrl}v1/authorizations`
   let {body: response} = await Vue.http.post(endpoint, {username, password})

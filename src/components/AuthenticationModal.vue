@@ -3,62 +3,77 @@ transition(name='modal')
   .mask(@click="$emit('close')")
     .wrapper
       .container(@click.stop='')
-        .input-group
-          .input-group-addon: span.glyphicon.glyphicon-user
-          input(
-            @keyup.enter='logIn'
-            v-model='username'
-            type='text'
-            class='form-control'
-            placeholder="nom d'utilisateur"
+        div(v-if="mode === 'connection'")
+          .input-group
+            .input-group-addon: span.glyphicon.glyphicon-user
+            input(
+              @keyup.enter='logIn'
+              v-model='username'
+              type='text'
+              class='form-control'
+              placeholder="nom d'utilisateur"
+            )
+          .input-group
+            .input-group-addon: span.glyphicon.glyphicon-lock
+            input(
+              @keyup.enter='logIn'
+              v-model='password'
+              type='password'
+              class='form-control'
+              placeholder='mot de passe'
+            )
+          button(
+            @click='logIn'
+            type='button'
+            class='btn btn-block btn-primary'
+          ) se connecter
+          button(
+            type='button'
+            class='btn btn-block btn-social btn-google disabled'
           )
-        .input-group
-          .input-group-addon: span.glyphicon.glyphicon-lock
-          input(
-            @keyup.enter='logIn'
-            v-model='password'
-            type='password'
-            class='form-control'
-            placeholder='mot de passe'
+            span.fa.fa-google
+            | se connecter via Google
+          button(
+            type='button'
+            class='btn btn-block btn-social btn-facebook disabled'
           )
-        button(
-          @click='logIn'
-          type='button'
-          class='btn btn-block btn-primary'
-        ) se connecter
-        button(
-          type='button'
-          class='btn btn-block btn-social btn-google'
+            span.fa.fa-facebook
+            | se connecter via Facebook
+          button(
+            @click="mode = 'registration'"
+            type='button'
+            class='btn btn-block btn-link'
+          ) s'inscrire
+        keep-alive(v-if="mode === 'registration'"): registration-form(
+          @switch-to-connection="mode = 'connection'"
+          @close="$emit('close')"
         )
-          span.fa.fa-google
-          | connexion via Google
-        button(
-          type='button'
-          class='btn btn-block btn-social btn-facebook'
-        )
-          span.fa.fa-facebook
-          | connexion via Facebook
 </template>
 
 <script>
 import 'bootstrap-social/bootstrap-social.css'
 import 'font-awesome/css/font-awesome.css'
+import RegistrationForm from './RegistrationForm'
 
 export default {
   data () {
     return {
+      mode: 'connection',
       username: '',
       password: ''
     }
   },
   methods: {
-    logIn () {
-      this.$store.dispatch('logIn', {
+    async logIn () {
+      await this.$store.dispatch('logIn', {
         username: this.username,
         password: this.password
       })
       this.$emit('close')
     }
+  },
+  components: {
+    RegistrationForm
   }
 }
 </script>
