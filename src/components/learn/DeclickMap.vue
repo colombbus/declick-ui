@@ -1,8 +1,9 @@
 <template lang="html">
-  <div id="declickMap">
-    <canvas id="map" ></canvas>
+  <div>
+    <div id="declickMap">
+      <canvas id="map" ></canvas>
+    </div>
   </div>
-
 </template>
 
 <script>
