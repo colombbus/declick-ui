@@ -77,7 +77,7 @@ var routes = [
   },
   {
     path: '/create',
-    name: 'Créer',
+    name: 'create',
     meta: {
       title: 'Créer',
       useFullscreen: true

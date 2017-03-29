@@ -3,7 +3,7 @@
   header-bar.header(v-show='!viewUseFullscreen')
   .content
     circuit-run(v-show="this.$route.name === 'step'")
-    create(v-show="this.$route.path == '/create'")
+    create-view(v-show="this.$route.name === 'create'")
     keep-alive
       router-view(:key='viewId', :id='viewId')
   footer-bar(v-show='!viewUseFullscreen')
@@ -12,7 +12,7 @@
 <script>
 import R from 'ramda'
 import CircuitRun from 'components/learn/CircuitRun'
-import Create from 'components/Create'
+import CreateView from 'components/create/CreateView'
 import FooterBar from 'components/navigation/FooterBar'
 import HeaderBar from 'components/navigation/HeaderBar'
 
@@ -27,7 +27,7 @@ export default {
   },
   components: {
     CircuitRun,
-    Create,
+    CreateView,
     FooterBar,
     HeaderBar
   }

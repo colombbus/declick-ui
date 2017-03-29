@@ -31,6 +31,7 @@ module.exports = {
       'vue$': 'vue/dist/vue',
       'src': path.resolve(__dirname, '../src'),
       'assets': path.resolve(__dirname, '../src/assets'),
+      'store': path.resolve(__dirname, '../src/store'),
       'components': path.resolve(__dirname, '../src/components')
     }
   },
