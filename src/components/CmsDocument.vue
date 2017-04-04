@@ -39,13 +39,17 @@ export default {
       ).fadeIn()
       */
       $('#onLoadGif').fadeOut()
-      $('#content').append($.parseHTML(response.body.content)).fadeIn()
+      $('#content').append($.parseHTML(response.body.content, document, true)).fadeIn()
     })
   }
 }
 </script>
 
 <style>
+#content .hidden {
+  display:none;
+}
+
 .cms-document-loading-message img {
   height: 50px;
 }
@@ -362,4 +366,108 @@ export default {
 #content #sommaire td p {
     margin: 0 0 50px 0;
 }
+
+/* Front page */
+#content .front h1 {
+  font-size:26px;
+  letter-spacing: 0.5px;
+  font-weight:bold;
+}
+.front__start {
+  width:600px;
+  margin:0 auto;
+}
+.front__menu {
+  float:right;
+  width:180px;
+  text-align:center;
+}
+.front__menu a {
+  display:block;
+  width:120px;
+  border:solid 2px #E32B1F;
+  background-color:#FFFFFF;
+  color:#E32B1F;
+  text-transform: uppercase;
+  margin:0 auto 30px;
+  padding:6px 0;
+  font-size:14px;
+  text-decoration: none;
+}
+
+.front__menu a.selected {
+  background-color:#E32B1F;
+  color:#FFFFFF;
+}
+
+.front__portal {
+  margin-right:180px;
+  text-align:center;
+  min-height:300px;
+}
+
+.front__portal a {
+  display:block;
+  text-transform: uppercase;
+  font-size:18px;
+  color:#470A29;
+  font-weight:normal;
+  cursor:pointer;
+  text-decoration: none;
+  letter-spacing:-1px;
+}
+
+.front__portal a img {
+  display:block;
+  width:210px;
+  margin:0 auto 10px;
+}
+
+#content .front h2 {
+  margin:40px auto 10px;
+  background-color:transparent;
+  color:#470A29;
+}
+
+.front__more__main {
+  max-width:1000px;
+  margin:0 auto;
+}
+
+.front__more {
+  display:inline-block;
+  width:50%;
+  vertical-align:top;
+}
+
+.front__more__inner {
+  margin:10px;
+  border:solid 1px #CFD519;
+  padding:15px 20px;
+  box-sizing: border-box;
+  text-align: left;
+  position:relative;
+  min-height:350px;
+}
+
+.front__more__inner img {
+  position:absolute;
+  top:15px;
+  left:50%;
+  margin-left:-20px;
+}
+
+.front__more__inner img#cocorico {
+  right:20px;
+  bottom:-20px;
+  top:auto;
+  left:auto;
+}
+
+#content .front__more__inner h3 {
+  text-align: center;
+  margin-top: 60px;
+  margin-bottom: 25px;
+}
+
 </style>

@@ -26,7 +26,7 @@ var routes = [
     name: 'home',
     component: CmsDocument,
     meta: {
-      id: 1,
+      id: 4,
       title: 'Accueil'
     }
   },
