@@ -1,8 +1,8 @@
 <template lang="pug">
 router-link(to='/')
-  | Entre 8 et 15 ans ?
+  | des clics
   br
-  | Apprends à programmer des jeux !
+  | et du code
 </template>
 
 <style lang="sass" scoped>
