@@ -16,6 +16,12 @@
         to='/create'
         class='illustrated-link create-link'
       ) Créer
+    li
+      a(
+        :href='forumLink'
+        class='illustrated-link discuss-link'
+        target='forum'
+      ) Discuter
     li(v-if='!authenticatedUser')
       a(
         @click='isAuthenticationModalVisible = true'
@@ -32,6 +38,7 @@
 <script>
 import AuthenticationModal from 'components/AuthenticationModal'
 import {mapState, mapActions} from 'vuex'
+import config from 'assets/config/declick'
 
 export default {
   data () {
@@ -39,7 +46,12 @@ export default {
       isAuthenticationModalVisible: false
     }
   },
-  computed: mapState(['authenticatedUser']),
+  computed: {
+    forumLink () {
+      return config.forumUrl
+    },
+    ...mapState(['authenticatedUser'])
+  },
   methods: mapActions(['logOut']),
   components: {
     AuthenticationModal
@@ -108,6 +120,9 @@ a.illustrated-link:hover:after
 
 .create-link:after
   background-image: url(~assets/image/create-robot.png)
+
+.discuss-link:after
+  background-image: url(~assets/image/discuss-robot.png)
 
 .log-in-link:after
   background-image: url(~assets/image/log-in-robot.png)
