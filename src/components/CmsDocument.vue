@@ -27,6 +27,10 @@ export default {
     'id'
   ],
   created () {
+    var router = this.$router
+    window.goTo = function (location) {
+      router.push(location)
+    }
     let url = config.cmsUrl +
       'api/1/tables/pages/rows/' +
       this.id +
@@ -43,6 +47,7 @@ export default {
     })
   }
 }
+
 </script>
 
 <style>
@@ -374,7 +379,7 @@ export default {
   font-weight:bold;
 }
 .front__start {
-  width:600px;
+  max-width:600px;
   margin:0 auto;
 }
 .front__menu {
@@ -447,7 +452,8 @@ export default {
   box-sizing: border-box;
   text-align: left;
   position:relative;
-  min-height:350px;
+  min-height:420px;
+  font-size:16px;
 }
 
 .front__more__inner img {
@@ -458,7 +464,7 @@ export default {
 }
 
 .front__more__inner img#cocorico {
-  right:20px;
+  right:-20px;
   bottom:-20px;
   top:auto;
   left:auto;
@@ -468,6 +474,104 @@ export default {
   text-align: center;
   margin-top: 60px;
   margin-bottom: 25px;
+}
+
+.front__teachers {
+  max-width:600px;
+  font-size:16px;
+  margin:0 auto;
+}
+
+.front__tools {
+  max-width:1000px;
+  margin:20px auto;
+}
+
+.front__tool {
+  display:inline-block;
+  vertical-align:top;
+  width:25%;
+  box-sizing: border-box;
+  padding:0 10px;
+  font-size:14px;
+}
+
+.front__colombbus {
+  margin-top:100px;
+  background-color:#e32c1f;
+  color:#ffffff;
+}
+
+.front__colombbus__inner {
+  max-width:1000px;
+  margin:0 auto;
+  padding-bottom: 40px;
+}
+
+.front__colombbus__part {
+  width:50%;
+  display:inline-block;
+  box-sizing: border-box;
+  padding: 40px 100px;
+  vertical-align:top;
+  position:relative;
+  min-height:300px;
+}
+
+#content .front__colombbus__part h3 {
+  font-weight:normal;
+  margin-bottom:25px;
+}
+
+.front__colombbus__part a {
+  display:block;
+  text-transform: uppercase;
+  width:200px;
+  border:solid 1px #ffffff;
+  color:#ffffff;
+  text-decoration:none;
+  padding:5px 0;
+  position:absolute;
+  bottom:0;
+  left:50%;
+  margin-left:-100px;
+}
+
+.front__colombbus__part a:hover {
+  background-color:#ffffff;
+  color:#e32c1f;
+}
+
+.front__partners {
+  background-color:#470a2b;
+  color:#ffffff;
+  padding:15px 0 30px;
+}
+
+.front__partners__inner {
+  max-width:1000px;
+  margin:0 auto;
+}
+
+.front__partners__part {
+  display:inline-block;
+  vertical-align:top;
+  width:50%;
+  box-sizing: border-box;
+  padding:20px 0;
+}
+
+.front__partners__part:last-child {
+  border-left:solid 1px #ffffff;
+}
+
+.front__partners__part img {
+  margin:0 10px;
+}
+
+#content .front__partners__part h3 {
+  font-weight:normal;
+  margin-bottom:25px;
 }
 
 </style>
