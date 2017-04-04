@@ -34,7 +34,11 @@ export default {
       state.currentStep.passed = value.passed
     }
   },
+  [types.AUTHENTICATION_FAILURE] (state, payload) {
+    state.logInErrors = payload.errors
+  },
   [types.AUTHENTICATION_SUCCESS] (state, token) {
+    state.logInErrors = null
     state.authorizations = token
     state.connected = true
     state.error_code = 0

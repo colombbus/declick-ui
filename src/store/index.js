@@ -18,7 +18,8 @@ export default new Vuex.Store({
     error_code: 0,
     currentStep: null,
     steps: null,
-    editor: true
+    editor: true,
+    logInErrors: null
   },
   mutations,
   actions

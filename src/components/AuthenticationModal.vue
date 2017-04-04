@@ -4,29 +4,46 @@ transition(name='modal')
     .wrapper
       .container(@click.stop='')
         div(v-show="mode === 'connection'")
-          .input-group
-            .input-group-addon: span.glyphicon.glyphicon-user
-            input(
-              @keyup.enter='logIn'
-              v-model='username'
-              type='text'
-              class='form-control'
-              placeholder="nom d'utilisateur"
-            )
-          .input-group
-            .input-group-addon: span.glyphicon.glyphicon-lock
-            input(
-              @keyup.enter='logIn'
-              v-model='password'
-              type='password'
-              class='form-control'
-              placeholder='mot de passe'
-            )
+          .form-group.has-error(v-if='errors.global')
+            span.help-block
+              span(v-if="errors.global.includes('NO_MATCH_FOUND')")
+                | Aucun utilisateur n'a été trouvé avec ce mot de passe.
+          .form-group.has-feedback(:class="{'has-error': errors.username}")
+            .input-group
+              .input-group-addon: span.glyphicon.glyphicon-user
+              input(
+                @keyup.enter='logIn'
+                v-model='username'
+                type='text'
+                class='form-control'
+                placeholder="nom d'utilisateur"
+              )
+            span.help-block(v-if='errors.username')
+              span(v-if="errors.username.includes('SPACE_IN_USERNAME')")
+                | Le nom d'utilisateur ne doit pas contenir d'espace.
+          .form-group(:class="{'has-error': errors.password}")
+            .input-group
+              .input-group-addon: span.glyphicon.glyphicon-lock
+              input(
+                @keyup.enter='logIn'
+                v-model='password'
+                type='password'
+                class='form-control'
+                placeholder='mot de passe'
+              )
+            span.help-block(v-if='errors.password')
+              span(v-if="errors.password.includes('SPACE_IN_PASSWORD')")
+                | Le mot de passe ne doit pas contenir d'espace.
           button(
-            @click='logIn'
+            @click='logIn',
+            :disabled='isLogingIn'
             type='button'
             class='btn btn-block btn-primary'
-          ) se connecter
+          )
+            | se connecter
+            span(v-show='isLogingIn')
+              | &nbsp;
+              span.fa.fa-circle-o-notch.fa-spin
           button(
             type='button'
             class='btn btn-block btn-social btn-google disabled'
@@ -55,22 +72,54 @@ transition(name='modal')
 import 'bootstrap-social/bootstrap-social.css'
 import 'font-awesome/css/font-awesome.css'
 import RegistrationForm from './RegistrationForm'
+import {mapState} from 'vuex'
 
 export default {
   data () {
     return {
       mode: 'connection',
+      isLogingIn: false,
       username: '',
-      password: ''
+      password: '',
+      errors: {
+        username: null,
+        password: null,
+        global: null
+      }
+    }
+  },
+  computed: mapState(['logInErrors']),
+  watch: {
+    username (value) {
+      if (/\s/.test(value)) {
+        this.errors.username = ['SPACE_IN_USERNAME']
+      } else {
+        this.errors.username = null
+      }
+    },
+    password (value) {
+      if (/\s/.test(value)) {
+        this.errors.password = ['SPACE_IN_PASSWORD']
+      } else {
+        this.errors.password = null
+      }
+    },
+    'logInErrors' (value) {
+      this.errors.global = value
     }
   },
   methods: {
     async logIn () {
-      await this.$store.dispatch('logIn', {
-        username: this.username,
-        password: this.password
-      })
-      this.$emit('close')
+      this.isLogingIn = true
+      try {
+        await this.$store.dispatch('logIn', {
+          username: this.username,
+          password: this.password
+        })
+        this.$emit('close')
+      } finally {
+        this.isLogingIn = false
+      }
     }
   },
   components: {

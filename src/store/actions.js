@@ -145,11 +145,18 @@ export const register = async ({commit}, {username, email, password}) => {
   return response
 }
 
-export const logIn = async ({commit, dispatch}, {username, password}) => {
-  let endpoint = `${config.apiUrl}v1/authorizations`
-  let {body: response} = await Vue.http.post(endpoint, {username, password})
-  commit(types.AUTHENTICATION_SUCCESS, response.token)
-  dispatch('get_user', response.owner_id)
+export const logIn = ({commit, dispatch}, {username, password}) => {
+  return new Promise((resolve, reject) => {
+    let endpoint = `${config.apiUrl}v1/authorizations`
+    Vue.http.post(endpoint, {username, password}).then(({body: response}) => {
+      commit(types.AUTHENTICATION_SUCCESS, response.token)
+      dispatch('get_user', response.owner_id)
+      resolve()
+    }).catch(({body: response}) => {
+      commit(types.AUTHENTICATION_FAILURE, response)
+      reject()
+    })
+  })
 }
 
 export const logOut = ({commit}) =>

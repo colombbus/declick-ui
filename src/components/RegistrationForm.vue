@@ -1,41 +1,48 @@
 <template lang="pug">
 div
-  .input-group
-    .input-group-addon: span.glyphicon.glyphicon-user
-    input(
-      @keyup.enter='register'
-      v-model='username'
-      type='text'
-      class='form-control'
-      placeholder="nom d'utilisateur"
-    )
-  .input-group
-    .input-group-addon: span.glyphicon.glyphicon-envelope
-    input(
-      @keyup.enter='register'
-      v-model='email'
-      type='text'
-      class='form-control'
-      placeholder="adresse email"
-    )
-  .input-group
-    .input-group-addon: span.glyphicon.glyphicon-lock
-    input(
-      @keyup.enter='register'
-      v-model='password'
-      type='password'
-      class='form-control'
-      placeholder='mot de passe'
-    )
-  .input-group
-    .input-group-addon: span.glyphicon.glyphicon-lock
-    input(
-      @keyup.enter='register'
-      type='password'
-      class='form-control'
-      placeholder='confirmation du mot de passe'
-      disabled
-    )
+  .form-group.has-feedback(:class="{'has-error': errors.username}")
+    .input-group
+      .input-group-addon: span.glyphicon.glyphicon-user
+      input(
+        @keyup.enter='logIn'
+        v-model='username'
+        type='text'
+        class='form-control'
+        placeholder="nom d'utilisateur"
+      )
+    span.help-block(v-if='errors.username')
+      span(v-if="errors.username.includes('USERNAME_ALREADY_TAKEN')")
+        | Ce nom d'utilisateur est déjà pris.
+  .form-group.has-feedback
+    .input-group
+      .input-group-addon: span.glyphicon.glyphicon-envelope
+      input(
+        @keyup.enter='register'
+        v-model='email'
+        type='text'
+        class='form-control'
+        placeholder="adresse email"
+      )
+  .form-group.has-feedback
+    .input-group
+      .input-group-addon: span.glyphicon.glyphicon-lock
+      input(
+        @keyup.enter='register'
+        v-model='password'
+        type='password'
+        class='form-control'
+        placeholder='mot de passe'
+      )
+  .form-group.has-feedback
+    .input-group
+      .input-group-addon: span.glyphicon.glyphicon-lock
+      input(
+        @keyup.enter='register'
+        type='password'
+        class='form-control'
+        placeholder='confirmation du mot de passe'
+        disabled
+      )
   button(
     @click='register'
     type='button'
@@ -49,12 +56,34 @@ div
 </template>
 
 <script>
+import Vue from 'vue'
+import config from 'assets/config/declick'
+
 export default {
   data () {
     return {
       username: '',
       email: '',
-      password: ''
+      password: '',
+      errors: {
+        username: null,
+        email: null,
+        password: null,
+        passwordConfirmation: null
+      },
+      lastUsernameTest: 0
+    }
+  },
+  watch: {
+    async username (value) {
+      let endpoint = `${config.apiUrl}v1/test/username`
+      let {body: response} = await Vue.http.post(endpoint, {username: this.username})
+      if (response.result === false) {
+        console.log('rekt')
+        this.errors.username = ['USERNAME_ALREADY_TAKEN']
+      } else {
+        this.errors.username = null
+      }
     }
   },
   methods: {
