@@ -842,8 +842,10 @@ function DeclickMap() {
     };
 
     // Update data
-    this.updateState = function(udpatedSteps) {
-        $.each(udpatedSteps, function(key, value) {
+    this.updateState = function(updatedSteps) {
+        console.log("update state received: ");
+        console.debug(updatedSteps);
+        $.each(updatedSteps, function(key, value) {
             if (value.position) {
                 // find corresponding step
                 for (var i=0;i<steps.length;i++) {
@@ -856,10 +858,10 @@ function DeclickMap() {
                         }
                         var old = displayedSteps[i];
                         var point = old.position;
-                        old.remove();
                         var symbol = getSymbol(steps[i]);
                         var placed = symbol.place(point);
-                        placed.insertBelow(current);
+                        placed.insertBelow(old);
+                        old.remove();
                         displayedSteps[i] = placed;
                         placed.onMouseDown = getStepMouseHandler(i);
                         break;
