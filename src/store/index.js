@@ -13,7 +13,7 @@ export default new Vuex.Store({
     last_page: 0,
     connected: false,
     authenticatedUser: null,
-    current_project: {},
+    currentProject: null,
     authorizations: '',
     error_code: 0,
     currentStep: null,

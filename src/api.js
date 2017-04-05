@@ -42,6 +42,25 @@ function convertNodes (parentNode, nodes, state) {
 }
 
 export default {
+  createProject (data, token) {
+    let body = {
+      name: data.name,
+      is_public: data.isPublic,
+      scene_width: data.sceneWidth,
+      scene_height: data.sceneHeight,
+      description: data.description,
+      instructions: data.instructions
+    }
+    return new Promise((resolve, reject) => {
+      Vue.http.post(
+        config.apiUrl + 'v1/projects',
+        body,
+        {headers: {Authorization: 'Token ' + token}}
+      ).then(({body}) => {
+        resolve(body)
+      })
+    })
+  },
   getCircuits () {
     return new Promise((resolve, reject) => {
       Vue.http.get(config.apiUrl + 'v1/circuits').then(data => {

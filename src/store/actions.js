@@ -5,6 +5,10 @@ Vue.use(VueResource)
 import * as types from './mutation-types.js'
 import config from 'assets/config/declick'
 
+var mutations = types
+
+import Api from '../api'
+
 export const setCurrentStepResult = ({commit, state}, payload) => {
   if (state.authenticatedUser) {
     let endpoint = `${config.apiUrl}v1/users/${state.authenticatedUser.id}/results`
@@ -33,9 +37,6 @@ export const selectPreviousStep = ({commit, state}) => {
 }
 
 /* eslint camelcase: "off" */
-export const set_project = ({commit}, project) => {
-  commit(types.UPDATE_CURRENT_PROJECT, project)
-}
 export const get_users = ({commit}) => {
   Vue.http.get(config.apiUrl + 'v1/users').then((response) =>
       commit(types.SET_LISTS, response)
@@ -161,3 +162,8 @@ export const logIn = ({commit, dispatch}, {username, password}) => {
 
 export const logOut = ({commit}) =>
   commit(types.LOG_OUT)
+
+export const createProject = async ({commit, state}, {data}) => {
+  let project = await Api.createProject(data, state.authorizations)
+  commit(mutations.SET_CURRENT_PROJECT, {project})
+}

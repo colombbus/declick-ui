@@ -1,7 +1,12 @@
 import R from 'ramda'
 import * as types from './mutation-types.js'
 
+var mutations = types
+
 export default {
+  [mutations.SET_CURRENT_PROJECT] (state, payload) {
+    state.currentProject = payload.project
+  },
   [types.SET_CURRENT_STEP_RESULT] (state, payload) {
     let steps = flattenTree(state.steps, 'steps')
     let step = R.find(R.propEq('position', state.currentStep.position), steps)
