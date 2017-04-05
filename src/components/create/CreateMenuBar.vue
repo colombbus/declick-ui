@@ -5,7 +5,10 @@
     ul.dropdown-menu
       li: router-link(to='/create/current') informations
       li.divider(role='separator')
-      li: router-link(to='/create/list/project') projets
+      li
+        a(
+          @click="$emit('showProjectList')"
+        ) projets
   span.project-name Projet
   a(
     @click='toggleMode',
@@ -31,6 +34,9 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+a
+  cursor: pointer
+
 .self
   height: 50px
   padding: 0 5px

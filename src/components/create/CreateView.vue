@@ -1,18 +1,42 @@
 <template lang="pug">
-div
+.create-view
   create-header-bar
-  create-menu-bar
+  create-menu-bar(
+    @showProjectList="view = 'ProjectList'"
+  )
+  transition(
+    v-on:before-enter="beforeEnter"
+    v-on:enter="onEnter"
+    v-on:leave="onLeave"
+    v-bind:css="false"
+  )
+    .slider(v-if='view')
+      component(
+        @createNewProject="view = 'ProjectCreation'"
+        @close='view = null',
+        :is='view'
+        v-if='view'
+      )
   iframe.frame(:src='frameUrl')
 </template>
 
 <script>
+/* global $ */
+import 'jquery'
 import {mapState, mapMutations} from 'vuex'
 import CreateHeaderBar from './CreateHeaderBar'
 import CreateMenuBar from './CreateMenuBar'
+import ProjectCreation from './ProjectCreation'
+import ProjectList from './ProjectList'
 import * as mutations from 'store/mutation-types'
 import config from 'assets/config/declick'
 
 export default {
+  data () {
+    return {
+      view: null
+    }
+  },
   computed: {
     frameUrl () {
       return `${config.clientUrl}index.html` +
@@ -33,17 +57,37 @@ export default {
       }
     }, false)
   },
-  methods: mapMutations({
-    setEditor: mutations.SET_EDITOR
-  }),
+  methods: {
+    beforeEnter (element) {
+      $(element).hide()
+    },
+    onEnter (element, done) {
+      $(element).slideDown(1000, done)
+    },
+    onLeave (element, done) {
+      $(element).slideUp(1000, done)
+    },
+    ...mapMutations({
+      setEditor: mutations.SET_EDITOR
+    })
+  },
   components: {
     CreateHeaderBar,
-    CreateMenuBar
+    CreateMenuBar,
+    ProjectCreation,
+    ProjectList
   }
 }
 </script>
 
 <style lang="sass" scoped>
+.slider
+  position: absolute
+  height: calc(100vh - 112px)
+  width: 100%
+  padding: 10px
+  background-color: #FFF
+
 .frame
   height: calc(100vh - 112px)
   width: 100%
