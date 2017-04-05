@@ -46,7 +46,7 @@ export default {
       return `${config.clientUrl}index.html` +
         `#editor=${this.editor}` +
         `&token=${this.authorizations}` +
-        `&id=${this.currentProject.id}`
+        (this.currentProject ? `&id=${this.currentProject.id}` : '')
     },
     ...mapState(['authorizations', 'currentProject', 'editor'])
   },
