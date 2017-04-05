@@ -725,6 +725,24 @@ function DeclickMap() {
                 currentIndex = stepIndex;
                 current.position = new paper.Point(step.position);
                 targetCurrent = new paper.Point(current.position);
+                // check that current is visible
+                if (!paper.view.bounds.contains(current.bounds)) {
+                    var deltaX=0;
+                    var deltaY=0;
+                    if (current.bounds.left < paper.view.bounds.left) {
+                        deltaX = current.bounds.left - paper.view.bounds.left - margin;
+                    } else if (current.bounds.right > paper.view.bounds.right) {
+                        deltaX = current.bounds.right - paper.view.bounds.right + margin;
+                    }
+                    if (current.bounds.top < paper.view.bounds.top) {
+                        deltaY = current.bounds.top - paper.view.bounds.top - margin;
+                    } else if (current.bounds.bottom > paper.view.bounds.bottom) {
+                        deltaY = current.bounds.bottom - paper.view.bounds.bottom + margin;
+                    }
+                    paper.view.center.x += deltaX;
+                    paper.view.center.y += deltaY;
+                    targetCenter = new paper.Point(paper.view.center);
+                }
                 if (callback) {
                     callback();
                 }
