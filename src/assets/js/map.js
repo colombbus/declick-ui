@@ -148,16 +148,16 @@ function DeclickMap() {
                 setTarget(initCenter, 1);
             }
         };
-        
+
 
         // mouse dragging management
         var dragStartPoint;
-        
+
         paper.view.onMouseDown = function(e){
             dragStartPoint = e.point;
         };
-        
-        paper.view.onMouseDrag = function(e){
+
+       paper.view.onMouseDrag = function(e){
             var delta = e.point.subtract(dragStartPoint);
             paper.view.center = paper.view.center.subtract(delta);
             targetCenter = paper.view.center;
@@ -272,7 +272,7 @@ function DeclickMap() {
                 labelsVisible = false;
             }
         } else {
-            if (paper.view.zoom >zoomDisplayLabels) {
+            if (paper.view.zoom >= zoomDisplayLabels) {
                 for (var i = 0; i<chapterLabels.length; i++) {
                     chapterLabels[i].visible = true;
                 }
@@ -326,12 +326,22 @@ function DeclickMap() {
             bounds = bounds.expand(2*margin);
             var zHeight = paper.view.bounds.height / (bounds.height);
             var zWidth = paper.view.bounds.width / (bounds.width);
+            var newZoom = paper.view.zoom * Math.min(zHeight, zWidth);
+            var newCenter = bounds.center;
+            console.debug(newCenter);
+            if (newZoom < zoomDisplayLabels) {
+                var cPosition = chapters[index].bounds.point.subtract(margin);
+                var delta = cPosition.subtract(newCenter).normalize((1-newZoom/zoomDisplayLabels)*bounds.width/2);
+                newCenter = newCenter.add(delta);
+                console.debug(newCenter);
+                newZoom = zoomDisplayLabels;
+            }
             if (animate) {
-                setTarget(bounds.center, paper.view.zoom * Math.min(zHeight, zWidth));
+                setTarget(newCenter, newZoom);
             } else {
-                paper.view.center = new paper.Point(bounds.center);
-                targetCenter = new paper.Point(bounds.center);
-                paper.view.zoom = paper.view.zoom * Math.min(zHeight, zWidth);
+                paper.view.center = new paper.Point(newCenter);
+                targetCenter = new paper.Point(newCenter);
+                paper.view.zoom = newZoom;
                 targetZoom = paper.view.zoom;
                 checkLabelsVisibility();
             }
