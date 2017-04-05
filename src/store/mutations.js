@@ -29,6 +29,9 @@ export default {
   [types.SET_CURRENT_STEP] (state, position) {
     let steps = flattenTree(state.steps, 'steps')
     let step = R.find(R.propEq('position', position), steps)
+    if (step) {
+      step.visited = true
+    }
     state.currentStep = step || null
   },
   [types.UPDATE_STEP_STATE] (state, value) {
