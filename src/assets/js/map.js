@@ -741,8 +741,6 @@ function DeclickMap() {
                     }
                     paper.view.center = paper.view.center.add(new paper.Point(deltaX, deltaY));
                     targetCenter = new paper.Point(paper.view.center);
-                } else {
-                    console.log("contient");
                 }
                 if (callback) {
                     callback();
