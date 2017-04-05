@@ -739,9 +739,10 @@ function DeclickMap() {
                     } else if (current.bounds.bottom > paper.view.bounds.bottom) {
                         deltaY = current.bounds.bottom - paper.view.bounds.bottom + margin;
                     }
-                    paper.view.center.x += deltaX;
-                    paper.view.center.y += deltaY;
+                    paper.view.center = paper.view.center.add(new paper.Point(deltaX, deltaY));
                     targetCenter = new paper.Point(paper.view.center);
+                } else {
+                    console.log("contient");
                 }
                 if (callback) {
                     callback();
