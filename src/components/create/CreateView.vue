@@ -11,12 +11,14 @@
     v-bind:css="false"
   )
     .slider(v-if='view')
-      component(
-        @createNewProject="view = 'ProjectCreation'"
-        @close='view = null',
-        :is='view'
-        v-if='view'
-      )
+      keep-alive
+        component(
+          @showView="showView"
+          @close='view = null',
+          :is='view',
+          :params='params'
+          v-if='view'
+        )
   iframe.frame(:src='frameUrl')
 </template>
 
@@ -26,7 +28,8 @@ import 'jquery'
 import {mapState, mapMutations} from 'vuex'
 import CreateHeaderBar from './CreateHeaderBar'
 import CreateMenuBar from './CreateMenuBar'
-import ProjectCreation from './ProjectCreation'
+import ProjectCreator from './ProjectCreator'
+import ProjectDetails from './ProjectDetails'
 import ProjectList from './ProjectList'
 import * as mutations from 'store/mutation-types'
 import config from 'assets/config/declick'
@@ -34,16 +37,18 @@ import config from 'assets/config/declick'
 export default {
   data () {
     return {
-      view: null
+      view: null,
+      params: null
     }
   },
   computed: {
     frameUrl () {
       return `${config.clientUrl}index.html` +
         `#editor=${this.editor}` +
-        `&token=${this.authorizations}`
+        `&token=${this.authorizations}` +
+        `&id=${this.currentProject.id}`
     },
-    ...mapState(['authorizations', 'editor'])
+    ...mapState(['authorizations', 'currentProject', 'editor'])
   },
   mounted () {
     window.addEventListener('message', ({data}) => {
@@ -58,6 +63,14 @@ export default {
     }, false)
   },
   methods: {
+    showView (payload) {
+      if (typeof payload === 'string') {
+        this.view = payload
+      } else {
+        this.view = payload.view
+        this.params = payload.params
+      }
+    },
     beforeEnter (element) {
       $(element).hide()
     },
@@ -74,7 +87,8 @@ export default {
   components: {
     CreateHeaderBar,
     CreateMenuBar,
-    ProjectCreation,
+    ProjectCreator,
+    ProjectDetails,
     ProjectList
   }
 }
@@ -87,6 +101,7 @@ export default {
   width: 100%
   padding: 10px
   background-color: #FFF
+  overflow: auto
 
 .frame
   height: calc(100vh - 112px)

@@ -14,6 +14,7 @@ export default new Vuex.Store({
     connected: false,
     authenticatedUser: null,
     currentProject: null,
+    currentUserProjects: null,
     authorizations: '',
     error_code: 0,
     currentStep: null,

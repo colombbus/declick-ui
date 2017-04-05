@@ -1,33 +1,23 @@
 <template lang="pug">
 div
   h3
-    | Mes projets (données d'exemple pour le moment)
+    | Mes projets
     button.close-button(@click="$emit('close')")
   ul.list-group
-    li
-      a.list-group-item(v-for='project in projects')
+    li(v-for='project in projects')
+      a.list-group-item(
+        @click="$emit('showView', {view: 'ProjectDetails', params: {project}})"
+      )
         h4 {{project.name}}
-  button.btn.btn-default(@click="$emit('createNewProject')")
+  button.btn.btn-default(@click="$emit('showView', 'ProjectCreator')")
     | démarrer un nouveau projet
 </template>
 
 <script>
+import {mapState} from 'vuex'
+
 export default {
-  data () {
-    return {
-      projects: [
-        {
-          name: 'Island Ception'
-        },
-        {
-          name: 'Réalisation d\'un clip musical'
-        },
-        {
-          name: 'Réalisation d\'un questionnaire'
-        }
-      ]
-    }
-  }
+  computed: mapState({projects: 'currentUserProjects'})
 }
 </script>
 

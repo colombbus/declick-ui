@@ -9,7 +9,7 @@
         a(
           @click="$emit('showProjectList')"
         ) projets
-  span.project-name Projet
+  span.project-name {{(currentProject && currentProject.name) || 'Projet'}}
   a(
     @click='toggleMode',
     :class="editor ? 'show-view-link' : 'show-editor-link'"
@@ -29,7 +29,7 @@ export default {
       setEditor: mutations.SET_EDITOR
     })
   },
-  computed: mapState(['editor'])
+  computed: mapState(['currentProject', 'editor'])
 }
 </script>
 

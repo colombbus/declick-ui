@@ -4,6 +4,9 @@ import * as types from './mutation-types.js'
 var mutations = types
 
 export default {
+  [mutations.SET_CURRENT_USER_PROJECTS] (state, payload) {
+    state.currentUserProjects = payload.projects
+  },
   [mutations.SET_CURRENT_PROJECT] (state, payload) {
     state.currentProject = payload.project
   },

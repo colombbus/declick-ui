@@ -53,9 +53,19 @@ export default {
     }
     return new Promise((resolve, reject) => {
       Vue.http.post(
-        config.apiUrl + 'v1/projects',
+        `${config.apiUrl}v1/projects`,
         body,
         {headers: {Authorization: 'Token ' + token}}
+      ).then(({body}) => {
+        resolve(body)
+      })
+    })
+  },
+  getUserProjects (userId, token) {
+    return new Promise((resolve, reject) => {
+      Vue.http.get(
+        `${config.apiUrl}v1/users/${userId}/projects`,
+        {headers: {Authorization: 'Token ' + token}},
       ).then(({body}) => {
         resolve(body)
       })

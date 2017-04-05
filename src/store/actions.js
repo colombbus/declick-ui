@@ -51,6 +51,7 @@ export const get_user = ({commit, dispatch}, user_id) => {
   Vue.http.get(config.apiUrl + 'v1/users/' + user_id).then((response) => {
     commit(types.SET_USER, response.body)
     dispatch('get_project', response.body.default_project_id)
+    dispatch('getCurrentUserProjects')
   })
 }
 export const update_users = ({commit}, user) => {
@@ -166,4 +167,12 @@ export const logOut = ({commit}) =>
 export const createProject = async ({commit, state}, {data}) => {
   let project = await Api.createProject(data, state.authorizations)
   commit(mutations.SET_CURRENT_PROJECT, {project})
+}
+
+export const getCurrentUserProjects = ({commit, state}) => {
+  Api.getUserProjects(state.authenticatedUser.id, state.authorizations)
+    .then(projects => {
+      commit('SET_CURRENT_USER_PROJECTS', {projects})
+    }
+  )
 }

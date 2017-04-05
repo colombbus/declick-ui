@@ -43,6 +43,12 @@ div
         v-model='instructions'
         rows='3'
       )
+    button.btn.btn-default(
+      @click="$emit('showView', 'ProjectList')"
+      type='button'
+    )
+      | annuler
+    | &nbsp;
     button.btn.btn-primary(@click='createProject' type='button')
       | créer
 </template>

@@ -38,6 +38,7 @@ new Vue({
         id: user[2],
         username: user[3]})
       this.$store.dispatch('get_project', user[0])
+      this.$store.dispatch('getCurrentUserProjects')
     }
   }
 })
