@@ -24,7 +24,7 @@ var webpackConfig = merge(baseWebpackConfig, {
         include: projectRoot,
         exclude: [/assets/, /node_modules/]
       }
-    ],    
+    ],
     loaders: utils.styleLoaders({ sourceMap: config.build.productionSourceMap, extract: true })
   },
   devtool: config.build.productionSourceMap ? '#source-map' : false,
