@@ -51,13 +51,13 @@ export default {
   cursor: pointer
 }
 #rightLink:hover {
-    background-image: url('../assets/img/arrow-right-hover.png');
+    background-image: url('../../assets/img/arrow-right-hover.png');
 }
 #leftLink:hover {
-    background-image: url('../assets/img/arrow-left-hover.png');
+    background-image: url('../../assets/img/arrow-left-hover.png');
 }
 #rightLink {
-    background-image: url('../assets/img/arrow-right.png');
+    background-image: url('../../assets/img/arrow-right.png');
     content: '';
     position: absolute;
     right: 115px !important;
@@ -69,7 +69,7 @@ export default {
 #leftLink {
     position: absolute;
     content: '';
-    background-image: url('../assets/img/arrow-left.png');
+    background-image: url('../../assets/img/arrow-left.png');
     right: 165px;
     top: 9px;
     left: initial !important;
@@ -102,7 +102,7 @@ export default {
   width: 45px;
   height: 45px;
   cursor: pointer;
-  background-image: url('../assets/img/dk.png');
+  background-image: url('../../assets/img/dk.png');
 }
 
 #map-control-small {
@@ -112,10 +112,10 @@ export default {
   width: 42px;
   height: 42px;
   cursor: pointer;
-  background-image: url('../assets/img/carte.png');
+  background-image: url('../../assets/img/carte.png');
 }
 
 #map-control-small:hover {
-  background-image: url('../assets/img/carte-hover.png')
+  background-image: url('../../assets/img/carte-hover.png')
 }
 </style>

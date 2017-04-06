@@ -1,6 +1,6 @@
 <template>
   <div>
-    <progress-small-nav-bar></progress-small-nav-bar>
+    <progress-header-bar></progress-header-bar>
     <iframe
       :src="urlLearn"
       id="declick-client-learn"
@@ -16,7 +16,7 @@ import { mapState, mapActions, mapMutations } from 'vuex'
 
 import * as mutations from '../../store/mutation-types.js'
 
-import ProgressSmallNavBar from '../ProgressSmallNavBar'
+import ProgressHeaderBar from '../learn/ProgressHeaderBar'
 
 window.Channel = Channel
 import pem from 'exports-loader?TaskProxyManager&Platform!pem-platform/task-xd-pr.js'
@@ -85,7 +85,7 @@ export default {
     iframe.addEventListener('load', initProxy)
   },
   components: {
-    ProgressSmallNavBar
+    ProgressHeaderBar
   }
 }
 
