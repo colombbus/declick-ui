@@ -11,8 +11,7 @@ div
         placeholder="nom d'utilisateur"
       )
     span.help-block(v-if='errors.username')
-      span(v-if="errors.username.includes('USERNAME_ALREADY_TAKEN')")
-        | Ce nom d'utilisateur est déjà pris.
+      | {{errors.username[0]}}
   .form-group.has-feedback(:class="{'has-error': errors.email}")
     .input-group
       .input-group-addon: span.glyphicon.glyphicon-envelope
@@ -48,7 +47,7 @@ div
         placeholder='confirmation mot de passe'
       )
     span.help-block(v-if='errors.passwordConfirmation')
-      | Les mots de passe ne correspondent pas
+      |  {{errors.passwordConfirmation[0]}}
   button(
     @click='register'
     type='button'
@@ -93,23 +92,31 @@ export default {
         let endpoint = `${config.apiUrl}v1/test/username`
         let {body: response} = await Vue.http.post(endpoint, {username: this.username})
         if (response.result === false) {
-          this.errors.username = ['USERNAME_ALREADY_TAKEN']
+          this.errors.username = ["Ce nom d'utilisateur est déjà pris."]
         }
       }, 500)
     },
     password () {
+      this.errors.password = null
       this.comparePasswords()
     },
     passwordConfirmation () {
+      this.errors.passwordConfirmation = null
       this.comparePasswords()
+    },
+    email () {
+      this.errors.email = null
     }
   },
   methods: {
     async register () {
       this.errors.server = null
       try {
-        if (this.comparePasswords()) {
-          var data = {          
+        if (!this.password || this.password.trim().length === 0) {
+          throw {body: {password: ["Mot de passe vide"]}}
+        }
+        if (!this.errors.username && !this.errors.password && !this.errors.passwordConfirmation && !this.errors.email) {
+          var data = {
             username: this.username,
             password: this.password
           }
@@ -126,7 +133,7 @@ export default {
       } catch (e) {
         if (e.body) {
           for (var field in e.body) {
-            this.errors[field] = e.body[field] 
+            this.errors[field] = e.body[field]
           }
         } else {
           this.errors.server = "Erreur du serveur"
@@ -134,16 +141,15 @@ export default {
       }
     },
     comparePasswords () {
-      this.errors.passwordConfirmation = null
       if ((this.password && this.password.trim().length > 0) || (this.passwordConfirmation && this.passwordConfirmation.trim().length > 0)) {
-        if (this.password == this.passwordConfirmation) {
+        if (this.password === this.passwordConfirmation) {
           return true
         } else {
-          this.errors.passwordConfirmation = true
+          this.errors.passwordConfirmation = ["Les mots de passe ne correspondent pas"]
         }
       }
       return false
-    }    
+    }
   },
   checkTimeout: false
 }
