@@ -100,6 +100,7 @@ export default {
           steps.forEach(step => {
             let result = R.find(R.propEq('step_id', step.id), results)
             if (result) {
+              console.log("found step with id " + step.id + " updating")
               step.visited = true
               step.passed = result.passed !== 0
               step.solution = result.solution
