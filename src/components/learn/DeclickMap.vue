@@ -67,7 +67,7 @@ export default {
     }
   },
   methods: {
-    loadSteps() {
+    loadSteps () {
       Api.retrieveSteps(this.$route.params.id, steps => {
         map.loadStepsFromUI(steps)
         this.setSteps(steps)
