@@ -1,7 +1,10 @@
 <template lang="pug">
 .self
   router-link(to='/me') {{authenticatedUser.username}}
-  router-link(to='/administration')
+  router-link(
+    to='/administration'
+    v-if='authenticatedUser.isAdmin'
+  )
     span.glyphicon.glyphicon-wrench
 </template>
 
