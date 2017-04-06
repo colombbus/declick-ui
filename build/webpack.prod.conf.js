@@ -7,6 +7,7 @@ var baseWebpackConfig = require('./webpack.base.conf')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var env = config.build.env
+var projectRoot = path.resolve(__dirname, '../')
 
 var webpackConfig = merge(baseWebpackConfig, {
   module: {
