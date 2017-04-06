@@ -13,7 +13,7 @@ div
     span.help-block(v-if='errors.username')
       span(v-if="errors.username.includes('USERNAME_ALREADY_TAKEN')")
         | Ce nom d'utilisateur est déjà pris.
-  .form-group.has-feedback
+  .form-group.has-feedback(:class="{'has-error': errors.email}")
     .input-group
       .input-group-addon: span.glyphicon.glyphicon-envelope
       input(
@@ -23,7 +23,9 @@ div
         class='form-control'
         placeholder="adresse email"
       )
-  .form-group.has-feedback
+    span.help-block(v-if='errors.email')
+      | {{errors.email[0]}}
+  .form-group.has-feedback(:class="{'has-error': errors.password}")
     .input-group
       .input-group-addon: span.glyphicon.glyphicon-lock
       input(
@@ -33,21 +35,27 @@ div
         class='form-control'
         placeholder='mot de passe'
       )
-  .form-group.has-feedback
+    span.help-block(v-if='errors.password')
+      | {{errors.password[0]}}
+  .form-group.has-feedback(:class="{'has-error': errors.passwordConfirmation}")
     .input-group
       .input-group-addon: span.glyphicon.glyphicon-lock
       input(
         @keyup.enter='register'
+        v-model='passwordConfirmation'
         type='password'
         class='form-control'
-        placeholder='confirmation du mot de passe'
-        disabled
+        placeholder='confirmation mot de passe'
       )
+    span.help-block(v-if='errors.passwordConfirmation')
+      | Les mots de passe ne correspondent pas
   button(
     @click='register'
     type='button'
     class='btn btn-block btn-primary'
   ) valider l'inscription
+  span.help-block(v-if='errors.server')
+    | {{errors.server}}
   button(
     @click="$emit('switch-to-connection')"
     type='button'
@@ -71,6 +79,7 @@ export default {
         password: null,
         passwordConfirmation: null
       },
+      passwordConfirmation: '',
       lastUsernameTest: 0
     }
   },
@@ -87,21 +96,54 @@ export default {
           this.errors.username = ['USERNAME_ALREADY_TAKEN']
         }
       }, 500)
+    },
+    password () {
+      this.comparePasswords()
+    },
+    passwordConfirmation () {
+      this.comparePasswords()
     }
   },
   methods: {
     async register () {
-      await this.$store.dispatch('register', {
-        username: this.username,
-        email: this.email,
-        password: this.password
-      })
-      await this.$store.dispatch('logIn', {
-        username: this.username,
-        password: this.password
-      })
-      this.$emit('close')
-    }
+      this.errors.server = null
+      try {
+        if (this.comparePasswords()) {
+          var data = {          
+            username: this.username,
+            password: this.password
+          }
+          if (this.email.trim().length > 0) {
+            data.email = this.email
+          }
+          await this.$store.dispatch('register', data)
+          await this.$store.dispatch('logIn', {
+            username: this.username,
+            password: this.password
+          })
+          this.$emit('close')
+        }
+      } catch (e) {
+        if (e.body) {
+          for (var field in e.body) {
+            this.errors[field] = e.body[field] 
+          }
+        } else {
+          this.errors.server = "Erreur du serveur"
+        }
+      }
+    },
+    comparePasswords () {
+      this.errors.passwordConfirmation = null
+      if ((this.password && this.password.trim().length > 0) || (this.passwordConfirmation && this.passwordConfirmation.trim().length > 0)) {
+        if (this.password == this.passwordConfirmation) {
+          return true
+        } else {
+          this.errors.passwordConfirmation = true
+        }
+      }
+      return false
+    }    
   },
   checkTimeout: false
 }
