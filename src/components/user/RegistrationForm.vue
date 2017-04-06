@@ -54,7 +54,7 @@ div
     class='btn btn-block btn-primary'
   ) valider l'inscription
   span.help-block(v-if='errors.server')
-    | {{errors.server}}
+    | {{errors.server[0]}}
   button(
     @click="$emit('switch-to-connection')"
     type='button'
@@ -136,7 +136,7 @@ export default {
             this.errors[field] = e.body[field]
           }
         } else {
-          this.errors.server = "Erreur du serveur"
+          this.errors.server =  ["Erreur du serveur"]
         }
       }
     },
