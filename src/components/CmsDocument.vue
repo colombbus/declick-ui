@@ -27,7 +27,7 @@ export default {
     'id'
   ],
   created () {
-    var router = this.$router
+    let router = this.$router
     window.goTo = function (location) {
       router.push(location)
     }
