@@ -65,7 +65,6 @@ transition(name='modal')
 import 'bootstrap-social/bootstrap-social.css'
 import 'font-awesome/css/font-awesome.css'
 import RegistrationForm from './RegistrationForm'
-import {mapState} from 'vuex'
 
 export default {
   data () {
@@ -77,7 +76,7 @@ export default {
       error: null
     }
   },
-    methods: {
+  methods: {
     async logIn () {
       this.isLogingIn = true
       try {

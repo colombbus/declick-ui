@@ -113,7 +113,8 @@ export default {
       this.errors.server = null
       try {
         if (!this.password || this.password.trim().length === 0) {
-          throw {body: {password: ["Mot de passe vide"]}}
+          let error = {body: {password: ["Mot de passe vide"]}}
+          throw error
         }
         if (!this.errors.username && !this.errors.password && !this.errors.passwordConfirmation && !this.errors.email) {
           var data = {
@@ -136,7 +137,7 @@ export default {
             this.errors[field] = e.body[field]
           }
         } else {
-          this.errors.server =  ["Erreur du serveur"]
+          this.errors.server = ["Erreur du serveur"]
         }
       }
     },
