@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import AuthenticationModal from 'components/AuthenticationModal'
+import AuthenticationModal from 'components/user/AuthenticationModal'
 import {mapState, mapActions} from 'vuex'
 import config from 'assets/config/declick'
 
