@@ -13,7 +13,6 @@ import CircuitList from 'components/learn/CircuitList'
 import Progress from 'components/learn/Progress'
 import DeclickMap from 'components/learn/DeclickMap'
 
-import MyList from 'components/MyList'
 import CurrentProjectInformations from 'components/CurrentProjectInformations'
 import config from 'assets/config/declick'
 
@@ -112,11 +111,6 @@ var routes = [
         path: 'edit/:id',
         component: EditProject,
         meta: { title: 'Edition' }
-      },
-      {
-        path: 'list/:type',
-        component: MyList,
-        meta: { title: 'list' }
       }
     ]
   }
