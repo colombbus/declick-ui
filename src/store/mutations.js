@@ -49,10 +49,8 @@ export default {
     state.logInErrors = payload.errors
   },
   [types.AUTHENTICATION_SUCCESS] (state, token) {
-    state.logInErrors = null
     state.authorizations = token
     state.connected = true
-    state.error_code = 0
     localStorage.setItem('authorizations', state.authorizations)
   },
   [types.CURRENT_PROJECT] (state, project) {
@@ -81,9 +79,6 @@ export default {
     state.authenticatedUser = null
     state.authorizations = ''
     state.connected = false
-  },
-  [types.ERROR] (state, error) {
-    state.error_code = error.status
   }
 }
 

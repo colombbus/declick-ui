@@ -4,11 +4,10 @@ transition(name='modal')
     .wrapper
       .container(@click.stop='')
         div(v-show="mode === 'connection'")
-          .form-group.has-error(v-if='errors.global')
+          .form-group.has-error(v-if='error')
             span.help-block
-              span(v-if="errors.global.includes('NO_MATCH_FOUND')")
-                | Aucun utilisateur n'a été trouvé avec ce mot de passe.
-          .form-group.has-feedback(:class="{'has-error': errors.username}")
+             | Nom d'utilisateur ou mot de passe incorrect
+          .form-group.has-feedback
             .input-group
               .input-group-addon: span.glyphicon.glyphicon-user
               input(
@@ -18,10 +17,7 @@ transition(name='modal')
                 class='form-control'
                 placeholder="nom d'utilisateur"
               )
-            span.help-block(v-if='errors.username')
-              span(v-if="errors.username.includes('SPACE_IN_USERNAME')")
-                | Le nom d'utilisateur ne doit pas contenir d'espace.
-          .form-group(:class="{'has-error': errors.password}")
+          .form-group
             .input-group
               .input-group-addon: span.glyphicon.glyphicon-lock
               input(
@@ -31,9 +27,6 @@ transition(name='modal')
                 class='form-control'
                 placeholder='mot de passe'
               )
-            span.help-block(v-if='errors.password')
-              span(v-if="errors.password.includes('SPACE_IN_PASSWORD')")
-                | Le mot de passe ne doit pas contenir d'espace.
           button(
             @click='logIn',
             :disabled='isLogingIn'
@@ -81,34 +74,10 @@ export default {
       isLogingIn: false,
       username: '',
       password: '',
-      errors: {
-        username: null,
-        password: null,
-        global: null
-      }
+      error: null
     }
   },
-  computed: mapState(['logInErrors']),
-  watch: {
-    username (value) {
-      if (/\s/.test(value)) {
-        this.errors.username = ['SPACE_IN_USERNAME']
-      } else {
-        this.errors.username = null
-      }
-    },
-    password (value) {
-      if (/\s/.test(value)) {
-        this.errors.password = ['SPACE_IN_PASSWORD']
-      } else {
-        this.errors.password = null
-      }
-    },
-    'logInErrors' (value) {
-      this.errors.global = value
-    }
-  },
-  methods: {
+    methods: {
     async logIn () {
       this.isLogingIn = true
       try {
@@ -117,6 +86,8 @@ export default {
           password: this.password
         })
         this.$emit('close')
+      } catch (e) {
+        this.error = e.errors
       } finally {
         this.isLogingIn = false
       }

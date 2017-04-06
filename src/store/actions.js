@@ -155,8 +155,7 @@ export const logIn = ({commit, dispatch}, {username, password}) => {
       dispatch('get_user', response.owner_id)
       resolve()
     }).catch(({body: response}) => {
-      commit(types.AUTHENTICATION_FAILURE, response)
-      reject()
+      reject(response)
     })
   })
 }
