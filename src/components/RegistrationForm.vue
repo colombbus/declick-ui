@@ -75,15 +75,18 @@ export default {
     }
   },
   watch: {
-    async username (value) {
-      let endpoint = `${config.apiUrl}v1/test/username`
-      let {body: response} = await Vue.http.post(endpoint, {username: this.username})
-      if (response.result === false) {
-        console.log('rekt')
-        this.errors.username = ['USERNAME_ALREADY_TAKEN']
-      } else {
-        this.errors.username = null
+    username (value) {
+      this.errors.username = null
+      if (this.checkTimeout) {
+        window.clearTimeout(this.checkTimeout)
       }
+      this.checkTimeout = window.setTimeout(async () => {
+        let endpoint = `${config.apiUrl}v1/test/username`
+        let {body: response} = await Vue.http.post(endpoint, {username: this.username})
+        if (response.result === false) {
+          this.errors.username = ['USERNAME_ALREADY_TAKEN']
+        }
+      }, 500)
     }
   },
   methods: {
@@ -99,7 +102,8 @@ export default {
       })
       this.$emit('close')
     }
-  }
+  },
+  checkTimeout: false
 }
 </script>
 
