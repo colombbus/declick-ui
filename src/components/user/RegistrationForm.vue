@@ -20,7 +20,7 @@ div
         v-model='email'
         type='text'
         class='form-control'
-        placeholder="adresse email"
+        placeholder="email (optionnel)"
       )
     span.help-block(v-if='errors.email')
       | {{errors.email[0]}}
