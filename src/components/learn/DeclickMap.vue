@@ -61,6 +61,9 @@ export default {
     },
     authenticatedUser () {
       this.loadSteps()
+    },
+    '$route.params.id' () {
+      this.loadSteps()
     }
   },
   methods: {
