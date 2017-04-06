@@ -16,7 +16,8 @@
         to='/create'
         class='illustrated-link create-link'
       ) Créer
-    li
+    //- TO REMOVE WHEN FORUM READY
+    //-li
       a(
         :href='forumLink'
         class='illustrated-link discuss-link'

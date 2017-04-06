@@ -400,6 +400,11 @@ export default {
   text-decoration: none;
 }
 
+/* TO REMOVE WHEN FORUM READY*/
+.front__menu a:last-child {
+  display:none;
+}
+
 .front__menu a.selected {
   background-color:#E32B1F;
   color:#FFFFFF;
@@ -496,6 +501,11 @@ export default {
   font-size:14px;
 }
 
+/* TO REMOVE WHEN FORUM READY*/
+.front__tool:nth-child(3) {
+  display:none;
+}
+
 .front__colombbus {
   margin-top:100px;
   background-color:#e32c1f;
@@ -573,5 +583,14 @@ export default {
   font-weight:normal;
   margin-bottom:25px;
 }
+
+.front__warning {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  color: #ffffff;
+  background-color:#480A2A;
+}
+
 
 </style>
