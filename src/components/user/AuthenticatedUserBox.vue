@@ -3,7 +3,7 @@
   router-link(to='/me') {{authenticatedUser.username}}
   router-link(
     to='/administration'
-    v-if='authenticatedUser.isAdmin'
+    v-if='authenticatedUser.is_admin'
   )
     span.glyphicon.glyphicon-wrench
 </template>
