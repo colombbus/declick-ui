@@ -56,7 +56,6 @@ export default {
 
     pem.Platform.prototype.validate = function (mode, success, error) {
       task.getAnswer(answer => {
-        self.updateStepState({passed: true})
         self.setCurrentStepResult({passed: true, solution: answer})
         // wait for all watchers to be triggered
         self.$nextTick(() => {

@@ -11,15 +11,12 @@ export default {
     state.currentProject = payload.project
   },
   [types.SET_CURRENT_STEP_RESULT] (state, payload) {
-    let steps = flattenTree(state.steps, 'steps')
-    let step = R.find(R.propEq('position', state.currentStep.position), steps)
-    if (step) {
-      step.visited = true
+    if (state.currentStep) {
       if (payload.passed) {
-        step.passed = payload.passed
+        state.currentStep.passed = payload.passed
       }
       if (payload.solution) {
-        step.solution = payload.solution
+        state.currentStep.solution = payload.solution
       }
     }
   },
