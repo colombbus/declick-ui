@@ -19,7 +19,13 @@ import HeaderBar from 'components/navigation/HeaderBar'
 export default {
   computed: {
     viewId () {
-      return R.last(this.$route.matched).meta.id || null
+      if (this.$route.matched) {
+        var last = R.last(this.$route.matched)
+        if (last && last.meta && last.meta.id) {
+          return last.meta.id
+        }
+      }
+      return null
     },
     viewUseFullscreen () {
       return this.$route.matched.some(match => match.meta.useFullscreen)
