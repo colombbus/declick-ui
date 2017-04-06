@@ -96,7 +96,9 @@ export default {
         let rootNode = nodes.filter(node => node.parent_id === null)[0]
         let tree = convertNodes(rootNode, nodes, { position: 0 }).steps
         getResults(results => {
+          console.debug(results)
           let steps = flattenTree(tree, 'steps')
+          console.debug(steps)
           steps.forEach(step => {
             let result = R.find(R.propEq('step_id', step.id), results)
             if (result) {
