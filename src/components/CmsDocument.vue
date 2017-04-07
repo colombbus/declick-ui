@@ -592,5 +592,9 @@ export default {
   background-color:#480A2A;
 }
 
+.front__warning a:hover {
+  color: #337ab7;
+}
+
 
 </style>
