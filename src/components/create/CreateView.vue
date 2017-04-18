@@ -97,8 +97,8 @@ export default {
         wikiFrame.css("left", "-365px").show().animate({left: "0"}, 500)
         createFrame.animate({"padding-left": "365px"}, 500)
       } else {
-        wikiFrame.animate({left: "-365px"}, 500, function() {this.hide()})
-        createFrame.animate({"padding-left": "8px"}, 500, function() {this.css("padding-left", "")})
+        wikiFrame.animate({left: "-365px"}, 500, function () { this.hide() })
+        createFrame.animate({"padding-left": "8px"}, 500, function () { this.css("padding-left", "") })
       }
     },
     ...mapMutations({
