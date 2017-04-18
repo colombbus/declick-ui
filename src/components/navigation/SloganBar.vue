@@ -1,6 +1,6 @@
 <template lang="pug">
 router-link(to='/')
-  | des clics
+  | Des clics
   br
   | et du code
 </template>
