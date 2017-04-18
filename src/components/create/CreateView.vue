@@ -19,7 +19,8 @@
           :params='params'
           v-if='view'
         )
-  iframe.frame(:src='frameUrl')
+  iframe.wikiFrame(:src='wikiUrl', ref='wiki')
+  iframe.frame(:src='frameUrl', ref='create')
 </template>
 
 <script>
@@ -38,7 +39,9 @@ export default {
   data () {
     return {
       view: null,
-      params: null
+      params: null,
+      wikiUrl: config.wikiUrl,
+      wiki: false
     }
   },
   computed: {
@@ -46,7 +49,8 @@ export default {
       return `${config.clientUrl}index.html` +
         `#editor=${this.editor}` +
         `&token=${this.authorizations}` +
-        (this.currentProject ? `&id=${this.currentProject.id}` : '')
+        (this.currentProject ? `&id=${this.currentProject.id}` : '') +
+        `&wiki=${this.wiki}`
     },
     ...mapState(['authorizations', 'currentProject', 'editor'])
   },
@@ -58,6 +62,9 @@ export default {
           break
         case 'switchView':
           this.setEditor(false)
+          break
+        case 'toggleWiki':
+          this.toggleWiki()
           break
       }
     }, false)
@@ -80,6 +87,20 @@ export default {
     onLeave (element, done) {
       $(element).slideUp(1000, done)
     },
+    toggleWiki () {
+      let wikiFrame = $(this.$refs.wiki)
+      let createFrame = $(this.$refs.create)
+      wikiFrame.stop()
+      createFrame.stop()
+      this.wiki = !(this.wiki)
+      if (this.wiki) {
+        wikiFrame.css("left", "-365px").show().animate({left: "0"}, 500)
+        createFrame.animate({"padding-left": "365px"}, 500)
+      } else {
+        wikiFrame.animate({left: "-365px"}, 500, function() {this.hide()})
+        createFrame.animate({"padding-left": "8px"}, 500, function() {this.css("padding-left", "")})
+      }
+    },
     ...mapMutations({
       setEditor: mutations.SET_EDITOR
     })
@@ -95,6 +116,9 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+.create-view
+  position:relative
+
 .slider
   position: absolute
   height: calc(100vh - 112px)
@@ -109,4 +133,11 @@ export default {
   padding: 0 8px 8px 8px
   border: none
   overflow: hidden
+
+.wikiFrame
+  position: absolute
+  height: calc(100vh - 112px)
+  width: 365px
+  display: none
+  border: none
 </style>

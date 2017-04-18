@@ -4,5 +4,6 @@ export default {
   apiUrl: 'http://localhost/declick-server/api/',
   clientUrl: 'http://localhost/declick-client/dist/',
   cmsUrl: 'http://localhost/directus/cms/',
-  forumUrl: 'http://localhost/forum'
+  forumUrl: 'http://localhost/forum/',
+  wikiUrl: 'http://localhost/wiki/'
 }
