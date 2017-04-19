@@ -2,13 +2,12 @@
 div
   h3
     | Mes projets
-    button.close-button(@click="$emit('close')")
   ul.list-group
-    li(v-for='project in projects')
-      a.list-group-item(
+    li.list-group-item(v-for='project in projects')
+      a(
         @click="$emit('showView', {view: 'ProjectDetails', params: {project}})"
       )
-        h4 {{project.name}}
+        h4.list-group-item-heading {{project.name}}
   button.btn.btn-default(@click="$emit('showView', 'ProjectCreator')")
     | démarrer un nouveau projet
 </template>
@@ -21,16 +20,15 @@ export default {
 }
 </script>
 
-<style lang="sass">
+<style lang="sass" scoped>
+a
+  color: inherit
+
+a:hover
+  color: inherit
+  text-decoration: none
+
 .list-group-item:hover
   background-color: #F5F5F5
   cursor: pointer
-
-.close-button
-  float: right
-  width: 26px
-  height: 26px
-  background-color: transparent
-  background-image: url(~assets/image/close-small.png)
-  border: none
 </style>

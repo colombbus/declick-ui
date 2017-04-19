@@ -2,7 +2,6 @@
 div
   h3
     | Mes projets > {{project.name}}
-    button.close-button(@click="$emit('close')")
   .panel.panel-default
     dl
       dt nom du projet
@@ -17,6 +16,12 @@ div
       dd {{project.description}}
       dt instructions
       dd {{project.instructions}}
+  button.btn.btn-default(
+    @click="$emit('showView', {view: 'ProjectEditor', params: {project}})"
+    type='button'
+  ) modifier les informations
+  |
+  |
   button.btn.btn-default(
     @click="selectAsCurrentProject"
     type='button'
@@ -43,24 +48,18 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+.panel
+  padding-top: 20px
+
 dt
   display: inline-block
   padding: 5px
-  width: 33%
+  width: 25%
   font-weight: bold
   text-align: right
 
 dd
   display: inline-block
-  width: 66%
+  width: 75%
   padding: 5px
-
-.close-button
-  float: right
-  width: 26px
-  height: 26px
-  background-color: transparent
-  background-image: url(~assets/image/close-small.png)
-  border: none
-
 </style>

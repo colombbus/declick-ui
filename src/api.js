@@ -61,6 +61,57 @@ export default {
       })
     })
   },
+  updateProject (id, data, token) {
+    let body = {
+      name: data.name,
+      is_public: data.isPublic,
+      scene_width: data.sceneWidth,
+      scene_height: data.sceneHeight,
+      description: data.description,
+      instructions: data.instructions
+    }
+    return new Promise((resolve, reject) => {
+      Vue.http.patch(
+        `${config.apiUrl}v1/projects/${id}`,
+        body,
+        {headers: {Authorization: 'Token ' + token}}
+      ).then(({body}) => {
+        resolve(body)
+      })
+    })
+  },
+  updateUser (id, data, token) {
+    let body = {
+      email: data.email
+    }
+    return new Promise((resolve, reject) => {
+      Vue.http.patch(
+        `${config.apiUrl}v1/users/${id}`,
+        body,
+        {headers: {Authorization: 'Token ' + token}}
+      ).then(({body}) => {
+        resolve(body)
+      })
+    })
+  },
+  getUsers (page, search) {
+    let url = `${config.apiUrl}v1/users?page=${page}`
+    if (search && search !== '') {
+      url += `&search=${search}`
+    }
+    return new Promise((resolve, reject) => {
+      Vue.http.get(url).then(({body}) => {
+        let result = {
+          items: body.data,
+          currentPage: body.current_page,
+          lastPage: body.last_page,
+          previousPageUrl: body.prev_page_url,
+          nextPageUrl: body.next_page_url
+        }
+        resolve(result)
+      })
+    })
+  },
   getUserProjects (userId, token) {
     return new Promise((resolve, reject) => {
       Vue.http.get(

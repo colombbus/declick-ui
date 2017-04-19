@@ -2,7 +2,6 @@
 div
   h3
     | Nouveau projet
-    button.close-button(@click="$emit('close')")
   form
     .form-group
       label(for='project-creation-project-name')
@@ -81,13 +80,3 @@ export default {
   }
 }
 </script>
-
-<style lang="sass">
-.close-button
-  float: right
-  width: 26px
-  height: 26px
-  background-color: transparent
-  background-image: url(~assets/image/close-small.png)
-  border: none
-</style>

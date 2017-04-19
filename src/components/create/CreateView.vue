@@ -2,7 +2,7 @@
 .create-view
   create-header-bar
   create-menu-bar(
-    @showProjectList="view = 'ProjectList'"
+    @showView="showView"
   )
   transition(
     v-on:before-enter="beforeEnter"
@@ -11,16 +11,16 @@
     v-bind:css="false"
   )
     .slider(v-if='view')
+      button.close-button(@click='view = null')
       keep-alive
         component(
-          @showView="showView"
+          @showView="showView",
           @close='view = null',
           :is='view',
           :params='params'
           v-if='view'
         )
-  iframe.wikiFrame(:src='wikiUrl', ref='wiki')
-  iframe.frame(:src='frameUrl', ref='create')
+  iframe.frame(:src='frameUrl')
 </template>
 
 <script>
@@ -31,7 +31,11 @@ import CreateHeaderBar from './CreateHeaderBar'
 import CreateMenuBar from './CreateMenuBar'
 import ProjectCreator from './ProjectCreator'
 import ProjectDetails from './ProjectDetails'
+import ProjectEditor from './ProjectEditor'
 import ProjectList from './ProjectList'
+import UserEditor from '../user/UserEditor'
+import UserList from '../user/UserList'
+import UserProfile from '../user/UserProfile'
 import * as mutations from 'store/mutation-types'
 import config from 'assets/config/declick'
 
@@ -39,9 +43,7 @@ export default {
   data () {
     return {
       view: null,
-      params: null,
-      wikiUrl: config.wikiUrl,
-      wiki: false
+      params: null
     }
   },
   computed: {
@@ -49,8 +51,7 @@ export default {
       return `${config.clientUrl}index.html` +
         `#editor=${this.editor}` +
         `&token=${this.authorizations}` +
-        (this.currentProject ? `&id=${this.currentProject.id}` : '') +
-        `&wiki=${this.wiki}`
+        (this.currentProject ? `&id=${this.currentProject.id}` : '')
     },
     ...mapState(['authorizations', 'currentProject', 'editor'])
   },
@@ -62,9 +63,6 @@ export default {
           break
         case 'switchView':
           this.setEditor(false)
-          break
-        case 'toggleWiki':
-          this.toggleWiki()
           break
       }
     }, false)
@@ -87,20 +85,6 @@ export default {
     onLeave (element, done) {
       $(element).slideUp(1000, done)
     },
-    toggleWiki () {
-      let wikiFrame = $(this.$refs.wiki)
-      let createFrame = $(this.$refs.create)
-      wikiFrame.stop()
-      createFrame.stop()
-      this.wiki = !(this.wiki)
-      if (this.wiki) {
-        wikiFrame.css("left", "-365px").show().animate({left: "0"}, 500)
-        createFrame.animate({"padding-left": "365px"}, 500)
-      } else {
-        wikiFrame.animate({left: "-365px"}, 500, function () { this.hide() })
-        createFrame.animate({"padding-left": "8px"}, 500, function () { this.css("padding-left", "") })
-      }
-    },
     ...mapMutations({
       setEditor: mutations.SET_EDITOR
     })
@@ -110,15 +94,16 @@ export default {
     CreateMenuBar,
     ProjectCreator,
     ProjectDetails,
-    ProjectList
+    ProjectEditor,
+    ProjectList,
+    UserEditor,
+    UserList,
+    UserProfile
   }
 }
 </script>
 
 <style lang="sass" scoped>
-.create-view
-  position:relative
-
 .slider
   position: absolute
   height: calc(100vh - 112px)
@@ -127,17 +112,19 @@ export default {
   background-color: #FFF
   overflow: auto
 
+.close-button
+  float: right
+  width: 26px
+  height: 26px
+  margin-top: 20px
+  background-color: transparent
+  background-image: url(~assets/image/close-small.png)
+  border: none
+
 .frame
   height: calc(100vh - 112px)
   width: 100%
   padding: 0 8px 8px 8px
   border: none
   overflow: hidden
-
-.wikiFrame
-  position: absolute
-  height: calc(100vh - 112px)
-  width: 365px
-  display: none
-  border: none
 </style>

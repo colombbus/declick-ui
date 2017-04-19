@@ -67,7 +67,8 @@ export default {
       user.default_project_id + '/' +
       user.email + '/' +
       user.id + '/' +
-      user.username
+      user.username + '/' +
+      user.is_admin
     )
   },
   [types.LOG_OUT] (state) {

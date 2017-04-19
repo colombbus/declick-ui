@@ -3,12 +3,12 @@
   .dropdown
     a.dropdown-trigger(type='button' data-toggle='dropdown')
     ul.dropdown-menu
-      li: router-link(to='/create/current') informations
+      li: a(@click="$emit('showView', {view: 'ProjectDetails', params: {project: currentProject}})") informations
       li.divider(role='separator')
-      li
-        a(
-          @click="$emit('showProjectList')"
-        ) projets
+      li: a(@click="$emit('showView', 'ProjectList')") projets
+      li.divider(v-show='authenticatedUser.is_admin' role='separator')
+      li(v-show='authenticatedUser.is_admin')
+        a(@click="$emit('showView', 'UserList')") utilisateurs
   span.project-name {{(currentProject && currentProject.name) || 'Projet'}}
   a(
     @click='toggleMode',
@@ -21,6 +21,9 @@ import {mapState, mapMutations} from 'vuex'
 import * as mutations from 'store/mutation-types'
 
 export default {
+  created () {
+    console.debug(this.authenticatedUser)
+  },
   methods: {
     toggleMode () {
       this.setEditor(!this.editor)
@@ -29,7 +32,7 @@ export default {
       setEditor: mutations.SET_EDITOR
     })
   },
-  computed: mapState(['currentProject', 'editor'])
+  computed: mapState(['authenticatedUser', 'currentProject', 'editor'])
 }
 </script>
 

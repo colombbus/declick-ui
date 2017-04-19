@@ -168,6 +168,14 @@ export const createProject = async ({commit, state}, {data}) => {
   commit(mutations.SET_CURRENT_PROJECT, {project})
 }
 
+export const updateUser = async ({commit, state}, {id, data}) => {
+  await Api.updateUser(id, data, state.authorizations)
+}
+
+export const updateProject = async ({commit, state}, {id, data}) => {
+  await Api.updateProject(id, data, state.authorizations)
+}
+
 export const getCurrentUserProjects = ({commit, state}) => {
   Api.getUserProjects(state.authenticatedUser.id, state.authorizations)
     .then(projects => {
