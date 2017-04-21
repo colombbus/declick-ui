@@ -1,7 +1,7 @@
 <template lang="pug">
 div
   slogan-bar
-  authenticated-user-box.user-box(v-if='authenticatedUser')
+  authenticated-user-box.user-box(v-if='user')
   main-menu
   breadcrumb
 </template>
@@ -14,7 +14,7 @@ import SloganBar from 'components/navigation/SloganBar'
 import {mapState} from 'vuex'
 
 export default {
-  computed: mapState(['authenticatedUser']),
+  computed: mapState(['user']),
   components: {
     AuthenticatedUserBox,
     Breadcrumb,

@@ -4,20 +4,16 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 import CmsDocument from 'components/CmsDocument'
-import UserProfile from 'components/UserProfile'
 import Administration from 'components/Administration'
-import EditProject from 'components/EditProject'
-import ListAdmin from 'components/ListAdmin'
-import Circuit from 'components/learn/Circuit'
-import CircuitList from 'components/learn/CircuitList'
+import course from 'components/learn/course'
+import courseList from 'components/learn/courseList'
 import Progress from 'components/learn/Progress'
 import DeclickMap from 'components/learn/DeclickMap'
 
-import CurrentProjectInformations from 'components/CurrentProjectInformations'
 import config from 'assets/config/declick'
 
-import AdministrationCircuitList from 'components/administration/CircuitList'
-import CircuitEditor from 'components/administration/CircuitEditor'
+import AdministrationcourseList from 'components/administration/courseList'
+import courseEditor from 'components/administration/courseEditor'
 
 var routes = [
   {
@@ -44,12 +40,12 @@ var routes = [
     children: [
       {
         path: '',
-        component: CircuitList,
+        component: courseList,
         meta: { title: 'Liste des parcours' }
       },
       {
-        path: 'circuit/:id',
-        component: Circuit,
+        path: 'course/:id',
+        component: course,
         children: [
           {
             path: '',
@@ -70,11 +66,6 @@ var routes = [
     ]
   },
   {
-    path: '/users/me',
-    component: UserProfile,
-    meta: { title: 'Mon Profil' }
-  },
-  {
     path: '/create',
     name: 'create',
     meta: {
@@ -88,29 +79,14 @@ var routes = [
     meta: { title: 'Administration' },
     children: [
       {
-        path: 'circuits',
-        component: AdministrationCircuitList,
+        path: 'courses',
+        component: AdministrationcourseList,
         meta: { title: 'Liste des parcours' }
       },
       {
-        path: 'circuits/:id',
-        component: CircuitEditor,
+        path: 'courses/:id',
+        component: courseEditor,
         meta: { title: 'Modification de parcours' }
-      },
-      {
-        path: 'lists/:type',
-        component: ListAdmin,
-        meta: { title: 'liste' }
-      },
-      {
-        path: 'current',
-        component: CurrentProjectInformations,
-        meta: { title: 'Panneau d\'exemple' }
-      },
-      {
-        path: 'edit/:id',
-        component: EditProject,
-        meta: { title: 'Edition' }
       }
     ]
   }

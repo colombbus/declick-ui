@@ -1,39 +1,44 @@
 <template lang="pug">
 .self
-  .circuit(v-for='circuit in circuits')
+  .course(v-for='course in courses')
     .image-area
-      img(v-if='circuit.imageUrl', :src='circuit.imageUrl')
+      img(v-if='course.imageUrl', :src='course.imageUrl')
     p.fields-area
-      router-link.name(:to="'/progress/circuit/' + circuit.id") {{circuit.name}}
+      router-link.name(:to="'/progress/course/' + course.id") {{course.name}}
       br
-      span.summary {{circuit.summary}}
+      span.summary {{course.summary}}
       br
-      span(v-if='!circuit.showDetails')
-        a.toggle-details-link(@click='circuit.showDetails = true')
+      span(v-if='!course.showDetails')
+        a.toggle-details-link(@click='course.showDetails = true')
           span.glyphicon.glyphicon-triangle-right
           |
           | afficher les détails
       span(v-else)
-        a.toggle-details-link(@click='circuit.showDetails = false')
+        a.toggle-details-link(@click='course.showDetails = false')
           span.glyphicon.glyphicon-triangle-bottom
           |
           | masquer les détails
         br
-        span.details {{circuit.details}}
+        span.details {{course.details}}
 </template>
 
 <script>
-import Api from '../../api'
+import {mapActions} from 'vuex'
 
 export default {
   data () {
     return {
-      circuits: []
+      courses: []
     }
   },
   async created () {
-    this.circuits = await Api.getCircuits()
-  }
+    let courses = await this.getAllCourses()
+    courses.forEach((course) => {
+      course.showDetails = false
+    })
+    this.courses = courses
+  },
+  methods: mapActions(['getAllCourses'])
 }
 </script>
 
@@ -46,12 +51,12 @@ export default {
   // @todo Find a workaround to override a property in Vue scoped CSS mode.
   margin: 0 auto !important
 
-.circuit
+.course
   margin-top: 20px
   padding-left: 150px
   border: 2px solid #E7E6E6
 
-.circuit:after
+.course:after
   content: ''
   display: block
   clear: both

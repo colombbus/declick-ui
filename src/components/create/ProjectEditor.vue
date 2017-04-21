@@ -67,9 +67,9 @@ export default {
   },
   created () {
     this.name = this.params.project.name
-    this.isPublic = this.params.project.is_public
-    this.sceneWidth = this.params.project.scene_width
-    this.sceneHeight = this.params.project.scene_height
+    this.isPublic = this.params.project.isPublic
+    this.sceneWidth = this.params.project.sceneWidth
+    this.sceneHeight = this.params.project.sceneHeight
     this.description = this.params.project.description
     this.instructions = this.params.project.instructions
   },
@@ -83,14 +83,15 @@ export default {
         description: this.description,
         instructions: this.instructions
       }
-      await this.$store.dispatch('updateProject', {
+      let truc = await this.$store.dispatch('updateProject', {
         id: this.params.project.id,
         data
       })
+      console.debug(truc)
       this.params.project.name = this.name
-      this.params.project.is_public = this.isPublic
-      this.params.project.scene_width = this.sceneWidth
-      this.params.project.scene_height = this.sceneHeight
+      this.params.project.isPublic = this.isPublic
+      this.params.project.sceneWidth = this.sceneWidth
+      this.params.project.sceneHeight = this.sceneHeight
       this.params.project.description = this.description
       this.params.project.instructions = this.instructions
       this.showProjectDetails()

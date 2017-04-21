@@ -23,7 +23,7 @@
         class='illustrated-link discuss-link'
         target='forum'
       ) Discuter
-    li(v-if='!authenticatedUser')
+    li(v-if='!user')
       a(
         @click='isAuthenticationModalVisible = true'
         class="illustrated-link log-in-link"
@@ -51,7 +51,7 @@ export default {
     forumLink () {
       return config.forumUrl
     },
-    ...mapState(['authenticatedUser'])
+    ...mapState(['user'])
   },
   methods: mapActions(['logOut']),
   components: {

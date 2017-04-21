@@ -2,7 +2,7 @@
 .self(:style="{overflow: viewUseFullscreen ? 'hidden' : null}")
   header-bar.header(v-show='!viewUseFullscreen')
   .content
-    circuit-run(v-show="this.$route.name === 'step'")
+    course-run(v-show="this.$route.name === 'step'")
     create-view(v-show="this.$route.name === 'create'")
     keep-alive
       router-view(:key='viewId', :id='viewId')
@@ -11,7 +11,7 @@
 
 <script>
 import R from 'ramda'
-import CircuitRun from 'components/learn/CircuitRun'
+import courseRun from 'components/learn/CourseRun'
 import CreateView from 'components/create/CreateView'
 import FooterBar from 'components/navigation/FooterBar'
 import HeaderBar from 'components/navigation/HeaderBar'
@@ -32,7 +32,7 @@ export default {
     }
   },
   components: {
-    CircuitRun,
+    courseRun,
     CreateView,
     FooterBar,
     HeaderBar

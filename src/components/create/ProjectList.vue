@@ -13,10 +13,18 @@ div
 </template>
 
 <script>
-import {mapState} from 'vuex'
+import {mapActions} from 'vuex'
 
 export default {
-  computed: mapState({projects: 'currentUserProjects'})
+  data () {
+    return {
+      projects: []
+    }
+  },
+  async created () {
+    this.projects = await this.getAllUserProjects()
+  },
+  methods: mapActions(['getAllUserProjects'])
 }
 </script>
 

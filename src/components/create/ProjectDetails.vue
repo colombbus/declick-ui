@@ -7,11 +7,11 @@ div
       dt nom du projet
       dd {{project.name}}
       dt public
-      dd {{project.is_public ? 'oui' : 'non'}}
+      dd {{project.isPublic ? 'oui' : 'non'}}
       dt largeur de la scène
-      dd {{project.scene_width}}
+      dd {{project.sceneWidth}}
       dt hauteur de la scène
-      dd {{project.scene_height}}
+      dd {{project.sceneHeight}}
       dt description
       dd {{project.description}}
       dt instructions
@@ -29,7 +29,7 @@ div
 </template>
 
 <script>
-import {SET_CURRENT_PROJECT} from 'store/mutation-types'
+import * as mutations from 'store/mutation-types'
 
 export default {
   props: ['params'],
@@ -40,7 +40,7 @@ export default {
   },
   methods: {
     selectAsCurrentProject () {
-      this.$store.commit(SET_CURRENT_PROJECT, {project: this.project})
+      this.$store.commit(mutations.PROJECT_SELECTION, {project: this.project})
       this.$emit('close')
     }
   }

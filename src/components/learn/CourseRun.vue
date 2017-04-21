@@ -12,9 +12,7 @@
 <script>
 import config from 'assets/config/declick'
 import Channel from 'exports-loader?Channel!jschannel/src/jschannel.js'
-import { mapState, mapActions, mapMutations } from 'vuex'
-
-import * as mutations from '../../store/mutation-types.js'
+import {mapState, mapActions} from 'vuex'
 
 import ProgressHeaderBar from '../learn/ProgressHeaderBar'
 
@@ -23,30 +21,29 @@ import pem from 'exports-loader?TaskProxyManager&Platform!pem-platform/task-xd-p
 var task = false
 export default {
   methods: {
-    ...mapActions(['selectNextStep', 'setCurrentStepResult']),
-    ...mapMutations({updateStepState: mutations.UPDATE_STEP_STATE})
+    ...mapActions(['selectNextAssessment', 'registerCurrentAssessmentResult'])
   },
   computed: {
     urlLearn () {
-      if (this.currentStep) {
-        if (this.currentStep.url) {
-          return this.currentStep.url + '&token=' + this.authorizations + '&channelId=declick'
+      if (this.currentAssessment) {
+        if (this.currentAssessment.url) {
+          return this.currentAssessment.url + '&token=' + this.token + '&channelId=declick'
         } else {
           // chapter
           this.$router.push({name: 'map', params: {id: this.$route.params.id}})
-          return config.clientUrl + 'learn.html#token=' + this.authorizations + '&channelId=declick'
+          return config.clientUrl + 'learn.html#token=' + this.token + '&channelId=declick'
         }
       } else {
-        return config.clientUrl + 'learn.html#token=' + this.authorizations + '&channelId=declick'
+        return config.clientUrl + 'learn.html#token=' + this.token + '&channelId=declick'
       }
     },
-    ...mapState(['currentStep', 'authorizations'])
+    ...mapState(['currentAssessment', 'token'])
   },
   mounted () {
     var self = this
     pem.Platform.prototype.showView = function (views, success, error) {
-      if (self.currentStep && self.currentStep.solution) {
-        task.reloadAnswer(self.currentStep.solution, () => {
+      if (self.currentAssessment && self.currentAssessment.solution) {
+        task.reloadAnswer(self.currentAssessment.solution, () => {
           success()
         })
       } else {
@@ -56,7 +53,7 @@ export default {
 
     pem.Platform.prototype.validate = function (mode, success, error) {
       task.getAnswer(answer => {
-        self.setCurrentStepResult({passed: true, solution: answer})
+        self.registerCurrentAssessmentResult({passed: true, solution: answer})
         // wait for all watchers to be triggered
         self.$nextTick(() => {
           switch (mode) {
@@ -65,7 +62,7 @@ export default {
               break
             case 'nextImmediate':
               console.log('mode: nextImmediate')
-              self.selectNextStep()
+              self.selectNextAssessment()
               break
           }
           success()

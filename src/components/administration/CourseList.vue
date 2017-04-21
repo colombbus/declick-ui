@@ -16,13 +16,13 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="circuit in circuits" class="list-group">
-          <td>{{ circuit.id }}</td>
-          <td>{{ circuit.name }}</td>
-          <td>{{ circuit.short_description }}</td>
+        <tr v-for="course in courses" class="list-group">
+          <td>{{ course.id }}</td>
+          <td>{{ course.name }}</td>
+          <td>{{ course.short_description }}</td>
           <td>
             <router-link
-              :to="'/administration/circuits/' + circuit.id"
+              :to="'/administration/courses/' + course.id"
               class="btn btn-default"
             >modifier</router-link>
           </td>
@@ -32,56 +32,56 @@
     <div class="pagination">
       <router-link
         v-if="currentPage && currentPage > 1"
-        :to="'/administration/circuits?page=' + (currentPage - 1)"
+        :to="'/administration/courses?page=' + (currentPage - 1)"
         class="btn btn-default"
       >page précédente</router-link>
       <router-link
         v-if="
           !lastPage ||
           (currentPage && lastPage && currentPage < lastPage)"
-        :to="'/administration/circuits?page=' + (currentPage + 1)"
+        :to="'/administration/courses?page=' + (currentPage + 1)"
         class="btn btn-default"
       >page suivante</router-link>
     </div>
-    <circuit-creator @circuit-created="loadCircuitList"></circuit-creator>
+    <course-creator @course-created="loadcourseList"></course-creator>
   </div>
 </template>
 
 <script>
 // TODO: use store
 
-import CircuitCreator from './CircuitCreator'
+import courseCreator from './courseCreator'
 import config from 'assets/config/declick'
 
 export default {
   data () {
     return {
-      circuits: [],
+      courses: [],
       currentPage: null,
       lastPage: null
     }
   },
   created () {
     this.currentPage = Number(this.$route.query.page) || 1
-    this.loadCircuitList()
+    this.loadcourseList()
   },
   watch: {
     '$route.query' () {
       this.currentPage = Number(this.$route.query.page) || this.currentPage
-      this.loadCircuitList()
+      this.loadcourseList()
     }
   },
   methods: {
-    loadCircuitList () {
+    loadcourseList () {
       let options = {params: {page: this.currentPage}}
-      this.$http.get(config.apiUrl + 'v1/circuits', options).then((response) => {
+      this.$http.get(config.apiUrl + 'v1/courses', options).then((response) => {
         this.lastPage = response.body.last_page
-        this.circuits = response.body.data
+        this.courses = response.body.data
       })
     }
   },
   components: {
-    CircuitCreator
+    courseCreator
   }
 }
 </script>

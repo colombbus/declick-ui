@@ -10,9 +10,9 @@
 /* global __webpack_public_path__ */
 
 import Map from '../../assets/js/map.js'
-import { mapActions, mapState, mapMutations } from 'vuex'
+import {mapActions, mapState} from 'vuex'
 
-import * as mutations from '../../store/mutation-types.js'
+import * as mutations from '../../store/mutation-types'
 import mapConfig from './mapConfig'
 
 import Api from '../../api.js'
@@ -24,13 +24,13 @@ export default {
     return {
     }
   },
-  computed: mapState(['currentStep', 'steps', 'authenticatedUser']),
+  computed: mapState(['currentAssessment', 'currentCourse', 'user']),
   mounted () {
     // TODO: Find a better solution.
     let robotPath = __webpack_public_path__ + // eslint-disable-line camelcase
       'static/map-robot.svg'
     map.init('map', robotPath, (step) => {
-      this.setCurrentStep(step.position)
+      this.$store.commit(mutations.ASSESSMENT_SELECTION, {id: step.id})
       this.$router.push({name: 'step', params: {id: this.$route.params.id}})
     }, () => {
       // Load path
@@ -41,25 +41,25 @@ export default {
     })
   },
   activated () {
-    if (this.currentStep) {
-      map.setCurrentStep(this.currentStep.position, false)
+    if (this.currentAssessment) {
+      map.setCurrentStep(this.currentAssessment.position, false)
     }
   },
   watch: {
-    currentStep (newStep) {
+    currentAssessment (newStep) {
       map.updateState([{
         position: newStep.position,
         visited: newStep.visited,
         passed: newStep.passed
       }])
     },
-    'currentStep.passed' (value) {
+    'currentAssessment.passed' (value) {
       map.updateState([{
         position: this.currentStep.position,
         passed: value
       }])
     },
-    authenticatedUser () {
+    user () {
       this.loadSteps()
     },
     '$route.params.id' () {
@@ -68,16 +68,11 @@ export default {
   },
   methods: {
     loadSteps () {
-      Api.retrieveSteps(this.$route.params.id, steps => {
+      Api.getAllCourseAssessments(this.$route.params.id).then(steps => {
         map.loadStepsFromUI(steps)
-        this.setSteps(steps)
+        this.$store.commit(mutations.COURSE_SELECTION, {course: steps})
       })
-    },
-    ...mapMutations({
-      setSteps: mutations.SET_STEPS,
-      setCurrentStep: mutations.SET_CURRENT_STEP
-    }),
-    ...mapActions(['selectPreviousStep', 'selectNextStep'])
+    }
   }
 }
 </script>

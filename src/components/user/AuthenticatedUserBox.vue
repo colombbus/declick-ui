@@ -1,9 +1,9 @@
 <template lang="pug">
 .self
-  router-link(to='/me') {{authenticatedUser.username}}
+  router-link(to='/me') {{user.username}}
   router-link(
     to='/administration'
-    v-if='authenticatedUser.is_admin'
+    v-if='user.is_admin'
   )
     span.glyphicon.glyphicon-wrench
 </template>
@@ -12,7 +12,7 @@
 import {mapState} from 'vuex'
 
 export default {
-  computed: mapState(['authenticatedUser'])
+  computed: mapState(['user'])
 }
 </script>
 

@@ -2,7 +2,7 @@ import paper from'paper'
 import './jquery.mousewheel.min.js'
 
 function DeclickMap() {
-    
+
     /*
      * VARIABLES
      */
@@ -54,18 +54,18 @@ function DeclickMap() {
 
     // duration of animations
     var animationDuration = 0.8;
-    
+
     // zoom factor
     var zoomFactor = 200;
-    
+
     // zoom threshold to display labels
     var zoomDisplayLabels = 1.5;
     // max and min levels of zoom
     var maxZoom = 3.5;
-    
+
 
     /*
-     *  INITIALIZATION 
+     *  INITIALIZATION
      */
 
     // Reset size and position
@@ -83,7 +83,7 @@ function DeclickMap() {
         $canvas = $(canvas);
         $canvas.attr("resize", "1");
         $canvas.css("cursor", "pointer");
-        
+
         // setup paperjs
         paper.setup(canvas);
 
@@ -102,12 +102,12 @@ function DeclickMap() {
         var endScrollTimeout = -1;
         var scrollAmount = 0;
         var scrollPoint = false;
-        
+
         var handleScroll = function() {
             var newZoom = targetZoom+scrollAmount/zoomFactor;
             newZoom = Math.min(newZoom, maxZoom);
             if (newZoom < 1) {
-                setTarget(initCenter, 1, true);                
+                setTarget(initCenter, 1, true);
             } else {
                 var newCenter = scrollPoint.add(targetCenter.subtract(scrollPoint).divide(newZoom/targetZoom));
                 setTarget(newCenter, newZoom, true);
@@ -187,7 +187,7 @@ function DeclickMap() {
                     view.zoom = Math.max(view.zoom - step, targetZoom);
                 }
                 if (view.zoom === targetZoom) {
-                    changeZoom = false;                    
+                    changeZoom = false;
                 }
                 checkLabelsVisibility();
             }
@@ -261,7 +261,7 @@ function DeclickMap() {
             }
         });
     };
-    
+
     var checkLabelsVisibility = function() {
         // check if texts have to be displayed or hidden
         if (labelsVisible) {
@@ -288,6 +288,10 @@ function DeclickMap() {
     var initSteps = function(data) {
         steps = [];
         function getObject(value, chapter) {
+            var [parent] = steps.filter((step) => step.id === value.parentId)
+            if (parent) {
+                parent.chapter = true
+            }
             var object = {chapter: chapter, name: value.name};
             if (typeof value.position !== 'undefined') {
                 object.position = value.position;
@@ -307,12 +311,7 @@ function DeclickMap() {
             return object;
         }
         $.each(data, function(key, value) {
-            steps.push(getObject(value, true));
-            if (value.steps) {
-                $.each(value.steps, function(key, value) {
-                    steps.push(getObject(value, false));
-                });
-            }
+            steps.push(getObject(value));
         });
     };
 
@@ -450,7 +449,7 @@ function DeclickMap() {
         changeCurrent = false;
         labelsVisible = false;
         stepsDisplayed = true;
-		
+
         if (initCenter) {
             paper.view.center = new paper.Point(initCenter);
             targetCenter = new paper.Point(initCenter);
@@ -693,7 +692,7 @@ function DeclickMap() {
                 if (chapterIndex>-1) {
                     openChapter(chapterIndex, animate);
                 }
-            }            
+            }
             if (animate && current.visible === true) {
                 var delta, factor;
                 if (stepIndex < currentIndex) {
@@ -754,7 +753,7 @@ function DeclickMap() {
 
 
     /*
-     *  API 
+     *  API
      */
 
     // Init map
@@ -900,7 +899,7 @@ function DeclickMap() {
         }
         // remove any precedently bound mousemove handlers
         $canvas.off("mousemove");
-    }; 
+    };
 
 }
 

@@ -6,8 +6,8 @@
       li: a(@click="$emit('showView', {view: 'ProjectDetails', params: {project: currentProject}})") informations
       li.divider(role='separator')
       li: a(@click="$emit('showView', 'ProjectList')") projets
-      li.divider(v-show='authenticatedUser.is_admin' role='separator')
-      li(v-show='authenticatedUser.is_admin')
+      li.divider(v-show='user && user.isAdmin' role='separator')
+      li(v-show='user && user.isAdmin')
         a(@click="$emit('showView', 'UserList')") utilisateurs
   span.project-name {{(currentProject && currentProject.name) || 'Projet'}}
   a(
@@ -17,22 +17,15 @@
 </template>
 
 <script>
-import {mapState, mapMutations} from 'vuex'
-import * as mutations from 'store/mutation-types'
+import {mapState} from 'vuex'
 
 export default {
-  created () {
-    console.debug(this.authenticatedUser)
-  },
   methods: {
     toggleMode () {
-      this.setEditor(!this.editor)
-    },
-    ...mapMutations({
-      setEditor: mutations.SET_EDITOR
-    })
+      this.$emit('toggleEditor')
+    }
   },
-  computed: mapState(['authenticatedUser', 'currentProject', 'editor'])
+  computed: mapState(['user', 'currentProject'])
 }
 </script>
 

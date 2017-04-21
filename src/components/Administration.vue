@@ -7,14 +7,10 @@
           <ul class="adminNav">
             <li>
               <router-link
-                to="/administration/circuits"
+                to="/administration/courses"
                 class="content-link"
               >gestion des parcours</router-link>
             </li>
-            <li><router-link to="/administration/lists/users" class="content-link">utilisateurs</router-link></li>
-            <li><router-link to="/administration/lists/projects" class="content-link">Project</router-link></li>
-            <li><router-link to="/administration/lists/exercices" class="content-link">Exercices</router-link></li>
-            <li><router-link to="/administration/current" class="content-link">current project</router-link></li>
           </ul>
         </div>
         <div class="col-md-9 contentContainer" >

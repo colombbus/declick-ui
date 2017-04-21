@@ -3,6 +3,7 @@
   create-header-bar
   create-menu-bar(
     @showView="showView"
+    @toggleEditor="editor = !editor"
   )
   transition(
     v-on:before-enter="beforeEnter"
@@ -26,7 +27,7 @@
 <script>
 /* global $ */
 import 'jquery'
-import {mapState, mapMutations} from 'vuex'
+import {mapState} from 'vuex'
 import CreateHeaderBar from './CreateHeaderBar'
 import CreateMenuBar from './CreateMenuBar'
 import ProjectCreator from './ProjectCreator'
@@ -36,33 +37,33 @@ import ProjectList from './ProjectList'
 import UserEditor from '../user/UserEditor'
 import UserList from '../user/UserList'
 import UserProfile from '../user/UserProfile'
-import * as mutations from 'store/mutation-types'
 import config from 'assets/config/declick'
 
 export default {
   data () {
     return {
       view: null,
-      params: null
+      params: null,
+      editor: true
     }
   },
   computed: {
     frameUrl () {
       return `${config.clientUrl}index.html` +
         `#editor=${this.editor}` +
-        `&token=${this.authorizations}` +
+        `&token=${this.token}` +
         (this.currentProject ? `&id=${this.currentProject.id}` : '')
     },
-    ...mapState(['authorizations', 'currentProject', 'editor'])
+    ...mapState(['currentProject', 'token'])
   },
   mounted () {
     window.addEventListener('message', ({data}) => {
       switch (data) {
         case 'switchEditor':
-          this.setEditor(true)
+          this.editor = true
           break
         case 'switchView':
-          this.setEditor(false)
+          this.editor = false
           break
       }
     }, false)
@@ -84,10 +85,7 @@ export default {
     },
     onLeave (element, done) {
       $(element).slideUp(1000, done)
-    },
-    ...mapMutations({
-      setEditor: mutations.SET_EDITOR
-    })
+    }
   },
   components: {
     CreateHeaderBar,

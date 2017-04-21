@@ -1,5 +1,5 @@
 <template>
-  <div class="panel panel-default" id="circuit-creator">
+  <div class="panel panel-default" id="course-creator">
     <div class="panel-heading">données d'étape</div>
     <div class="panel-body">
       <div class="form-group">

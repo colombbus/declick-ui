@@ -1,5 +1,5 @@
 <template>
-  <div class="panel panel-default" id="circuit-creator">
+  <div class="panel panel-default" id="course-creator">
     <div class="panel-heading">nouveau parcours</div>
     <div class="panel-body">
       <div class="form-group">
@@ -33,13 +33,13 @@ export default {
   },
   methods: {
     create () {
-      let circuit = {
+      let course = {
         name: this.name,
         short_description: this.shortDescription,
         description: this.description
       }
-      Vue.http.post(`${config.apiUrl}v1/circuits`, circuit).then(() =>
-        this.$emit('circuit-created')
+      Vue.http.post(`${config.apiUrl}v1/courses`, course).then(() =>
+        this.$emit('course-created')
       )
     }
   }
@@ -47,7 +47,7 @@ export default {
 </script>
 
 <style>
-#circuit-creator {
+#course-creator {
   width: 100%;
 }
 </style>

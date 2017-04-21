@@ -3,7 +3,7 @@
     <tree-view
       :node="rootNode"
       @select-node="selectNode"
-      id="circuit-tree-view"
+      id="course-tree-view"
     ></tree-view>
     <step-editor
       v-if="selectedNode"
@@ -11,7 +11,7 @@
       @create-child="createChildStep"
       @save="saveStep"
       @remove="removeStep"
-      id="circuit-step-editor"
+      id="course-step-editor"
     ></step-editor>
   </div>
 </template>
@@ -26,31 +26,31 @@ import config from 'assets/config/declick'
 export default {
   data: function () {
     return {
-      circuitId: null,
-      circuit: null,
+      courseId: null,
+      course: null,
       rootNode: null,
       selectedNode: null
     }
   },
   created () {
-    this.circuitId = this.$route.params.id
-    this.retrieveCircuit()
+    this.courseId = this.$route.params.id
+    this.retrieveCourse()
   },
   methods: {
-    retrieveCircuit () {
+    retrieveCourse () {
       $.ajax({
         method: 'GET',
-        url: `${config.apiUrl}v1/circuits/${this.circuitId}`,
-        success: circuit => {
-          this.circuit = circuit
-          this.retrieveRootStep(this.circuit.root_node_id)
+        url: `${config.apiUrl}v1/circuits/${this.courseId}`,
+        success: course => {
+          this.course = course
+          this.retrieveRootStep(this.course.root_node_id)
         }
       })
     },
     retrieveRootStep (stepId) {
       $.ajax({
         method: 'GET',
-        url: `${config.apiUrl}v1/circuits/${this.circuitId}/nodes/${stepId}`,
+        url: `${config.apiUrl}v1/circuits/${this.courseId}/nodes/${stepId}`,
         success: rootStep => {
           this.rootNode = this.makeNode(rootStep)
           this.rootNode.name = 'nœud racine'
@@ -63,7 +63,7 @@ export default {
       $.ajax({
         method: 'GET',
         url: `${config.apiUrl}v1` +
-          `/circuits/${this.circuitId}` +
+          `/courses/${this.courseId}` +
           `/nodes/${parentNode.data.id}` +
           `/children`,
         success: childSteps => {
@@ -81,7 +81,7 @@ export default {
       newStep.position = parentNode.children.length
       $.ajax({
         method: 'POST',
-        url: `${config.apiUrl}v1/circuits/${this.circuitId}/nodes`,
+        url: `${config.apiUrl}v1/circuits/${this.courseId}/nodes`,
         data: newStep,
         success: createdStep => {
           let createdNode = this.makeNode(createdStep)
@@ -92,7 +92,7 @@ export default {
     saveStep (node) {
       $.ajax({
         method: 'PATCH',
-        url: `${config.apiUrl}v1/circuits/${this.circuitId}/nodes/${node.data.id}`,
+        url: `${config.apiUrl}v1/circuits/${this.courseId}/nodes/${node.data.id}`,
         data: node.data,
         success: step => {
           node.data = step
@@ -102,9 +102,9 @@ export default {
     removeStep (node) {
       $.ajax({
         method: 'DELETE',
-        url: `${config.apiUrl}v1/circuits/${this.circuitId}/nodes/${node.data.id}`,
+        url: `${config.apiUrl}v1/circuits/${this.courseId}/nodes/${node.data.id}`,
         success: () => {
-          this.retrieveCircuit()
+          this.retrievecourse()
         }
       })
     },
@@ -139,34 +139,34 @@ export default {
 </script>
 
 <style>
-#circuit-tree-view {
+#course-tree-view {
   float: left;
 }
 
-#circuit-step-editor {
+#course-step-editor {
   float: left;
   margin-left: 20px;
 }
 
-#circuit-tree-view, #circuit-tree-view ol {
+#course-tree-view, #course-tree-view ol {
   margin: 0;
   padding: 0;
   list-style-type: none;
 }
 
-#circuit-tree-view li {
+#course-tree-view li {
   margin: 0px;
 }
 
-#circuit-tree-view a {
+#course-tree-view a {
   text-decoration: none;
 }
 
-#circuit-tree-view .glyphicon {
+#course-tree-view .glyphicon {
   color: #2A6698;
 }
 
-#circuit-tree-view .node-control {
+#course-tree-view .node-control {
   display: inline-block;
   width: 25px;
   padding: 0 5px;
