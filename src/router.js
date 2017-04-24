@@ -5,15 +5,15 @@ Vue.use(VueRouter)
 
 import CmsDocument from 'components/CmsDocument'
 import Administration from 'components/Administration'
-import course from 'components/learn/course'
-import courseList from 'components/learn/courseList'
+import Course from 'components/learn/Course'
+import CourseList from 'components/learn/CourseList'
 import Progress from 'components/learn/Progress'
 import DeclickMap from 'components/learn/DeclickMap'
 
 import config from 'assets/config/declick'
 
-import AdministrationcourseList from 'components/administration/courseList'
-import courseEditor from 'components/administration/courseEditor'
+import AdministrationCourseList from 'components/administration/CourseList'
+import CourseEditor from 'components/administration/CourseEditor'
 
 var routes = [
   {
@@ -40,12 +40,12 @@ var routes = [
     children: [
       {
         path: '',
-        component: courseList,
+        component: CourseList,
         meta: { title: 'Liste des parcours' }
       },
       {
         path: 'course/:id',
-        component: course,
+        component: Course,
         children: [
           {
             path: '',
@@ -80,12 +80,12 @@ var routes = [
     children: [
       {
         path: 'courses',
-        component: AdministrationcourseList,
+        component: AdministrationCourseList,
         meta: { title: 'Liste des parcours' }
       },
       {
         path: 'courses/:id',
-        component: courseEditor,
+        component: CourseEditor,
         meta: { title: 'Modification de parcours' }
       }
     ]
