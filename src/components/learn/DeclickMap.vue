@@ -10,7 +10,7 @@
 /* global __webpack_public_path__ */
 
 import Map from '../../assets/js/map.js'
-import {mapActions, mapState} from 'vuex'
+import {mapState} from 'vuex'
 
 import * as mutations from '../../store/mutation-types'
 import mapConfig from './mapConfig'
