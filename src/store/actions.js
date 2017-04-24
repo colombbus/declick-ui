@@ -77,7 +77,7 @@ export const selectNextAssessment = async ({commit, state}) => {
   }
 }
 
-export const createProject = async ({commit, state}, data) => {
+export const createProject = async ({commit, state}, {data}) => {
   let project = await Api.createProject(data, state.token)
   commit(mutations.PROJECT_SELECTION, {project})
 }
