@@ -50,7 +50,7 @@
 <script>
 // TODO: use store
 
-import courseCreator from './courseCreator'
+import CourseCreator from './CourseCreator'
 import config from 'assets/config/declick'
 
 export default {
@@ -74,14 +74,14 @@ export default {
   methods: {
     loadcourseList () {
       let options = {params: {page: this.currentPage}}
-      this.$http.get(config.apiUrl + 'v1/courses', options).then((response) => {
+      this.$http.get(config.apiUrl + 'v1/circuits', options).then((response) => {
         this.lastPage = response.body.last_page
         this.courses = response.body.data
       })
     }
   },
   components: {
-    courseCreator
+    CourseCreator
   }
 }
 </script>

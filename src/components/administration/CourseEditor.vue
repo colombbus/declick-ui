@@ -63,7 +63,7 @@ export default {
       $.ajax({
         method: 'GET',
         url: `${config.apiUrl}v1` +
-          `/courses/${this.courseId}` +
+          `/circuits/${this.courseId}` +
           `/nodes/${parentNode.data.id}` +
           `/children`,
         success: childSteps => {
