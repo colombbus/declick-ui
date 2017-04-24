@@ -22,7 +22,7 @@ export default {
     await Vue.http.post(endpoint, {username, email, password})
   },
   async updateUser (id, data, token) {
-    let endpoint = `${config.apiUrl}v1/projects/${id}`
+    let endpoint = `${config.apiUrl}v1/users/${id}`
     let body = {
       email: data.email,
       id_admin: data.isAdmin,
@@ -63,6 +63,18 @@ export default {
       items: users,
       currentPage: page.current_page,
       lastPage: page.last_page
+    }
+  },
+  async getUser (id) {
+    let endpoint = `${config.apiUrl}v1/users/${id}`
+    let {body: user} = await Vue.http.get(endpoint)
+    return {
+      id: user.id,
+      username: user.username,
+      email: user.email,
+      defaultProjectId: user.default_project_id,
+      currentProjectId: user.current_project_id,
+      isAdmin: user.is_admin
     }
   },
   async getUserByToken (token) {

@@ -29,7 +29,7 @@ div
 </template>
 
 <script>
-import * as mutations from 'store/mutation-types'
+import {mapActions} from 'vuex'
 
 export default {
   props: ['params'],
@@ -39,10 +39,11 @@ export default {
     }
   },
   methods: {
-    selectAsCurrentProject () {
-      this.$store.commit(mutations.PROJECT_SELECTION, {project: this.project})
+    async selectAsCurrentProject () {
+      await this.selectProject({id: this.project.id})
       this.$emit('close')
-    }
+    },
+    ...mapActions(['selectProject'])
   }
 }
 </script>

@@ -31,7 +31,8 @@ export const logIn = async (
   localStorage.clear()
   localStorage.setItem('version', LOCAL_STORAGE_VERSION)
   localStorage.setItem('token', token)
-  let project = await Api.getProject(user.defaultProjectId, token)
+  let projectId = user.currentProjectId || user.defaultProjectId
+  let project = await Api.getProject(projectId, token)
   commit(mutations.PROJECT_SELECTION, {project})
 }
 
@@ -78,6 +79,14 @@ export const selectNextAssessment = async ({commit, state}) => {
 
 export const createProject = async ({commit, state}, data) => {
   let project = await Api.createProject(data, state.token)
+  commit(mutations.PROJECT_SELECTION, {project})
+}
+
+export const selectProject = async ({commit, state}, {id}) => {
+  await Api.updateUser(state.user.id, {
+    currentProjectId: id
+  }, state.token)
+  let project = await Api.getProject(id, state.token)
   commit(mutations.PROJECT_SELECTION, {project})
 }
 
