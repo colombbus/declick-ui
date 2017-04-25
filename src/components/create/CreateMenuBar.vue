@@ -1,6 +1,6 @@
 <template lang="pug">
 .self
-  .dropdown
+  .dropdown(v-show='user')
     a.dropdown-trigger(type='button' data-toggle='dropdown')
     ul.dropdown-menu
       li: a(@click="$emit('showView', {view: 'ProjectDetails', params: {project: currentProject}})") informations
