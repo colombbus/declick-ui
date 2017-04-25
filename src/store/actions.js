@@ -17,7 +17,7 @@ export const autoLogIn = async ({dispatch}) => {
       storageKeys.push(localStorage.key(index))
     }
     storageKeys.forEach((key) => {
-      if (key.substr(0, 2) === 'ui') {
+      if (key.substr(0, 2) === LOCAL_STORAGE_PREFIX) {
         localStorage.removeItem(key)
       }
     })
