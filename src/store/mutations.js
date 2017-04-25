@@ -9,6 +9,7 @@ export default {
   [mutations.LOG_OUT] (state) {
     state.token = null
     state.user = null
+    state.currentProject = null
   },
   [mutations.PROJECT_SELECTION] (state, {project}) {
     state.currentProject = project
