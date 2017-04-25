@@ -2,7 +2,7 @@ import * as mutations from './mutation-types'
 import Api from 'src/api'
 
 const LOCAL_STORAGE_PREFIX = 'ui'
-const LOCAL_STORAGE_VERSION = 2
+const LOCAL_STORAGE_VERSION = 5
 
 export const register = async ({dispatch}, {username, email, password}) => {
   await Api.createUser({username, email, password})
@@ -10,19 +10,11 @@ export const register = async ({dispatch}, {username, email, password}) => {
 }
 
 export const autoLogIn = async ({dispatch}) => {
-  let version = localStorage.getItem(`${LOCAL_STORAGE_PREFIX}.version`)
-  if (version === null || version < LOCAL_STORAGE_VERSION) {
-    let storageKeys = []
-    for (let index = 0; index < localStorage.length; index++) {
-      storageKeys.push(localStorage.key(index))
-    }
-    storageKeys.forEach((key) => {
-      if (key.substr(0, 2) === LOCAL_STORAGE_PREFIX) {
-        localStorage.removeItem(key)
-      }
-    })
+  let version = getLocalItem('version')
+  if (version === null || parseInt(version) !== LOCAL_STORAGE_VERSION) {
+    clearLocalItems()
   } else {
-    let token = localStorage.getItem(`${LOCAL_STORAGE_PREFIX}.token`)
+    let token = getLocalItem('token')
     dispatch('logIn', {token})
   }
 }
@@ -37,15 +29,15 @@ export const logIn = async (
   }
   let user = await Api.getUserByToken(token)
   commit(mutations.LOG_IN, {token, user})
-  localStorage.clear()
-  localStorage.setItem(`${LOCAL_STORAGE_PREFIX}.version`, LOCAL_STORAGE_VERSION)
-  localStorage.setItem(`${LOCAL_STORAGE_PREFIX}.token`, token)
+  setLocalItem('version', LOCAL_STORAGE_VERSION)
+  setLocalItem('token', token)
   let projectId = user.currentProjectId || user.defaultProjectId
   let project = await Api.getProject(projectId, token)
   commit(mutations.PROJECT_SELECTION, {project})
 }
 
-export const logOut = ({commit, state}, {token}) => {
+export const logOut = async ({commit, state}, {token}) => {
+  clearLocalItems()
   Api.destroyToken(state.token)
   commit(mutations.LOG_OUT)
 }
@@ -105,4 +97,25 @@ export const updateProject = async ({state}, {id, data}) => {
 
 export const getAllUserProjects = async ({state}) => {
   return await Api.getAllUserProjects(state.user.id, state.token)
+}
+
+function getLocalItem (key) {
+  return localStorage.getItem(`${LOCAL_STORAGE_PREFIX}.${key}`)
+}
+
+function setLocalItem (key, value) {
+  return localStorage.setItem(`${LOCAL_STORAGE_PREFIX}.${key}`, value)
+}
+
+function clearLocalItems () {
+  let keys = []
+  for (let index = 0; index < localStorage.length; index++) {
+    keys.push(localStorage.key(index))
+  }
+  let prefixLength = LOCAL_STORAGE_PREFIX.length
+  keys.forEach((key) => {
+    if (key.substr(0, prefixLength + 1) === `${LOCAL_STORAGE_PREFIX}.`) {
+      localStorage.removeItem(key)
+    }
+  })
 }
