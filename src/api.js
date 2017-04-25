@@ -13,7 +13,7 @@ export default {
   },
   async destroyToken (token) {
     let endpoint = `${config.apiUrl}v1/logout`
-    await Vue.http.post(endpoint, {headers: {Authorization: 'Token ' + token}})
+    await Vue.http.post(endpoint, {}, {headers: {Authorization: 'Token ' + token}})
   },
 
   // users methods
@@ -240,6 +240,11 @@ export default {
       {headers: {Authorization: 'Token ' + token}}
     )
     return results
+  },
+
+  async importProject (id, token) {
+    let endpoint = `${config.apiUrl}v1/projects/import/${id}`
+    await Vue.http.post(endpoint, {}, {headers: {Authorization: 'Token ' + token}})
   }
 }
 
