@@ -20,6 +20,7 @@
 import {mapState} from 'vuex'
 
 export default {
+  props: ['editor'],
   methods: {
     toggleMode () {
       this.$emit('toggleEditor')

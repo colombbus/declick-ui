@@ -4,6 +4,7 @@
   create-menu-bar(
     @showView="showView"
     @toggleEditor="editor = !editor"
+    v-bind:editor="editor"
   )
   transition(
     v-on:before-enter="beforeEnter"
