@@ -287,15 +287,14 @@ function DeclickMap() {
 
     var initSteps = function(data) {
         steps = [];
+        let currentPosition = 0
         function getObject(value, chapter) {
             var [parent] = steps.filter((step) => step.id === value.parentId)
             if (parent) {
                 parent.chapter = true
             }
             var object = {chapter: chapter, name: value.name};
-            if (typeof value.position !== 'undefined') {
-                object.position = value.position;
-            }
+            object.position = currentPosition++
             if (value.passed) {
                 object.passed = value.passed;
             }
@@ -845,10 +844,10 @@ function DeclickMap() {
         console.log("update state received: ");
         console.debug(updatedSteps);
         $.each(updatedSteps, function(key, value) {
-            if (value.position) {
+            if (value.id) {
                 // find corresponding step
                 for (var i=0;i<steps.length;i++) {
-                    if (steps[i].position && steps[i].position === value.position && !steps[i].chapter) {
+                    if (steps[i].id && steps[i].id === value.id && !steps[i].chapter) {
                         if (typeof value.passed !=='undefined') {
                             steps[i].passed = value.passed;
                         }
@@ -871,11 +870,14 @@ function DeclickMap() {
     };
 
     // Set current step
-    this.setCurrentStep = function(position, animate) {
+    this.setCurrentStep = function(id, animate) {
         if (typeof animate === 'undefined') {
             animate = false;
         }
-        setCurrentStep(position, animate);
+        let [step] = steps.filter((step) => step.id === id)
+        if (step) {
+            setCurrentStep(step.position, animate);
+        }
     };
 
     // Remove all steps

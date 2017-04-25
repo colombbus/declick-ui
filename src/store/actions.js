@@ -47,34 +47,50 @@ export const getAllCourses = async () => {
 }
 
 export const registerCurrentAssessmentResult =
-  async ({commit, state}, data) => {
-    await Api.registerAssessmentResult(
-      state.currentUser.id,
-      state.currentAssessment.id,
-      data,
-      state.token
-    )
+  async ({commit, state: {token, user, currentAssessment}}, data) => {
+    if (user) {
+      await Api.registerAssessmentResult(
+        user.id,
+        currentAssessment.id,
+        data,
+        token
+      )
+    }
     commit(mutations.ASSESSMENT_RESULT, {
-      id: state.currentAssessment.id,
+      id: currentAssessment.id,
       result: data
     })
   }
 
-export const selectPreviousAssessment = async ({commit, state}) => {
-  let [assessment] = state.currentCourse.filter(assessment =>
-    assessment.position === state.currentAssessment.position - 1
-  )
-  if (assessment) {
-    commit(mutations.ASSESSMENT_SELECTION, {id: assessment.id})
+export const selectPreviousAssessment = ({commit, state}) => {
+  let currentPosition = null
+  for (let index = 0; index < state.currentCourse.length; index++) {
+    let currentItem = state.currentCourse[index]
+    if (currentItem.id === state.currentAssessment.id) {
+      currentPosition = index
+      break
+    }
+  }
+  if (currentPosition !== null && state.currentCourse[currentPosition - 1]) {
+    commit(mutations.ASSESSMENT_SELECTION, {
+      id: state.currentCourse[currentPosition - 1].id
+    })
   }
 }
 
-export const selectNextAssessment = async ({commit, state}) => {
-  let [assessment] = state.currentCourse.filter(assessment =>
-    assessment.position === state.currentAssessment.position + 1
-  )
-  if (assessment) {
-    commit(mutations.ASSESSMENT_SELECTION, {id: assessment.id})
+export const selectNextAssessment = ({commit, state}) => {
+  let currentPosition = null
+  for (let index = 0; index < state.currentCourse.length; index++) {
+    let currentItem = state.currentCourse[index]
+    if (currentItem.id === state.currentAssessment.id) {
+      currentPosition = index
+      break
+    }
+  }
+  if (currentPosition !== null && state.currentCourse[currentPosition + 1]) {
+    commit(mutations.ASSESSMENT_SELECTION, {
+      id: state.currentCourse[currentPosition + 1].id
+    })
   }
 }
 

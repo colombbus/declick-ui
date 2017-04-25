@@ -67,12 +67,15 @@ export default {
 
     pem.Platform.prototype.validate = function (mode, success, error) {
       task.getAnswer(answer => {
-        self.registerCurrentAssessmentResult({passed: true, solution: answer})
         // wait for all watchers to be triggered
-        self.$nextTick(() => {
+        self.$nextTick(async () => {
           switch (mode) {
             case 'stay':
               console.log('mode: stay')
+              await self.registerCurrentAssessmentResult({
+                passed: true,
+                solution: answer
+              })
               break
             case 'nextImmediate':
               console.log('mode: nextImmediate')

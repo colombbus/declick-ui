@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import * as mutations from './mutation-types.js'
 
 export default {
@@ -31,7 +32,8 @@ export default {
       assessment => assessment.id === id
     )
     if (assessment) {
-      assessment.passed = result.passed
+      Vue.set(assessment, 'passed', result.passed)
+      // assessment.passed = result.passed
       assessment.visited = result.visited
       assessment.solution = result.solution
     }

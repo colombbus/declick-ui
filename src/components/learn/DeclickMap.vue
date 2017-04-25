@@ -42,20 +42,20 @@ export default {
   },
   activated () {
     if (this.currentAssessment) {
-      map.setCurrentStep(this.currentAssessment.position, false)
+      map.setCurrentStep(this.currentAssessment.id, false)
     }
   },
   watch: {
     currentAssessment (newStep) {
       map.updateState([{
-        position: newStep.position,
+        id: newStep.id,
         visited: newStep.visited,
         passed: newStep.passed
       }])
     },
     'currentAssessment.passed' (value) {
       map.updateState([{
-        position: this.currentStep.position,
+        id: this.currentAssessment.id,
         passed: value
       }])
     },
