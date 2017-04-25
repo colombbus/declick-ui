@@ -21,7 +21,7 @@
           :params='params'
           v-if='view'
         )
-  iframe.frame(:src='frameUrl')
+  iframe.frame(:src='frameUrl' ref='createFrame')
 </template>
 
 <script>
@@ -38,6 +38,7 @@ import UserEditor from '../user/UserEditor'
 import UserList from '../user/UserList'
 import UserProfile from '../user/UserProfile'
 import config from 'assets/config/declick'
+import {EventBus} from 'src/eventBus'
 
 export default {
   data () {
@@ -67,6 +68,10 @@ export default {
           break
       }
     }, false)
+    let createFrame = this.$refs.createFrame
+    EventBus.$on('initCreate', () => {
+      createFrame.contentWindow.postMessage('init', '*')
+    })
   },
   methods: {
     showView (payload) {
