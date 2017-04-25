@@ -9,11 +9,11 @@ export const register = async ({dispatch}, {username, email, password}) => {
 }
 
 export const autoLogIn = async ({dispatch}) => {
-  let version = localStorage.getItem('version')
+  let version = localStorage.getItem('ui.version')
   if (version === null || version < LOCAL_STORAGE_VERSION) {
     localStorage.clear()
   } else {
-    let token = localStorage.getItem('token')
+    let token = localStorage.getItem('ui.token')
     dispatch('logIn', {token})
   }
 }
@@ -29,8 +29,8 @@ export const logIn = async (
   let user = await Api.getUserByToken(token)
   commit(mutations.LOG_IN, {token, user})
   localStorage.clear()
-  localStorage.setItem('version', LOCAL_STORAGE_VERSION)
-  localStorage.setItem('token', token)
+  localStorage.setItem('ui.version', LOCAL_STORAGE_VERSION)
+  localStorage.setItem('ui.token', token)
   let projectId = user.currentProjectId || user.defaultProjectId
   let project = await Api.getProject(projectId, token)
   commit(mutations.PROJECT_SELECTION, {project})
