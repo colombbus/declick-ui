@@ -13,6 +13,8 @@
 import config from 'assets/config/declick'
 import Channel from 'exports-loader?Channel!jschannel/src/jschannel.js'
 import {mapState, mapActions} from 'vuex'
+import Api from 'src/api'
+import {EventBus} from 'src/eventBus'
 
 import ProgressHeaderBar from '../learn/ProgressHeaderBar'
 
@@ -48,6 +50,18 @@ export default {
         })
       } else {
         success()
+      }
+    }
+
+    pem.Platform.prototype.openUrl = function (url, success, error) {
+      if (url.name && url.name === 'import' && url.id) {
+        // special case to import a project
+        Api.importProject(url.id, self.token).then(() => {
+          EventBus.$emit('initCreate')
+          success()
+        }, error)
+      } else {
+        self.$router.push(url, success, error)
       }
     }
 
