@@ -1,7 +1,8 @@
 import * as mutations from './mutation-types'
 import Api from 'src/api'
 
-const LOCAL_STORAGE_VERSION = 1
+const LOCAL_STORAGE_PREFIX = 'ui'
+const LOCAL_STORAGE_VERSION = 2
 
 export const register = async ({dispatch}, {username, email, password}) => {
   await Api.createUser({username, email, password})
@@ -9,11 +10,19 @@ export const register = async ({dispatch}, {username, email, password}) => {
 }
 
 export const autoLogIn = async ({dispatch}) => {
-  let version = localStorage.getItem('ui.version')
+  let version = localStorage.getItem(`${LOCAL_STORAGE_PREFIX}.version`)
   if (version === null || version < LOCAL_STORAGE_VERSION) {
-    localStorage.clear()
+    let storageKeys = []
+    for (let index = 0; index < localStorage.length; index++) {
+      storageKeys.push(localStorage.key(index))
+    }
+    storageKeys.forEach((key) => {
+      if (key.substr(0, 2) === 'ui') {
+        localStorage.removeItem(key)
+      }
+    })
   } else {
-    let token = localStorage.getItem('ui.token')
+    let token = localStorage.getItem(`${LOCAL_STORAGE_PREFIX}.token`)
     dispatch('logIn', {token})
   }
 }
@@ -29,8 +38,8 @@ export const logIn = async (
   let user = await Api.getUserByToken(token)
   commit(mutations.LOG_IN, {token, user})
   localStorage.clear()
-  localStorage.setItem('ui.version', LOCAL_STORAGE_VERSION)
-  localStorage.setItem('ui.token', token)
+  localStorage.setItem(`${LOCAL_STORAGE_PREFIX}.version`, LOCAL_STORAGE_VERSION)
+  localStorage.setItem(`${LOCAL_STORAGE_PREFIX}.token`, token)
   let projectId = user.currentProjectId || user.defaultProjectId
   let project = await Api.getProject(projectId, token)
   commit(mutations.PROJECT_SELECTION, {project})
