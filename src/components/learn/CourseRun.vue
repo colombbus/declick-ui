@@ -66,23 +66,23 @@ export default {
     }
 
     pem.Platform.prototype.validate = function (mode, success, error) {
-      // wait for all watchers to be triggered
-      self.$nextTick(() => {
-        if (mode === 'nextOnly') {
-          self.selectNextAssessment()
-        } else {
-          task.getAnswer(async answer => {
-            await self.registerCurrentAssessmentResult({
-              passed: true,
-              solution: answer
-            })
-            if (mode === 'nextImmediate') {
-              self.selectNextAssessment()
-            }
+      if (mode === 'nextOnly') {
+        self.selectNextAssessment()
+      } else {
+        task.getAnswer(async answer => {
+          await self.registerCurrentAssessmentResult({
+            passed: true,
+            solution: answer
           })
-        }
-        success()
-      })
+          if (mode === 'nextImmediate') {
+            // wait for all watchers to be triggered
+            self.$nextTick(() => {
+              self.selectNextAssessment()
+            })
+          }
+        })
+      }
+      success()
     }
 
     var iframe = document.getElementById('declick-client-learn')
