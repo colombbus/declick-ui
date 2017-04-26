@@ -104,7 +104,7 @@ export default {
         method: 'DELETE',
         url: `${config.apiUrl}v1/circuits/${this.courseId}/nodes/${node.data.id}`,
         success: () => {
-          this.retrievecourse()
+          this.retrieveCourse()
         }
       })
     },

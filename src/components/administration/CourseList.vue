@@ -29,20 +29,6 @@
         </tr>
       </tbody>
     </table>
-    <div class="pagination">
-      <router-link
-        v-if="currentPage && currentPage > 1"
-        :to="'/administration/courses?page=' + (currentPage - 1)"
-        class="btn btn-default"
-      >page précédente</router-link>
-      <router-link
-        v-if="
-          !lastPage ||
-          (currentPage && lastPage && currentPage < lastPage)"
-        :to="'/administration/courses?page=' + (currentPage + 1)"
-        class="btn btn-default"
-      >page suivante</router-link>
-    </div>
     <course-creator @course-created="loadcourseList"></course-creator>
   </div>
 </template>
@@ -56,29 +42,13 @@ import config from 'assets/config/declick'
 export default {
   data () {
     return {
-      courses: [],
-      currentPage: null,
-      lastPage: null
+      courses: []
     }
   },
-  created () {
-    this.currentPage = Number(this.$route.query.page) || 1
-    this.loadcourseList()
-  },
-  watch: {
-    '$route.query' () {
-      this.currentPage = Number(this.$route.query.page) || this.currentPage
-      this.loadcourseList()
-    }
-  },
-  methods: {
-    loadcourseList () {
-      let options = {params: {page: this.currentPage}}
-      this.$http.get(config.apiUrl + 'v1/circuits', options).then((response) => {
-        this.lastPage = response.body.last_page
-        this.courses = response.body.data
-      })
-    }
+  async created () {
+    let endpoint = `${config.apiUrl}v1/circuits`
+    let {body} = await this.$http.get(endpoint)
+    this.courses = body
   },
   components: {
     CourseCreator
