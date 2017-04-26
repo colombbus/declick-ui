@@ -10,12 +10,9 @@
 /* global __webpack_public_path__ */
 
 import Map from '../../assets/js/map.js'
-import {mapState} from 'vuex'
+import {mapState, mapActions} from 'vuex'
 
-import * as mutations from '../../store/mutation-types'
 import mapConfig from './mapConfig'
-
-import Api from '../../api.js'
 
 var map = new Map()
 
@@ -30,7 +27,7 @@ export default {
     let robotPath = __webpack_public_path__ + // eslint-disable-line camelcase
       'static/map-robot.svg'
     map.init('map', robotPath, (step) => {
-      this.$store.commit(mutations.ASSESSMENT_SELECTION, {id: step.id})
+      this.selectAssessment({id: step.id})
       this.$router.push({name: 'step', params: {id: this.$route.params.id}})
     }, () => {
       // Load path
@@ -67,12 +64,11 @@ export default {
     }
   },
   methods: {
-    loadSteps () {
-      Api.getAllCourseAssessments(this.$route.params.id).then(steps => {
-        map.loadStepsFromUI(steps)
-        this.$store.commit(mutations.COURSE_SELECTION, {course: steps})
-      })
-    }
+    async loadSteps () {
+      await this.selectCourse({id: this.$route.params.id})
+      map.loadStepsFromUI(this.currentCourse)
+    },
+    ...mapActions(['selectCourse', 'selectAssessment'])
   }
 }
 </script>

@@ -194,24 +194,6 @@ export default {
   },
 
   // assessments methods
-  async registerAssessmentResult (
-    userId,
-    assessmentId,
-    data,
-    token
-  ) {
-    let endpoint = `${config.apiUrl}v1/users/${userId}/results`
-    let body = {
-      step_id: assessmentId,
-      passed: data.passed,
-      solution: data.solution
-    }
-    await Vue.http.post(
-      endpoint,
-      body,
-      {headers: {Authorization: 'Token ' + token}}
-    )
-  },
   async getAllCourseAssessments (id) {
     let endpoint = `${config.apiUrl}v1/circuits/${id}/nodes`
     let {body} = await Vue.http.get(endpoint)
@@ -233,12 +215,39 @@ export default {
   },
 
   // results methods
+  async registerUserResult (
+    userId,
+    assessmentId,
+    data,
+    token
+  ) {
+    let endpoint = `${config.apiUrl}v1/users/${userId}/results`
+    let body = {
+      step_id: assessmentId,
+      passed: data.passed,
+      solution: data.solution
+    }
+    await Vue.http.post(
+      endpoint,
+      body,
+      {headers: {Authorization: 'Token ' + token}}
+    )
+  },
   async getAllUserResults (id, token) {
-    let endpoint = `${config.apiUrl}v1/circuits/${id}/nodes`
-    let {body: results} = await Vue.http.get(
+    let endpoint = `${config.apiUrl}v1/users/${id}/results`
+    let {body} = await Vue.http.get(
       endpoint,
       {headers: {Authorization: 'Token ' + token}}
     )
+    let results = body.map(result => {
+      return {
+        id: result.id,
+        userId: result.user_id,
+        assessmentId: result.step_id,
+        passed: result.passed,
+        solution: result.solution
+      }
+    })
     return results
   },
 

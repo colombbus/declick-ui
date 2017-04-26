@@ -49,7 +49,7 @@ export const getAllCourses = async () => {
 export const registerCurrentAssessmentResult =
   async ({commit, state: {token, user, currentAssessment}}, data) => {
     if (user) {
-      await Api.registerAssessmentResult(
+      await Api.registerUserResult(
         user.id,
         currentAssessment.id,
         data,
@@ -62,7 +62,33 @@ export const registerCurrentAssessmentResult =
     })
   }
 
-export const selectPreviousAssessment = ({commit, state}) => {
+export const selectCourse = async ({commit, state: {token, user}}, {id}) => {
+  let assessments = await Api.getAllCourseAssessments(id)
+  if (user) {
+    let results = await Api.getAllUserResults(user.id, token)
+    assessments.forEach(assessment => {
+      let result = results.reduce((accumulator, element) => {
+        if (element.assessmentId === assessment.id) {
+          return element
+        }
+        return accumulator
+      }, null)
+      if (result) {
+        assessment.visited = true
+        assessment.passed = result.passed
+        assessment.solution = result.solution
+      }
+    })
+  }
+  commit(mutations.COURSE_SELECTION, {course: assessments})
+}
+
+export const selectAssessment = async ({dispatch, commit, state}, {id}) => {
+  commit(mutations.ASSESSMENT_SELECTION, {id})
+  await dispatch('registerCurrentAssessmentResult', {})
+}
+
+export const selectPreviousAssessment = ({dispatch, state}) => {
   let currentPosition = null
   for (let index = 0; index < state.currentCourse.length; index++) {
     let currentItem = state.currentCourse[index]
@@ -72,13 +98,13 @@ export const selectPreviousAssessment = ({commit, state}) => {
     }
   }
   if (currentPosition !== null && state.currentCourse[currentPosition - 1]) {
-    commit(mutations.ASSESSMENT_SELECTION, {
+    dispatch('selectAssessment', {
       id: state.currentCourse[currentPosition - 1].id
     })
   }
 }
 
-export const selectNextAssessment = ({commit, state}) => {
+export const selectNextAssessment = ({dispatch, state}) => {
   let currentPosition = null
   for (let index = 0; index < state.currentCourse.length; index++) {
     let currentItem = state.currentCourse[index]
@@ -88,7 +114,7 @@ export const selectNextAssessment = ({commit, state}) => {
     }
   }
   if (currentPosition !== null && state.currentCourse[currentPosition + 1]) {
-    commit(mutations.ASSESSMENT_SELECTION, {
+    dispatch('selectAssessment', {
       id: state.currentCourse[currentPosition + 1].id
     })
   }
