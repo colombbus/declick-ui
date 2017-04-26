@@ -61,7 +61,8 @@ export const registerCurrentAssessmentResult =
     })
   }
 
-export const selectCourse = async ({commit, state: {token, user}}, {id}) => {
+export const selectCourse = async ({commit, state}, {id}) => {
+  let {user, token} = state
   let assessments = await Api.getAllCourseAssessments(id)
   if (user) {
     let results = await Api.getAllUserResults(user.id, token)
@@ -86,7 +87,9 @@ export const selectCourse = async ({commit, state: {token, user}}, {id}) => {
       }
     })
   }
-  commit(mutations.COURSE_SELECTION, {course: assessments})
+  if (token === state.token) {
+    commit(mutations.COURSE_SELECTION, {course: assessments})
+  }
 }
 
 export const selectAssessment = async ({dispatch, commit, state}, {id}) => {
