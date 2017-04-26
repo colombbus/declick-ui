@@ -23,7 +23,6 @@ export const logIn = async (
   {commit, dispatch},
   {username, password, token}
 ) => {
-  Api.getAllCourseAssessments(2)
   if (!token) {
     token = await Api.createToken(username, password)
   }
