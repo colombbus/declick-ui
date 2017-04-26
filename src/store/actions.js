@@ -65,12 +65,19 @@ export const selectCourse = async ({commit, state: {token, user}}, {id}) => {
   let assessments = await Api.getAllCourseAssessments(id)
   if (user) {
     let results = await Api.getAllUserResults(user.id, token)
-    assessments.forEach(assessment => {
-      let result = results.reduce((accumulator, element) => {
-        if (element.assessmentId === assessment.id) {
-          return element
+    assessments.sort((assessmentA, assessmentB) => {
+      return assessmentA.id - assessmentB
+    }).forEach(assessment => {
+      let result = results.reduce((selectedResult, currentResult) => {
+        if (currentResult.assessmentId === assessment.id) {
+          if (selectedResult && selectedResult.passed && !currentResult.passed
+          ) {
+            return selectedResult
+          } else {
+            return currentResult
+          }
         }
-        return accumulator
+        return selectedResult
       }, null)
       if (result) {
         assessment.visited = true
