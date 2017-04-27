@@ -33,6 +33,9 @@ export default {
       assessment => assessment.id === id
     )
     if (assessment) {
+      if (assessment.passed && !result.passed) {
+        return
+      }
       assessment.visited = true
       Vue.set(assessment, 'passed', result.passed)
       assessment.solution = result.solution
