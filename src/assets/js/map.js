@@ -291,10 +291,10 @@ function DeclickMap() {
         function getObject(value, chapter) {
             var [parent] = steps.filter((step) => step.id === value.parentId)
             if (parent) {
-                parent.chapter = true
+                parent.chapter = true;
             }
             var object = {chapter: chapter, name: value.name};
-            object.position = currentPosition++
+            object.position = value.position;
             if (value.passed) {
                 object.passed = value.passed;
             }

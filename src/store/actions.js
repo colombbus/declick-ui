@@ -66,9 +66,7 @@ export const selectCourse = async ({commit, state}, {id}) => {
   let assessments = await Api.getAllCourseAssessments(id)
   if (user) {
     let results = await Api.getAllUserResults(user.id, token)
-    assessments.sort((assessmentA, assessmentB) => {
-      return assessmentA.position - assessmentB.position
-    }).forEach(assessment => {
+    assessments.forEach(assessment => {
       let result = results.reduce((selectedResult, currentResult) => {
         if (currentResult.assessmentId === assessment.id) {
           if (selectedResult && selectedResult.passed && !currentResult.passed
