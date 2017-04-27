@@ -266,8 +266,9 @@ function orderAssessments (assessments, root, state) {
   }
   assessments.filter(
     assessment => assessment.parentId === root.id
-  ).sort((assessmentA, assessmentB) =>
-    assessmentA.position > assessmentB.position
+  ).sort((assessmentA, assessmentB) => {
+    return assessmentA.position - assessmentB.position
+  }
   ).forEach(assessment => {
     assessment.position = state.count++
     state.stack.push(assessment)
