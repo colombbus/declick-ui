@@ -1,7 +1,7 @@
 <template>
   <div id="navigation-bar-small">
     <router-link to="/" id="home-control-small"></router-link>
-    <div id="page-title">{{this.stepName}}</div>
+    <div id="page-title">{{this.assessmentName}}</div>
     <router-link :to="'/progress/course/'+this.$route.params.id" id="map-control-small" ></router-link>
     <div id="mapController">
       <div id="leftLink" @click="previous()" ></div>
@@ -21,14 +21,14 @@ export default {
     return {}
   },
   computed: {
-    stepName () {
-      if (this.currentStep) {
-        return this.currentStep.name
+    assessmentName () {
+      if (this.currentAssessment) {
+        return this.currentAssessment.name
       } else {
         return ''
       }
     },
-    ...mapState(['currentStep'])
+    ...mapState(['currentAssessment'])
   },
   methods: {
     previous () {
