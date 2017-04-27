@@ -87,9 +87,10 @@ export const selectCourse = async ({commit, state}, {id}) => {
       }
     })
   }
-  if (token === state.token) {
-    commit(mutations.COURSE_SELECTION, {course: assessments})
+  if (token !== state.token) {
+    throw 'token changed, abandon current course data' // eslint-disable-line no-throw-literal
   }
+  commit(mutations.COURSE_SELECTION, {course: assessments})
 }
 
 export const selectAssessment = async ({dispatch, commit, state}, {id}) => {
