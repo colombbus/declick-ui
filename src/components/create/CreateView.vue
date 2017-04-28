@@ -14,15 +14,14 @@
   )
     .slider(v-if='view')
       button.close-button(@click='view = null')
-      keep-alive
-        component(
-          @showView="showView",
-          @close='view = null',
-          :is='view',
-          :params='params'
-          v-if='view'
-        )
-  iframe.wikiFrame(:src='wikiUrl', ref='wikiFrame')        
+      component(
+        @showView="showView",
+        @close='view = null',
+        :is='view',
+        :params='params'
+        v-if='view'
+      )
+  iframe.wikiFrame(:src='wikiUrl', ref='wikiFrame')
   iframe.frame(:src='frameUrl' ref='createFrame')
 </template>
 

@@ -26,10 +26,18 @@ div
     @click="selectAsCurrentProject"
     type='button'
   ) travailler sur ce projet
+  |
+  |
+  button.btn.btn-danger(
+    v-show='!project.isDefault'
+    @click="deleteProject"
+    type='button'
+  ) supprimer
 </template>
 
 <script>
 import {mapActions} from 'vuex'
+import Api from 'src/api'
 
 export default {
   props: ['params'],
@@ -42,6 +50,10 @@ export default {
     async selectAsCurrentProject () {
       await this.selectProject({id: this.project.id})
       this.$emit('close')
+    },
+    async deleteProject () {
+      await Api.deleteProject(this.project.id, this.$store.state.token)
+      this.$emit('showView', {view: 'ProjectList'})
     },
     ...mapActions(['selectProject'])
   }

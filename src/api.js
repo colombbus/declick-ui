@@ -113,6 +113,7 @@ export default {
       id: project.id,
       name: project.name,
       isPublic: project.is_public,
+      isDefault: project.is_default,
       sceneWidth: project.scene_width,
       sceneHeight: project.scene_height,
       description: project.description,
@@ -138,6 +139,7 @@ export default {
       id: project.id,
       name: project.name,
       isPublic: project.is_public,
+      isDefault: project.is_default,
       sceneWidth: project.scene_width,
       sceneHeight: project.scene_height,
       description: project.description,
@@ -154,6 +156,7 @@ export default {
       id: project.id,
       name: project.name,
       isPublic: project.is_public,
+      isDefault: project.is_default,
       sceneWidth: project.scene_width,
       sceneHeight: project.scene_height,
       description: project.description,
@@ -171,12 +174,20 @@ export default {
         id: project.id,
         name: project.name,
         isPublic: project.is_public,
+        isDefault: project.is_default,
         sceneWidth: project.scene_width,
         sceneHeight: project.scene_height,
         description: project.description,
         instructions: project.instructions
       }
     })
+  },
+  async deleteProject (id, token) {
+    let endpoint = `${config.apiUrl}v1/projects/${id}`
+    await Vue.http.delete(
+      endpoint,
+      {headers: {Authorization: 'Token ' + token}}
+    )
   },
 
   // courses methods
