@@ -111,7 +111,9 @@ export default {
     )
     return {
       id: project.id,
-      name: project.name,
+      name: (project.name === '' && project.is_default)
+        ? 'Mon projet'
+        : project.name,
       isPublic: project.is_public,
       isDefault: project.is_default,
       sceneWidth: project.scene_width,
@@ -137,7 +139,9 @@ export default {
     )
     return {
       id: project.id,
-      name: project.name,
+      name: (project.name === '' && project.is_default)
+        ? 'Mon projet'
+        : project.name,
       isPublic: project.is_public,
       isDefault: project.is_default,
       sceneWidth: project.scene_width,
@@ -154,7 +158,9 @@ export default {
     )
     return {
       id: project.id,
-      name: project.name,
+      name: (project.name === '' && project.is_default)
+        ? 'Mon projet'
+        : project.name,
       isPublic: project.is_public,
       isDefault: project.is_default,
       sceneWidth: project.scene_width,
@@ -172,7 +178,9 @@ export default {
     return projects.map(project => {
       return {
         id: project.id,
-        name: project.name,
+        name: (project.name === '' && project.is_default)
+          ? 'Mon projet'
+          : project.name,
         isPublic: project.is_public,
         isDefault: project.is_default,
         sceneWidth: project.scene_width,
