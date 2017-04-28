@@ -36,7 +36,7 @@ div
 </template>
 
 <script>
-import {mapActions} from 'vuex'
+import {mapActions, mapState} from 'vuex'
 import Api from 'src/api'
 
 export default {
@@ -44,7 +44,8 @@ export default {
   computed: {
     project () {
       return this.params.project
-    }
+    },
+    ...mapState(['currentProject', 'user'])
   },
   methods: {
     async selectAsCurrentProject () {
@@ -53,6 +54,9 @@ export default {
     },
     async deleteProject () {
       await Api.deleteProject(this.project.id, this.$store.state.token)
+      if (this.currentProject.id === this.project.id) {
+        this.selectProject({id: this.user.defaultProjectId})
+      }
       this.$emit('showView', {view: 'ProjectList'})
     },
     ...mapActions(['selectProject'])
