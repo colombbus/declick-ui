@@ -1,55 +1,50 @@
 <template lang="pug">
 div
-  h3
-    | Utilisateurs > {{username}}
-  form
-    .form-group
-      label(for='user-edition-project-name')
-        | email
-      input#user-edition-project-name.form-control(
-        v-model='email'
-        type='text'
+  div(v-if='user')
+    h3
+      | Utilisateurs > {{user.username}}
+    form
+      .form-group
+        label(for='user-edition-project-name')
+          | email
+        input#user-edition-project-name.form-control(
+          v-model='user.email'
+          type='text'
+        )
+      button.btn.btn-default(
+        @click="showUserProfile"
+        type='button'
       )
-    button.btn.btn-default(
-      @click="showUserProfile"
-      type='button'
-    )
-      | annuler
-    | &nbsp;
-    button.btn.btn-primary(@click='updateUser' type='button')
-      | enregistrer les modifications
+        | annuler
+      | &nbsp;
+      button.btn.btn-primary(@click='updateUser' type='button')
+        | enregistrer les modifications
 </template>
 
 <script>
+import Api from 'src/api'
+
 export default {
-  props: ['params'],
+  props: ['id'],
   data () {
     return {
-      username: '',
-      email: ''
+      user: null
     }
   },
-  created () {
-    this.username = this.params.user.username
-    this.email = this.params.user.email
+  async created () {
+    this.user = await Api.getUser(this.id)
   },
   methods: {
     async updateUser () {
-      let data = {
-        email: this.email
-      }
-      await this.$store.dispatch('updateUser', {
-        id: this.params.user.id,
-        data
-      })
-      this.params.user.email = this.email
+      await Api.updateUser(
+        this.user.id,
+        {email: this.user.email},
+        this.$store.state.token
+      )
       this.showUserProfile()
     },
     showUserProfile () {
-      this.$emit('showView', {
-        view: 'UserProfile',
-        params: {user: this.params.user}
-      })
+      this.$router.push({path: '/users/' + this.user.id})
     }
   }
 }

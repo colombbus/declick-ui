@@ -5,7 +5,16 @@
     course-run(v-show="this.$route.name === 'step'")
     create-view(v-show="this.$route.name === 'create'")
     keep-alive
-      router-view(:key='viewId', :id='viewId')
+      router-view(
+        v-if='$route.meta.keepAlive === undefined || $route.meta.keepAlive',
+        :key='viewId',
+        :id='viewId'
+      )
+    router-view(
+      v-if='$route.meta.keepAlive !== undefined && !$route.meta.keepAlive',
+      :key='viewId',
+      :id='viewId'
+    )
   footer-bar(v-show='!viewUseFullscreen')
 </template>
 

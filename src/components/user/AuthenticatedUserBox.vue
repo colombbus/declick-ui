@@ -1,6 +1,6 @@
 <template lang="pug">
 .self
-  router-link(to='/me') {{user.username}}
+  router-link(:to="'/users/' + user.id") {{user.username}}
   router-link(
     to='/administration'
     v-if='user.isAdmin'

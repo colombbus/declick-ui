@@ -1,23 +1,34 @@
 <template lang="pug">
 div
-  h3
-    | Utilisateurs > {{user.username}}
-  .panel.panel-default
-    dl
-      dt email
-      dd {{user.email}}
-  button.btn.btn-default(
-    @click="$emit('showView', {view: 'UserEditor', params: {user}})"
-    type='button'
-  ) modifier les informations
+  div(v-if='user')
+    h3
+      | Utilisateurs > {{user.username}}
+    .panel.panel-default
+      dl
+        dt email
+        dd {{user.email}}
+    button.btn.btn-default(
+      @click="editUser"
+      type='button'
+    ) modifier les informations
 </template>
 
 <script>
+import Api from 'src/api'
+
 export default {
-  props: ['params'],
-  computed: {
-    user () {
-      return this.params.user
+  props: ['id'],
+  data () {
+    return {
+      user: null
+    }
+  },
+  async created () {
+    this.user = await Api.getUser(this.id)
+  },
+  methods: {
+    editUser () {
+      this.$router.push({path: '/users/' + this.user.id + '/edit'})
     }
   }
 }

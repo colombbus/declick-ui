@@ -14,6 +14,8 @@ import config from 'assets/config/declick'
 
 import AdministrationCourseList from 'components/administration/CourseList'
 import CourseEditor from 'components/administration/CourseEditor'
+import UserProfile from 'components/user/UserProfile'
+import UserEditor from 'components/user/UserEditor'
 
 var routes = [
   {
@@ -24,6 +26,24 @@ var routes = [
       id: 4,
       title: 'Accueil'
     }
+  },
+  {
+    path: '/users/:id',
+    component: UserProfile,
+    meta: {
+      title: 'Utilisateurs',
+      keepAlive: false
+    },
+    props: true
+  },
+  {
+    path: '/users/:id/edit',
+    component: UserEditor,
+    meta: {
+      title: 'Modification de profil utilisateur',
+      keepAlive: false
+    },
+    props: true
   },
   {
     path: '/explore',
