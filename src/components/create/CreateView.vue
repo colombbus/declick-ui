@@ -35,9 +35,6 @@ import ProjectCreator from './ProjectCreator'
 import ProjectDetails from './ProjectDetails'
 import ProjectEditor from './ProjectEditor'
 import ProjectList from './ProjectList'
-import UserEditor from '../user/UserEditor'
-import UserList from '../user/UserList'
-import UserProfile from '../user/UserProfile'
 import config from 'assets/config/declick'
 import {EventBus} from 'src/eventBus'
 
@@ -119,10 +116,7 @@ export default {
     ProjectCreator,
     ProjectDetails,
     ProjectEditor,
-    ProjectList,
-    UserEditor,
-    UserList,
-    UserProfile
+    ProjectList
   }
 }
 </script>

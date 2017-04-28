@@ -14,6 +14,7 @@ import config from 'assets/config/declick'
 
 import AdministrationCourseList from 'components/administration/CourseList'
 import CourseEditor from 'components/administration/CourseEditor'
+import UserList from 'components/user/UserList'
 import UserProfile from 'components/user/UserProfile'
 import UserEditor from 'components/user/UserEditor'
 
@@ -98,6 +99,11 @@ var routes = [
     component: Administration,
     meta: { title: 'Administration' },
     children: [
+      {
+        path: 'users',
+        component: UserList,
+        meta: { title: 'Liste des utilisateurs' }
+      },
       {
         path: 'courses',
         component: AdministrationCourseList,

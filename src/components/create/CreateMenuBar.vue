@@ -6,9 +6,6 @@
       li: a(@click="$emit('showView', {view: 'ProjectDetails', params: {project: currentProject}})") informations
       li.divider(role='separator')
       li: a(@click="$emit('showView', 'ProjectList')") projets
-      li.divider(v-show='user && user.isAdmin' role='separator')
-      li(v-show='user && user.isAdmin')
-        a(@click="$emit('showView', 'UserList')") utilisateurs
   span.project-name {{(currentProject && currentProject.name) || 'Projet'}}
   a(
     @click='toggleMode',

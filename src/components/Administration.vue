@@ -7,6 +7,12 @@
           <ul class="adminNav">
             <li>
               <router-link
+                to="/administration/users"
+                class="content-link"
+              >gestion des utilisateurs</router-link>
+            </li>
+            <li>
+              <router-link
                 to="/administration/courses"
                 class="content-link"
               >gestion des parcours</router-link>
@@ -19,8 +25,6 @@
       </div>
     </div>
   </div>
-
-
 </template>
 
 <script>

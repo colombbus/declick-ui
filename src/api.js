@@ -61,8 +61,8 @@ export default {
     })
     return {
       items: users,
-      currentPage: page.current_page,
-      lastPage: page.last_page
+      currentPage: result.current_page,
+      lastPage: result.last_page
     }
   },
   async getUser (id) {

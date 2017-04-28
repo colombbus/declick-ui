@@ -15,7 +15,7 @@ div
       tr(v-for='user in users')
         td {{user.id}}
         td
-          a(@click="$emit('showView', {view: 'UserProfile', params: {user}})")
+          router-link(:to="'/users/' + user.id")
             | {{user.username}}
   .text-center
     ul.pagination
@@ -64,7 +64,7 @@ export default {
       if (page < 1 || (this.lastPage && page > this.lastPage)) {
         return
       }
-      let result = await Api.getUsers(page, this.search)
+      let result = await Api.getUsersByPage(page, this.search)
       this.users = result.items
       this.currentPage = result.currentPage
       this.lastPage = result.lastPage
