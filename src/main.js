@@ -10,7 +10,9 @@ import config from 'assets/config/declick'
 import Application from './Application'
 import VueAnalytics from 'vue-analytics'
 
-document.domain = config.domain
+if (!config.offline) {
+  document.domain = config.domain
+}
 
 if (config.googleId) {
   Vue.use(VueAnalytics, {

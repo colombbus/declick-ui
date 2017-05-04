@@ -119,7 +119,7 @@ var routes = [
 ]
 
 export default new VueRouter({
-  mode: 'history',
+  mode: config.offline ? 'hash' : 'history',
   routes,
   base: config.basePath
 })
