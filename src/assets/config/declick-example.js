@@ -6,5 +6,6 @@ export default {
   cmsUrl: 'http://localhost/directus/cms/',
   forumUrl: 'http://localhost/forum/',
   wikiUrl: 'http://localhost/wiki/',
-  googleId: false
+  googleId: false,
+  offline: false
 }
