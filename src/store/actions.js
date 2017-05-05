@@ -33,12 +33,14 @@ export const logIn = async (
   let projectId = user.currentProjectId || user.defaultProjectId
   let project = await Api.getProject(projectId, token)
   commit(mutations.PROJECT_SELECTION, {project})
+  dispatch('loadCurrentCourseResults')
 }
 
-export const logOut = async ({commit, state}, {token}) => {
+export const logOut = async ({commit, dispatch, state}, {token}) => {
   clearLocalItems()
   Api.destroyToken(state.token)
   commit(mutations.LOG_OUT)
+  dispatch('loadCurrentCourseResults')
 }
 
 export const getAllCourses = async () => {
@@ -61,34 +63,53 @@ export const registerCurrentAssessmentResult =
     })
   }
 
-export const selectCourse = async ({commit, state}, {id}) => {
-  let {user, token} = state
+export const selectCourse = async ({commit, dispatch, state}, {id}) => {
+  let token = state.token
+  if (state.currentCourseId === parseInt(id)) {
+    return
+  }
   let assessments = await Api.getAllCourseAssessments(id)
-  if (user) {
-    let results = await Api.getAllUserResults(user.id, token)
-    assessments.forEach(assessment => {
-      let result = results.reduce((selectedResult, currentResult) => {
-        if (currentResult.assessmentId === assessment.id) {
-          if (selectedResult && selectedResult.passed && !currentResult.passed
-          ) {
+  if (state.currentCourseId !== parseInt(id)) {
+    commit(mutations.COURSE_SELECTION, {id: parseInt(id), course: assessments})
+    if (token === state.token) {
+      dispatch('loadCurrentCourseResults')
+    }
+  }
+}
+
+export const loadCurrentCourseResults = async ({commit, state}) => {
+  let {user, token} = state
+  if (state.currentCourse) {
+    if (user) {
+      let results = await Api.getAllUserResults(user.id, token)
+      if (token === state.token) {
+        let filteredResults = []
+        state.currentCourse.forEach(assessment => {
+          let result = results.reduce((selectedResult, currentResult) => {
+            if (currentResult.assessmentId === assessment.id) {
+              if (!selectedResult) {
+                return currentResult
+              } else if (
+                selectedResult.passed &&
+                !currentResult.passed
+              ) {
+                return selectedResult
+              } else {
+                return currentResult
+              }
+            }
             return selectedResult
-          } else {
-            return currentResult
+          }, null)
+          if (result) {
+            filteredResults.push(result)
           }
-        }
-        return selectedResult
-      }, null)
-      if (result) {
-        assessment.visited = true
-        assessment.passed = result.passed
-        assessment.solution = result.solution
+        })
+        commit(mutations.RECEIVE_RESULTS, {results: filteredResults})
       }
-    })
+    } else {
+      commit(mutations.RECEIVE_RESULTS, {results: []})
+    }
   }
-  if (token !== state.token) {
-    throw 'token changed, abandon current course data' // eslint-disable-line no-throw-literal
-  }
-  commit(mutations.COURSE_SELECTION, {course: assessments})
 }
 
 export const selectAssessment = async ({dispatch, commit, state}, {id}) => {

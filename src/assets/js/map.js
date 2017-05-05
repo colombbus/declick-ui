@@ -839,34 +839,35 @@ function DeclickMap() {
         });
     };
 
-    // Update data
-    this.updateState = function(updatedSteps) {
-        console.log("update state received: ");
-        console.debug(updatedSteps);
-        $.each(updatedSteps, function(key, value) {
-            if (value.id) {
-                // find corresponding step
-                for (var i=0;i<steps.length;i++) {
-                    if (steps[i].id && steps[i].id === value.id && !steps[i].chapter) {
-                        if (typeof value.passed !=='undefined') {
-                            steps[i].passed = value.passed;
-                        }
-                        if (typeof value.visited !=='undefined') {
-                            steps[i].visited = value.visited;
-                        }
-                        var old = displayedSteps[i];
-                        var point = old.position;
-                        var symbol = getSymbol(steps[i]);
-                        var placed = symbol.place(point);
-                        placed.insertBelow(old);
-                        old.remove();
-                        displayedSteps[i] = placed;
-                        placed.onMouseDown = getStepMouseHandler(i);
-                        break;
+    this.setResults = function (results) {
+        console.log("results received:");
+        console.log(results);
+        results.forEach(result => {
+            for (var i=0;i<steps.length;i++) {
+                if (steps[i].id &&
+                    steps[i].id === result.assessmentId &&
+                    !steps[i].chapter
+                ) {
+                    steps[i].visited = false
+                    steps[i].passed = false
+                    if (result) {
+                        steps[i].visited = true
                     }
+                    if (result && result.passed) {
+                        steps[i].passed = result.passed;
+                    }
+                    var old = displayedSteps[i];
+                    var point = old.position;
+                    var symbol = getSymbol(steps[i]);
+                    var placed = symbol.place(point);
+                    placed.insertBelow(old);
+                    old.remove();
+                    displayedSteps[i] = placed;
+                    placed.onMouseDown = getStepMouseHandler(i);
+                    break
                 }
             }
-        });
+        })
     };
 
     // Set current step

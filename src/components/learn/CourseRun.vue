@@ -22,8 +22,87 @@ window.Channel = Channel
 import pem from 'exports-loader?TaskProxyManager&Platform!pem-platform/task-xd-pr.js'
 var task = false
 export default {
+  data () {
+    return {
+      storeReady: false,
+      componentReady: false,
+      initialized: false
+    }
+  },
   methods: {
-    ...mapActions(['selectNextAssessment', 'registerCurrentAssessmentResult'])
+    init () {
+      if (this.initialized || !this.storeReady || !this.componentReady) {
+        return
+      }
+
+      this.initialized = true
+
+      if (this.$route.name === 'step') {
+        this.selectAssessment({id: parseInt(this.$route.params.assessmentId)})
+      }
+
+      var self = this
+      pem.Platform.prototype.showView = function (views, success, error) {
+        let [currentAssessmentResult] = self.currentCourseResults.filter(
+          result => result.assessmentId === self.currentAssessment.id
+        )
+        if (currentAssessmentResult && currentAssessmentResult.solution) {
+          task.reloadAnswer(currentAssessmentResult.solution, () => {
+            success()
+          })
+        } else {
+          success()
+        }
+      }
+
+      pem.Platform.prototype.openUrl = function (url, success, error) {
+        if (url.name && url.name === 'import' && url.id) {
+          // special case to import a project
+          Api.importProject(url.id, self.token).then(() => {
+            EventBus.$emit('initCreate')
+            success()
+          }, error)
+        } else {
+          self.$router.push(url, success, error)
+        }
+      }
+
+      pem.Platform.prototype.validate = function (mode, success, error) {
+        if (mode === 'nextOnly') {
+          self.selectNextAssessment()
+        } else {
+          task.getAnswer(async answer => {
+            await self.registerCurrentAssessmentResult({
+              passed: true,
+              solution: answer
+            })
+            if (mode === 'nextImmediate') {
+              // wait for all watchers to be triggered
+              self.$nextTick(() => {
+                self.selectNextAssessment()
+              })
+            }
+          })
+        }
+        success()
+      }
+
+      var iframe = document.getElementById('declick-client-learn')
+      var initProxy = function () {
+        pem.TaskProxyManager.getTaskProxy('declick-client-learn', ref => {
+          task = ref
+          pem.TaskProxyManager.setPlatform(task, new pem.Platform(task))
+        })
+        iframe.removeEventListener('load', initProxy)
+      }
+      iframe.addEventListener('load', initProxy)
+    },
+    ...mapActions([
+      'selectCourse',
+      'selectAssessment',
+      'selectNextAssessment',
+      'registerCurrentAssessmentResult'
+    ])
   },
   computed: {
     urlLearn () {
@@ -39,61 +118,22 @@ export default {
         return config.clientUrl + 'learn.html#token=' + this.token + '&channelId=declick'
       }
     },
-    ...mapState(['currentAssessment', 'token'])
+    ...mapState(['currentAssessment', 'currentCourse', 'currentCourseResults', 'token'])
   },
   mounted () {
-    var self = this
-    pem.Platform.prototype.showView = function (views, success, error) {
-      if (self.currentAssessment && self.currentAssessment.solution) {
-        task.reloadAnswer(self.currentAssessment.solution, () => {
-          success()
-        })
-      } else {
-        success()
-      }
+    this.componentReady = true
+    this.init()
+  },
+  watch: {
+    currentCourseResults: {
+      handler: function (value) {
+        if (value) {
+          this.storeReady = true
+          this.init()
+        }
+      },
+      immediate: true
     }
-
-    pem.Platform.prototype.openUrl = function (url, success, error) {
-      if (url.name && url.name === 'import' && url.id) {
-        // special case to import a project
-        Api.importProject(url.id, self.token).then(() => {
-          EventBus.$emit('initCreate')
-          success()
-        }, error)
-      } else {
-        self.$router.push(url, success, error)
-      }
-    }
-
-    pem.Platform.prototype.validate = function (mode, success, error) {
-      if (mode === 'nextOnly') {
-        self.selectNextAssessment()
-      } else {
-        task.getAnswer(async answer => {
-          await self.registerCurrentAssessmentResult({
-            passed: true,
-            solution: answer
-          })
-          if (mode === 'nextImmediate') {
-            // wait for all watchers to be triggered
-            self.$nextTick(() => {
-              self.selectNextAssessment()
-            })
-          }
-        })
-      }
-      success()
-    }
-
-    var iframe = document.getElementById('declick-client-learn')
-    var initProxy = function () {
-      pem.TaskProxyManager.getTaskProxy('declick-client-learn', ref => {
-        task = ref
-        pem.TaskProxyManager.setPlatform(task, new pem.Platform(task))
-      })
-      iframe.removeEventListener('load', initProxy)
-    }
-    iframe.addEventListener('load', initProxy)
   },
   components: {
     ProgressHeaderBar

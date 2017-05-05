@@ -21,14 +21,25 @@ export default {
     return {
     }
   },
-  computed: mapState(['currentAssessment', 'currentCourse', 'user']),
+  computed: mapState([
+    'currentAssessment',
+    'currentCourse',
+    'currentCourseResults',
+    'user'
+  ]),
   mounted () {
     // TODO: Find a better solution.
     let robotPath = __webpack_public_path__ + // eslint-disable-line camelcase
       'static/map-robot.svg'
     map.init('map', robotPath, (step) => {
       this.selectAssessment({id: step.id})
-      this.$router.push({name: 'step', params: {id: this.$route.params.id}})
+      this.$router.push({
+        name: 'step',
+        params: {
+          id: this.$route.params.id,
+          assessmentId: step.id
+        }
+      })
     }, () => {
       // Load path
       map.loadPathFromUI(mapConfig, () => {
@@ -43,18 +54,14 @@ export default {
     }
   },
   watch: {
-    currentAssessment (newStep) {
-      map.updateState([{
-        id: newStep.id,
-        visited: newStep.visited,
-        passed: newStep.passed
-      }])
-    },
-    'currentAssessment.passed' (value) {
-      map.updateState([{
-        id: this.currentAssessment.id,
-        passed: value
-      }])
+    currentCourseResults: {
+      handler: function (value) {
+        if (value) {
+          map.setResults(value)
+        }
+      },
+      deep: true,
+      immediate: true
     },
     user () {
       this.loadSteps()
@@ -67,6 +74,9 @@ export default {
     async loadSteps () {
       await this.selectCourse({id: this.$route.params.id})
       map.loadStepsFromUI(this.currentCourse)
+      if (this.currentCourseResults) {
+        map.setResults(this.currentCourseResults)
+      }
     },
     ...mapActions(['selectCourse', 'selectAssessment'])
   }

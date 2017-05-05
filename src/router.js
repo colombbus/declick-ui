@@ -72,15 +72,17 @@ var routes = [
             path: '',
             name: 'map',
             component: DeclickMap,
-            meta: { title: 'Parcours' }
-          },
-          {
-            name: 'step',
-            path: 'run',
-            meta: {
-              title: 'Étape',
-              useFullscreen: true
-            }
+            meta: { title: 'Parcours' },
+            children: [
+              {
+                name: 'step',
+                path: 'run/:assessmentId',
+                meta: {
+                  title: 'Étape',
+                  useFullscreen: true
+                }
+              }
+            ]
           }
         ]
       }

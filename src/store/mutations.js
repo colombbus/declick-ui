@@ -14,9 +14,11 @@ export default {
   [mutations.PROJECT_SELECTION] (state, {project}) {
     state.currentProject = project
   },
-  [mutations.COURSE_SELECTION] (state, {course}) {
+  [mutations.COURSE_SELECTION] (state, {id, course}) {
     state.currentAssessment = null
+    state.currentCourseId = id
     state.currentCourse = course
+    state.currentCourseResults = []
   },
   [mutations.ASSESSMENT_SELECTION] (state, {id}) {
     let [assessment] = state.currentCourse.filter(
@@ -28,17 +30,27 @@ export default {
       state.currentAssessment = null
     }
   },
+  [mutations.RECEIVE_RESULTS] (state, {results}) {
+    state.currentCourseResults = results
+  },
   [mutations.ASSESSMENT_RESULT] (state, {id, result}) {
-    let [assessment] = state.currentCourse.filter(
-      assessment => assessment.id === id
+    let [resultEntry] = state.currentCourseResults.filter(
+      resultItem => resultItem.assessmentId === id
     )
-    if (assessment) {
-      if (assessment.passed && !result.passed) {
+    if (resultEntry) {
+      if (resultEntry.passed && !result.passed) {
         return
       }
-      assessment.visited = true
-      Vue.set(assessment, 'passed', result.passed)
-      assessment.solution = result.solution
+      Vue.set(resultEntry, 'visited', true)
+      Vue.set(resultEntry, 'passed', result.passed)
+      resultEntry.solution = result.solution
+    } else {
+      state.currentCourseResults.push({
+        assessmentId: id,
+        visited: true,
+        passed: result.passed,
+        solution: result.solution
+      })
     }
   }
 }

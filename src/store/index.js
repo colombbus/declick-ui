@@ -11,20 +11,8 @@ export default new Vuex.Store({
     user: null,
     currentProject: null,
     currentCourse: null,
+    currentCourseResults: null,
     currentAssessment: null
-    /*
-    lists: [],
-    current_page: 0,
-    last_page: 0,
-    connected: false,
-    user: null,
-    currentProject: null,
-    userProjects: null,
-    authorizations: '',
-    currentStep: null,
-    steps: null,
-    editor: true
-    */
   },
   mutations,
   actions
