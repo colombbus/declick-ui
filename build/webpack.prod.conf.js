@@ -25,6 +25,11 @@ var webpackConfig = merge(baseWebpackConfig, {
       extract: true
     })
   },
+  externals: [
+    {
+      "electron": "commonjs electron"
+    }
+  ],
   plugins: [
     // http://vuejs.github.io/vue-loader/en/workflow/production.html
     new webpack.DefinePlugin({
