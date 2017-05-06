@@ -24,6 +24,8 @@ import courseRun from 'components/learn/CourseRun'
 import CreateView from 'components/create/CreateView'
 import FooterBar from 'components/navigation/FooterBar'
 import HeaderBar from 'components/navigation/HeaderBar'
+import config from 'assets/config/declick'
+import Storage from 'src/storage'
 
 export default {
   computed: {
@@ -45,6 +47,11 @@ export default {
     CreateView,
     FooterBar,
     HeaderBar
+  },
+  created () {
+    if (config.offline) {
+      Storage.init()
+    }
   }
 }
 </script>
