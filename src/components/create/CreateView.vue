@@ -21,8 +21,9 @@
         :params='params'
         v-if='view'
       )
-  iframe.wikiFrame(:src='wikiUrl', ref='wikiFrame')
-  iframe.frame(:src='frameUrl' ref='createFrame')
+  iframe.wikiFrame(:src='wikiUrl', ref='wikiFrame' v-if='!offline')
+  iframe.frame(:src='frameUrl' ref='createFrame' v-if='!offline')
+  webview.frame(v-else :src='frameUrl' nodeintegration disablewebsecurity)
 </template>
 
 <script>
@@ -45,12 +46,17 @@ export default {
       params: null,
       editor: true,
       wikiUrl: config.wikiUrl,
-      wiki: false
+      wiki: false,
+      offline: config.offline
     }
   },
   computed: {
     frameUrl () {
-      return `${config.clientUrl}index.html` +
+      let index = "index.html"
+      if (config.offline) {
+        index = "index_offline.html"
+      }
+      return `${config.clientUrl}${index}` +
         `#editor=${this.editor}` +
         `&token=${this.token}` +
         (this.currentProject ? `&id=${this.currentProject.id}` : '') +
