@@ -199,6 +199,17 @@ export default {
   },
 
   // courses methods
+  async getCourse (id) {
+    let {body: course} = await Vue.http.get(`${config.apiUrl}v1/circuits/${id}`)
+    return {
+      id: course.id,
+      name: course.name,
+      imageUrl: 'http://www.declick.net/images/default-level.png',
+      summary: course.short_description,
+      details: course.description
+    }
+  },
+
   async getAllCourses () {
     let {body: courses} = await Vue.http.get(`${config.apiUrl}v1/circuits`)
     return courses.map(course => {
@@ -231,6 +242,24 @@ export default {
     )[0]
     let result = orderAssessments(assessments, root)
     return result
+  },
+  async getAssessmentResources (id) {
+    let endpoint = `${config.apiUrl}v1/projects/${id}/resources`
+    let {body} = await Vue.http.get(endpoint)
+    let resources = body.map(resource => {
+      return {
+        id: resource.id,
+        file_name: resource.file_name,
+        media_type: resource.media_type,
+        project_id: resource.project_id
+      }
+    })
+    return resources
+  },
+  async getAssessmentResourceContent (assessmentId, resourceId) {
+    let endpoint = `${config.apiUrl}v1/projects/${assessmentId}/resources/${resourceId}/content`
+    let response = await Vue.http.get(endpoint, {responseType: 'blob'})
+    return await response.blob()
   },
 
   // results methods
