@@ -4,6 +4,8 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 import CmsDocument from 'components/CmsDocument'
+import OfflineHome from 'components/OfflineHome'
+import OfflineAdmin from 'components/administration/OfflineAdmin'
 import Administration from 'components/Administration'
 import Course from 'components/learn/Course'
 import CourseList from 'components/learn/CourseList'
@@ -22,7 +24,7 @@ var routes = [
   {
     path: '/',
     name: 'home',
-    component: CmsDocument,
+    component: config.offline ? OfflineHome : CmsDocument,
     meta: {
       id: 4,
       title: 'Accueil'
@@ -113,6 +115,11 @@ var routes = [
         path: 'courses/:id',
         component: CourseEditor,
         meta: { title: 'Modification de parcours' }
+      },
+      {
+        path: 'offline',
+        component: OfflineAdmin,
+        meta: { title: 'Administration Offline' }
       }
     ]
   }
