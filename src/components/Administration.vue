@@ -5,17 +5,23 @@
         <div class="col-md-3">
           <h2>Administration</h2>
           <ul class="adminNav">
-            <li>
+            <li v-if="!offline">
               <router-link
                 to="/administration/users"
                 class="content-link"
               >gestion des utilisateurs</router-link>
             </li>
-            <li>
+            <li v-if="!offline">
               <router-link
                 to="/administration/courses"
                 class="content-link"
               >gestion des parcours</router-link>
+            </li>
+            <li v-if="offline">
+              <router-link
+                to="/administration/offline"
+                class="content-link"
+              >Offline</router-link>
             </li>
           </ul>
         </div>
@@ -28,7 +34,15 @@
 </template>
 
 <script>
-export default {}
+import config from 'assets/config/declick'
+
+export default {
+  data () {
+    return {
+      offline: config.offline
+    }
+  }
+}
 </script>
 
 <style lang="css">

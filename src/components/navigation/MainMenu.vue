@@ -1,7 +1,7 @@
 <template lang="pug">
 .self
   ul
-    li
+    li(v-if='!offline')
       router-link(
         to='/explore'
         class='illustrated-link explore-link'
@@ -23,13 +23,17 @@
         class='illustrated-link discuss-link'
         target='forum'
       ) Discuter
-    li(v-if='!user')
+    li(v-if='!offline && !user')
       a(
         @click='isAuthenticationModalVisible = true'
         class="illustrated-link log-in-link"
       ) Se connecter
-    li(v-else)
+    li(v-if='!offline && user')
       a(@click='logOut') Se déconnecter
+    li(v-if='offline && offlineAdmin')
+      router-link(
+        to='/administration/offline'
+      ) Admin
   authentication-modal(
     @close='isAuthenticationModalVisible = false'
     v-if='isAuthenticationModalVisible'
@@ -44,7 +48,9 @@ import config from 'assets/config/declick'
 export default {
   data () {
     return {
-      isAuthenticationModalVisible: false
+      isAuthenticationModalVisible: false,
+      offline: config.offline,
+      offlineAdmin: config.offlineAdmin
     }
   },
   computed: {
