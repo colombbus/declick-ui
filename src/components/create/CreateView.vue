@@ -23,7 +23,7 @@
       )
   iframe.wikiFrame(:src='wikiUrl', ref='wikiFrame' v-if='!offline')
   iframe.frame(:src='frameUrl' ref='createFrame' v-if='!offline')
-  webview.frame(v-else :src='frameUrl' nodeintegration disablewebsecurity)
+  webview.frame(v-else :src='frameUrl' nodeintegration disablewebsecurity :data-hash='hashValue')
 </template>
 
 <script>
@@ -50,14 +50,28 @@ export default {
       offline: config.offline
     }
   },
+  created () {
+
+  },
   computed: {
     frameUrl () {
-      let index = "index.html"
       if (config.offline) {
-        index = "index_offline.html"
-      }
-      return `${config.clientUrl}${index}` +
+        return `${config.clientUrl}index_offline.html`
+      } else {
+        return `${config.clientUrl}index.html` +
         `#editor=${this.editor}` +
+        `&token=${this.token}` +
+        (this.currentProject ? `&id=${this.currentProject.id}` : '') +
+        `&wiki=${this.wiki}`
+      }
+    },
+    hashValue () {
+      let value = `#editor=${this.editor}` +
+        `&token=${this.token}` +
+        (this.currentProject ? `&id=${this.currentProject.id}` : '') +
+        `&wiki=${this.wiki}`
+      window.console.log("nouveau hash: " + value)
+      return `#editor=${this.editor}` +
         `&token=${this.token}` +
         (this.currentProject ? `&id=${this.currentProject.id}` : '') +
         `&wiki=${this.wiki}`
