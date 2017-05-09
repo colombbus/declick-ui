@@ -58,12 +58,14 @@ export default {
   getSlideFolder (id) {
     return path.format({dir: this.slidesFolder, base: id})
   },
-  addCourse (id, data, assessments) {
+  addCourse (id) {
     let courseFolder = this.getCourseFolder(id)
     if (fs.existsSync(courseFolder)) {
       fs.removeSync(courseFolder)
     }
     fs.mkdirSync(courseFolder)
+  },
+  setCourseData (id, data, assessments) {
     fs.writeFileSync(this.getAssessmentsFile(id), JSON.stringify(assessments), {encoding: 'utf8'})
     let courseData = {id: id, name: data.name, summary: data.summary, details: data.details, imageUrl: "../../" + appDataFolder + "/" + coursesFolder + "/" + id + "/" + courseImageFile}
     let index = -1
@@ -108,6 +110,10 @@ export default {
     }
     fs.mkdirSync(slideFolder)
     fs.writeFileSync(path.format({dir: slideFolder, base: slideFile}), content)
+  },
+  addSlideImage (id, name, content) {
+    let slideFolder = this.getSlideFolder(id)
+    fs.writeFileSync(path.format({dir: slideFolder, base: name}), content)
   },
   /* API CALLS */
   getAllCourses () {
