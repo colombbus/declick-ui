@@ -23,7 +23,7 @@
       )
   iframe.wikiFrame(:src='wikiUrl', ref='wikiFrame' v-if='!offline')
   iframe.frame(:src='frameUrl' ref='createFrame' v-if='!offline')
-  webview.frame(v-else :src='frameUrl' nodeintegration disablewebsecurity :data-hash='hashValue')
+  webview.frame(v-else :src='frameUrl' nodeintegration disablewebsecurity :data-hash='hashValue' ref='createWebview')
 </template>
 
 <script>
@@ -39,6 +39,8 @@ import ProjectList from './ProjectList'
 import config from 'assets/config/declick'
 import {EventBus} from 'src/eventBus'
 
+let createFrame
+
 export default {
   data () {
     return {
@@ -49,9 +51,6 @@ export default {
       wiki: false,
       offline: config.offline
     }
-  },
-  created () {
-
   },
   computed: {
     frameUrl () {
@@ -70,7 +69,9 @@ export default {
         `&token=${this.token}` +
         (this.currentProject ? `&id=${this.currentProject.id}` : '') +
         `&wiki=${this.wiki}`
-      window.console.log("nouveau hash: " + value)
+      if (createFrame) {
+        createFrame.send('updateHash', value)
+      }
       return `#editor=${this.editor}` +
         `&token=${this.token}` +
         (this.currentProject ? `&id=${this.currentProject.id}` : '') +
@@ -92,9 +93,17 @@ export default {
           break
       }
     }, false)
-    let createFrame = this.$refs.createFrame
+    if (config.offline) {
+      createFrame = this.$refs.createWebview
+    } else {
+      createFrame = this.$refs.createFrame
+    }
     EventBus.$on('initCreate', () => {
-      createFrame.contentWindow.postMessage('init', '*')
+      if (config.offline) {
+        createFrame.send('init')
+      } else {
+        createFrame.contentWindow.postMessage('init', '*')
+      }
     })
   },
   methods: {
@@ -117,7 +126,6 @@ export default {
     },
     toggleWiki () {
       let wikiFrame = $(this.$refs.wikiFrame)
-      let createFrame = $(this.$refs.createFrame)
       wikiFrame.stop()
       createFrame.stop()
       this.wiki = !(this.wiki)
