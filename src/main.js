@@ -30,7 +30,7 @@ new Vue({
   components: {
     Application
   },
-  created () {
+  mounted () {
     this.autoLogIn()
   },
   methods: mapActions(['autoLogIn'])
