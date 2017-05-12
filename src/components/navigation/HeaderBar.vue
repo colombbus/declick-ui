@@ -1,7 +1,7 @@
 <template lang="pug">
 div
   slogan-bar
-  authenticated-user-box.user-box(v-if='user')
+  authenticated-user-box.user-box(v-if='user&&!offline')
   main-menu
   breadcrumb
 </template>
@@ -12,8 +12,14 @@ import Breadcrumb from 'components/navigation/Breadcrumb'
 import MainMenu from 'components/navigation/MainMenu'
 import SloganBar from 'components/navigation/SloganBar'
 import {mapState} from 'vuex'
+import config from 'assets/config/declick'
 
 export default {
+  data () {
+    return {
+      offline: config.offline
+    }
+  },
   computed: mapState(['user']),
   components: {
     AuthenticatedUserBox,
