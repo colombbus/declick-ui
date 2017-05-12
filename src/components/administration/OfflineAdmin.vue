@@ -101,7 +101,7 @@ export default {
                     newName += "." + extension[1]
                   }
                   imgs.push({url: value, name: newName})
-                  return start + "data/slides/" + id + "/" + newName + end
+                  return start + "../../data/slides/" + id + "/" + newName + end
                 })
                 Storage.addSlide(id, content)
                 for (let i = 0; i < imgs.length; i++) {
