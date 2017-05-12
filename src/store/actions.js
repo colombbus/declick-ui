@@ -21,10 +21,13 @@ export const register = async ({dispatch}, {username, email, password}) => {
 
 export const autoLogIn = async ({dispatch}) => {
   let version = getLocalItem('version')
-  if (version === null || parseInt(version) !== LOCAL_STORAGE_VERSION) {
+  if (!config.offline && (version === null || parseInt(version) !== LOCAL_STORAGE_VERSION)) {
     clearLocalItems()
   } else {
     let token = getLocalItem('token')
+    if (config.offline && (!token)) {
+      token = 0
+    }
     dispatch('logIn', {token})
   }
 }
