@@ -37,7 +37,17 @@ div
 
 <script>
 import {mapActions, mapState} from 'vuex'
-import Api from 'src/api'
+import Remote from 'src/api'
+import config from 'assets/config/declick'
+import Storage from 'src/storage'
+
+let Api
+
+if (config.offline) {
+  Api = Storage
+} else {
+  Api = Remote
+}
 
 export default {
   props: ['params'],
