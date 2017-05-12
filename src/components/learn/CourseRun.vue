@@ -65,48 +65,48 @@ export default {
   },
   mounted () {
     var self = this
-    pem.Platform.prototype.showView = function (views, success, error) {
-      if (self.currentAssessment && self.currentAssessment.solution) {
-        task.reloadAnswer(self.currentAssessment.solution, () => {
+    if (!this.offline) {
+      pem.Platform.prototype.showView = function (views, success, error) {
+        if (self.currentAssessment && self.currentAssessment.solution) {
+          task.reloadAnswer(self.currentAssessment.solution, () => {
+            success()
+          })
+        } else {
           success()
-        })
-      } else {
+        }
+      }
+
+      pem.Platform.prototype.openUrl = function (url, success, error) {
+        if (url.name && url.name === 'import' && url.id) {
+          // special case to import a project
+          Api.importProject(url.id, self.token).then(() => {
+            EventBus.$emit('initCreate')
+            success()
+          }, error)
+        } else {
+          self.$router.push(url, success, error)
+        }
+      }
+
+      pem.Platform.prototype.validate = function (mode, success, error) {
+        if (mode === 'nextOnly') {
+          self.selectNextAssessment()
+        } else {
+          task.getAnswer(async answer => {
+            await self.registerCurrentAssessmentResult({
+              passed: true,
+              solution: answer
+            })
+            if (mode === 'nextImmediate') {
+              // wait for all watchers to be triggered
+              self.$nextTick(() => {
+                self.selectNextAssessment()
+              })
+            }
+          })
+        }
         success()
       }
-    }
-
-    pem.Platform.prototype.openUrl = function (url, success, error) {
-      if (url.name && url.name === 'import' && url.id) {
-        // special case to import a project
-        Api.importProject(url.id, self.token).then(() => {
-          EventBus.$emit('initCreate')
-          success()
-        }, error)
-      } else {
-        self.$router.push(url, success, error)
-      }
-    }
-
-    pem.Platform.prototype.validate = function (mode, success, error) {
-      if (mode === 'nextOnly') {
-        self.selectNextAssessment()
-      } else {
-        task.getAnswer(async answer => {
-          await self.registerCurrentAssessmentResult({
-            passed: true,
-            solution: answer
-          })
-          if (mode === 'nextImmediate') {
-            // wait for all watchers to be triggered
-            self.$nextTick(() => {
-              self.selectNextAssessment()
-            })
-          }
-        })
-      }
-      success()
-    }
-    if (!this.offline) {
       var iframe = document.getElementById('declick-client-learn')
       var initProxy = function () {
         pem.TaskProxyManager.getTaskProxy('declick-client-learn', ref => {
@@ -118,9 +118,65 @@ export default {
       iframe.addEventListener('load', initProxy)
     } else {
       let element = this.$refs.learnWebview
+      let callbacks = []
+      let callbackCount = 0
+      let registerCallback = function (callback) {
+        callbacks[callbackCount] = callback
+        callbackCount++
+        return callbackCount - 1
+      }
       element.addEventListener('did-finish-load', () => {
         element.send('updateHash', this.urlLearn)
         learnFrame = element
+      })
+      element.addEventListener('ipc-message', (event) => {
+        if (event.channel === 'declick') {
+          let message = event.args[0]
+          switch (message.type) {
+            case "validate":
+              let mode = message.mode
+              if (mode === 'nextOnly') {
+                self.selectNextAssessment()
+              } else {
+                element.send('declick', {
+                  type: 'getAnswer',
+                  callback: registerCallback((answer) => {
+                    self.registerCurrentAssessmentResult({
+                      passed: true,
+                      solution: answer
+                    }).then(() => {
+                      if (mode === 'nextImmediate') {
+                        // wait for all watchers to be triggered
+                        self.$nextTick(() => {
+                          self.selectNextAssessment()
+                        })
+                      }
+                    })
+                  })
+                })
+              }
+              break
+            case "callback":
+              if (callbacks[message.callback]) {
+                callbacks[message.callback].call(this, message.data)
+                delete callbacks[message.callback]
+              }
+              break
+            case "showView":
+              if (self.currentAssessment && self.currentAssessment.solution) {
+                element.send('declick', {
+                  type: 'reloadAnswer',
+                  data: self.currentAssessment.solution,
+                  callback: registerCallback(() => {
+                    element.send('declick', {type: 'callback', callback: message.callback})
+                  })
+                })
+              } else {
+                element.send('declick', {type: 'callback', callback: message.callback})
+              }
+              break
+          }
+        }
       })
     }
   },
