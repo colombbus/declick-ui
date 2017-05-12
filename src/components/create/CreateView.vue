@@ -114,7 +114,9 @@ export default {
     }
     EventBus.$on('initCreate', () => {
       if (config.offline) {
-        createFrame.send('init')
+        if (createFrame) {
+          createFrame.send('init')
+        }
       } else {
         createFrame.contentWindow.postMessage('init', '*')
       }
