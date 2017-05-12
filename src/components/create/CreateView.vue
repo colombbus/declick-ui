@@ -80,22 +80,36 @@ export default {
     ...mapState(['currentProject', 'token'])
   },
   mounted () {
-    window.addEventListener('message', ({data}) => {
-      switch (data) {
-        case 'switchEditor':
-          this.editor = true
-          break
-        case 'switchView':
-          this.editor = false
-          break
-        case 'toggleWiki':
-          this.toggleWiki()
-          break
-      }
-    }, false)
     if (config.offline) {
-      createFrame = this.$refs.createWebview
+      let element = this.$refs.createWebview
+      element.addEventListener('did-finish-load', () => {
+        element.send('updateHash', this.hashValue)
+        createFrame = element
+      })
+      element.addEventListener('ipc-message', (event) => {
+        switch (event.channel) {
+          case 'switchEditor':
+            this.editor = true
+            break
+          case 'switchView':
+            this.editor = false
+            break
+        }
+      })
     } else {
+      window.addEventListener('message', ({data}) => {
+        switch (data) {
+          case 'switchEditor':
+            this.editor = true
+            break
+          case 'switchView':
+            this.editor = false
+            break
+          case 'toggleWiki':
+            this.toggleWiki()
+            break
+        }
+      }, false)
       createFrame = this.$refs.createFrame
     }
     EventBus.$on('initCreate', () => {
