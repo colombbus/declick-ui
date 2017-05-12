@@ -13,10 +13,18 @@ const resultsFolder = "results"
 const projectsFolder = "projects"
 const resultsFile = "results.json"
 const projectFile = "project.json"
+const templatesFolder = "templates"
 
 let fs
 let app
 let path
+
+var IMAGE_MEDIA_TYPES = {
+  'gif': 'image/gif',
+  'jpeg': 'image/jpeg',
+  'jpg': 'image/jpeg',
+  'png': 'image/png'
+}
 
 export default {
   // check that storage space is initialized
@@ -31,6 +39,7 @@ export default {
     this.assessmentsFolder = path.format({dir: this.appFolder, base: assessmentsFolder})
     this.coursesFile = path.format({dir: this.coursesFolder, base: coursesFile})
     this.slidesFolder = path.format({dir: this.appFolder, base: slidesFolder})
+    this.templatesFolder = path.format({dir: this.appFolder, base: templatesFolder})
     if (!fs.existsSync(this.appFolder)) {
       fs.mkdirSync(this.appFolder)
       fs.mkdirSync(this.coursesFolder)
@@ -81,6 +90,9 @@ export default {
   },
   getProjectFile (userId, projectId) {
     return path.format({dir: this.getProjectFolder(userId, projectId), base: projectFile})
+  },
+  getProjectResourcesFile (userId, projectId) {
+    return path.format({dir: this.getProjectFolder(userId, projectId), base: resourcesFile})
   },
   addCourse (id) {
     let courseFolder = this.getCourseFolder(id)
@@ -326,5 +338,40 @@ export default {
     }
     this.saveUserInfo(id, userInfo)
     return userInfo
+  },
+  importProject (id, token) {
+    let templateFolder = path.format({dir: this.templatesFolder, base: id.toString()})
+    if (fs.existsSync(templateFolder)) {
+      let templateResources = path.format({dir: templateFolder, base: resourcesFile})
+      let resources = JSON.parse(fs.readFileSync(templateResources, {encoding: 'utf8'}))
+      let currentProjectFolder = this.getProjectFolder(this.userInfo.id, this.userInfo.currentProjectId)
+      let currentResources = JSON.parse(fs.readFileSync(this.getProjectResourcesFile(this.userInfo.id, this.userInfo.currentProjectId), {encoding: 'utf8'}))
+      let names = []
+      let nextId = 0
+      for (let j = 0; j < currentResources.length; j++) {
+        let resource = currentResources[j]
+        names.push(resource.file_name)
+        if (resource.id >= nextId) {
+          nextId = resource.id + 1
+        }
+      }
+      for (let i = 0; i < resources.length; i++) {
+        let resource = resources[i]
+        if (names.indexOf(resource.file_name) === -1) {
+          let extension = ""
+          for (var ext in IMAGE_MEDIA_TYPES) {
+            if (resource.media_type === IMAGE_MEDIA_TYPES[ext]) {
+              extension = '.' + ext
+              break
+            }
+          }
+          fs.copySync(path.format({dir: templateFolder, base: resource.id + extension}), path.format({dir: currentProjectFolder, base: nextId + extension}))
+          resource.id = nextId
+          currentResources.push(resource)
+          nextId++
+        }
+      }
+      fs.writeFileSync(this.getProjectResourcesFile(this.userInfo.id, this.userInfo.currentProjectId), JSON.stringify(currentResources), {encoding: 'utf8'})
+    }
   }
 }

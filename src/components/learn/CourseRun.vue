@@ -22,8 +22,17 @@
 import config from 'assets/config/declick'
 import Channel from 'exports-loader?Channel!jschannel/src/jschannel.js'
 import {mapState, mapActions} from 'vuex'
-import Api from 'src/api'
+import Remote from 'src/api'
+import Storage from 'src/storage'
 import {EventBus} from 'src/eventBus'
+
+let Api
+
+if (config.offline) {
+  Api = Storage
+} else {
+  Api = Remote
+}
 
 import ProgressHeaderBar from '../learn/ProgressHeaderBar'
 
@@ -173,6 +182,18 @@ export default {
                 })
               } else {
                 element.send('declick', {type: 'callback', callback: message.callback})
+              }
+              break
+            case "openUrl":
+              if (message.url.name && message.url.name === 'import' && message.url.id) {
+                // special case to import a project
+                Api.importProject(message.url.id, self.token)
+                EventBus.$emit('initCreate')
+                element.send('declick', {type: 'callback', callback: message.callback})
+              } else {
+                self.$router.push(message.url, () => {
+                  element.send('declick', {type: 'callback', callback: message.callback})
+                })
               }
               break
           }
