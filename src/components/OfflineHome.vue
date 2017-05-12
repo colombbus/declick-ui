@@ -1,24 +1,56 @@
 <template lang="pug">
 #contentContainerHome
   #content
-    ul
-      li
-        router-link(
+    .front__start
+      .front__menu
+        router-link#front__menu__1(
+          @mouseover.native="showPortal(1)"
           to='/progress'
+          class='selected'
         ) Progresser
-      li
-        router-link(
+        router-link#front__menu__2(
+          @mouseover.native="showPortal(2)"
           to='/create'
-          class='illustrated-link create-link'
         ) Créer
+      .front__portal
+        router-link#front__portal__1(
+          title="Progresser"
+          to="/progress")
+          img(src="../assets/img/progress.png" alt="Progresser" title="Progresser")
+          | Lance-toi dans l'aventure du code avec les parcours !
+        router-link#front__portal__2(
+          title="Créer"
+          class="hidden"
+          to="/create")
+          img(src="../assets/img/create.png" alt="Créer" title="Créer")
+          | Envie de créer des applis ? C'est par ici !
 </template>
 
 <script>
 export default {
+  methods: {
+    showPortal (id) {
+      let portal1 = document.getElementById("front__portal__1")
+      let portal2 = document.getElementById("front__portal__2")
+      let menu1 = document.getElementById("front__menu__1")
+      let menu2 = document.getElementById("front__menu__2")
+      if (id === 1) {
+        menu1.className = "selected"
+        menu2.className = ""
+        portal1.className = ""
+        portal2.className = "hidden"
+      } else {
+        menu1.className = ""
+        menu2.className = "selected"
+        portal1.className = "hidden"
+        portal2.className = ""
+      }
+    }
+  }
 }
 </script>
 
-<style>
+<style scoped>
 #content .hidden {
   display:none;
 }
@@ -348,7 +380,7 @@ export default {
 }
 .front__start {
   max-width:600px;
-  margin:0 auto;
+  margin:50px auto 0;
 }
 .front__menu {
   float:right;
@@ -368,10 +400,6 @@ export default {
   text-decoration: none;
 }
 
-/* TO REMOVE WHEN FORUM READY*/
-.front__menu a:last-child {
-  display:none;
-}
 
 .front__menu a.selected {
   background-color:#E32B1F;
