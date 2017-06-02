@@ -6,9 +6,9 @@ div
     dl
       dt nom du projet
       dd {{project.name}}
-      dt lien
+      dt lien public
       dd: router-link(:to="{name: 'execute', params: {projectId: project.id}}")
-        | cliquer ici
+        | {{project.name}}
       dt public
       dd {{project.isPublic ? 'oui' : 'non'}}
       dt largeur de la scène
