@@ -50,6 +50,7 @@ var routes = [
     props: true
   },
   {
+    name: 'execute',
     path: '/execute/:projectId',
     component: Execute,
     meta: {useFullscreen: true},
