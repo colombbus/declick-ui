@@ -16,7 +16,8 @@ export const loadExecuteProject = async ({state, commit}, {id}) => {
   commit('setExecuteProject', {
     sceneHeight: project.sceneHeight,
     sceneWidth: project.sceneWidth,
-    mainProgram: program
+    mainProgram: program,
+    id: project.id
   })
 }
 
