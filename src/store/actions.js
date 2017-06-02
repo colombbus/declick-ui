@@ -4,6 +4,22 @@ import Api from 'src/api'
 const LOCAL_STORAGE_PREFIX = 'ui'
 const LOCAL_STORAGE_VERSION = 5
 
+export const loadExecuteProject = async ({state, commit}, {id}) => {
+  const project = await Api.getProject(id, state.token)
+  const resources = await Api.getAllProjectResources(project.id)
+  let program = null
+  if (project.mainProgramId) {
+    [{file_name: program}] = resources.filter(resource =>
+      resource.id === project.mainProgramId
+    )
+  }
+  commit('setExecuteProject', {
+    sceneHeight: project.sceneHeight,
+    sceneWidth: project.sceneWidth,
+    mainProgram: program
+  })
+}
+
 export const register = async ({dispatch}, {username, email, password}) => {
   await Api.createUser({username, email, password})
   await dispatch('logIn', {username, password})

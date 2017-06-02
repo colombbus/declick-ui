@@ -18,6 +18,9 @@ import UserList from 'components/user/UserList'
 import UserProfile from 'components/user/UserProfile'
 import UserEditor from 'components/user/UserEditor'
 
+import Execute from 'components/Execute'
+import store from 'store'
+
 var routes = [
   {
     path: '/',
@@ -45,6 +48,15 @@ var routes = [
       keepAlive: false
     },
     props: true
+  },
+  {
+    path: '/execute/:projectId',
+    component: Execute,
+    meta: {useFullscreen: true},
+    beforeEnter (to, from, next) {
+      store.dispatch('loadExecuteProject', {id: parseInt(to.params.projectId)})
+      next()
+    }
   },
   {
     path: '/explore',

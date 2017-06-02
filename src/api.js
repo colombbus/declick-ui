@@ -119,7 +119,8 @@ export default {
       sceneWidth: project.scene_width,
       sceneHeight: project.scene_height,
       description: project.description,
-      instructions: project.instructions
+      instructions: project.instructions,
+      mainProgramId: project.main_program_id
     }
   },
   async updateProject (id, data, token) {
@@ -130,7 +131,8 @@ export default {
       scene_width: data.sceneWidth,
       scene_height: data.sceneHeight,
       description: data.description,
-      instructions: data.instructions
+      instructions: data.instructions,
+      main_program_id: data.mainProgramId
     }
     let {body: project} = await Vue.http.patch(
       endpoint,
@@ -147,7 +149,8 @@ export default {
       sceneWidth: project.scene_width,
       sceneHeight: project.scene_height,
       description: project.description,
-      instructions: project.instructions
+      instructions: project.instructions,
+      mainProgramId: project.main_program_id
     }
   },
   async getProject (id, token) {
@@ -166,7 +169,8 @@ export default {
       sceneWidth: project.scene_width,
       sceneHeight: project.scene_height,
       description: project.description,
-      instructions: project.instructions
+      instructions: project.instructions,
+      mainProgramId: project.main_program_id
     }
   },
   async getAllUserProjects (id, token) {
@@ -196,6 +200,16 @@ export default {
       endpoint,
       {headers: {Authorization: 'Token ' + token}}
     )
+  },
+
+  // project resources methods
+  async getAllProjectResources (id, token) {
+    const endpoint = `${config.apiUrl}v1/projects/${id}/resources`
+    const {body: resources} = await Vue.http.get(
+      endpoint,
+      {headers: {Authorization: 'Token ' + token}}
+    )
+    return resources
   },
 
   // courses methods

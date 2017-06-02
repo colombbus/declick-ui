@@ -42,6 +42,20 @@ div
         v-model='instructions'
         rows='3'
       )
+    .form-group
+      label(for='project-edition-main-program-id')
+        | programme principal
+      select#project-edition-main-program-id.form-control(
+        v-if='resources'
+        v-model='mainProgramId'
+      )
+        option(
+          v-for='resource in resources'
+          v-if="resource.media_type === 'text/vnd.colombbus.declick.script'",
+          :value='resource.id',
+          :class='{selected: mainProgramId === resource.id}'
+        )
+          | {{resource.file_name}}
     button.btn.btn-default(
       @click="showProjectDetails"
       type='button'
@@ -53,6 +67,8 @@ div
 </template>
 
 <script>
+import Api from 'src/api'
+
 export default {
   props: ['params'],
   data () {
@@ -62,16 +78,26 @@ export default {
       sceneWidth: '',
       sceneHeight: '',
       description: '',
-      instructions: ''
+      instructions: '',
+      mainProgramId: null,
+      resources: null
     }
   },
-  created () {
+  async created () {
     this.name = this.params.project.name
     this.isPublic = this.params.project.isPublic
     this.sceneWidth = this.params.project.sceneWidth
     this.sceneHeight = this.params.project.sceneHeight
     this.description = this.params.project.description
     this.instructions = this.params.project.instructions
+    this.mainProgramId = this.params.project.mainProgramId
+    const resources = await Api.getAllProjectResources(this.params.project.id)
+    resources.unshift({
+      file_name: '<aucun>',
+      id: null,
+      media_type: 'text/vnd.colombbus.declick.script'
+    })
+    this.resources = resources
   },
   methods: {
     async updateProject () {
@@ -81,7 +107,8 @@ export default {
         sceneWidth: this.sceneWidth,
         sceneHeight: this.sceneHeight,
         description: this.description,
-        instructions: this.instructions
+        instructions: this.instructions,
+        mainProgramId: this.mainProgramId
       }
       let truc = await this.$store.dispatch('updateProject', {
         id: this.params.project.id,
@@ -94,6 +121,7 @@ export default {
       this.params.project.sceneHeight = this.sceneHeight
       this.params.project.description = this.description
       this.params.project.instructions = this.instructions
+      this.params.project.mainProgramId = this.mainProgramId
       this.showProjectDetails()
     },
     showProjectDetails () {

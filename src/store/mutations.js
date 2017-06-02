@@ -2,6 +2,9 @@ import Vue from 'vue'
 import * as mutations from './mutation-types.js'
 
 export default {
+  setExecuteProject (state, project) {
+    state.executeProject = project
+  },
   [mutations.LOG_IN] (state, {token, user}) {
     state.token = token
     state.user = user

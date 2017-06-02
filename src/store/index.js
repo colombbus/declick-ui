@@ -12,7 +12,8 @@ export default new Vuex.Store({
     currentProject: null,
     currentCourse: null,
     currentCourseResults: null,
-    currentAssessment: null
+    currentAssessment: null,
+    executeProject: null
   },
   mutations,
   actions
