@@ -17,7 +17,8 @@ export const loadExecuteProject = async ({state, commit}, {id}) => {
     sceneHeight: project.sceneHeight,
     sceneWidth: project.sceneWidth,
     mainProgram: program,
-    id: project.id
+    id: project.id,
+    name: project.name
   })
 }
 

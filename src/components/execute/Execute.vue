@@ -1,11 +1,14 @@
 <template lang="pug">
-div.main__execute
-  iframe(v-if='project', id="execution-frame", :src="iframeUrl", frameborder="0", scrolling="no", onmousewheel="", :style="iframeStyle")
+.main
+  execute-header-bar
+  .main__execute
+    iframe(v-if='project', id="execution-frame", :src="iframeUrl", frameborder="0", scrolling="no", onmousewheel="", :style="iframeStyle")
 </template>
 
 <script>
 import {mapState} from 'vuex'
 import config from 'assets/config/declick'
+import ExecuteHeaderBar from './ExecuteHeaderBar'
 
 let viewPortTag
 
@@ -50,19 +53,25 @@ export default {
         viewPortTag.content = "width=device-width, user-scalable=no"
       }
     }
+  },
+  components: {
+    ExecuteHeaderBar
   }
 }
 </script>
 
-<style lang="css">
-.main__execute {
-  height:100vh;
-  background-color:#000000;
-}
-#execution-frame {
-  display:block;
-  margin-left:auto;
-  margin-right:auto;
-  padding:0;
-}
+<style lang="sass" scoped>
+.main 
+  height: 100vh
+  background-color: #000000
+
+.main__execute
+  height: calc(100vh - 63px)
+  background-color: #000000
+
+#execution-frame
+  display: block
+  margin-left: auto
+  margin-right: auto
+  padding: 0
 </style>
