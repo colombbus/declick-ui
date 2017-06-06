@@ -23,7 +23,6 @@ export default {
   watch: {
     $route (to, from) {
       if (to.name === 'execute') {
-        console.debug(from)
         if (from.name !== 'execute') {
           previousRoute = from.path
         }
