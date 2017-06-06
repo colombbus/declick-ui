@@ -18,6 +18,11 @@ let viewPortTag
 let currentId = -1
 
 export default {
+  data () {
+    return {
+      count: 0
+    }
+  },
   computed: {
     iframeStyle () {
       let content = "width:"
@@ -36,7 +41,7 @@ export default {
     },
     iframeUrl () {
       if (this.project && this.project.mainProgram) {
-        return config.clientUrl + 'execute.html#id=' + this.project.id + '&init=' + encodeURI(this.project.mainProgram)
+        return config.clientUrl + 'execute.html#id=' + this.project.id + '&init=' + encodeURI(this.project.mainProgram) + "&count=" + this.count
       } else {
         return config.clientUrl + 'execute.html#'
       }
@@ -79,6 +84,9 @@ export default {
           await store.dispatch('loadExecuteProject', {id: newId})
           this.$refs.loading.style.display = "none"
           currentId = newId
+          this.count = 0
+        } else {
+          this.count++
         }
       }
     }
