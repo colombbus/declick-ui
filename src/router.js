@@ -57,7 +57,7 @@ var routes = [
     path: '/explore',
     component: CmsDocument,
     meta: {
-      id: 2,
+      id: 5,
       title: 'Découvrir'
     }
   },
