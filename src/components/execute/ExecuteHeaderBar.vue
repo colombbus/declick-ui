@@ -1,14 +1,35 @@
 <template lang="pug">
 .self
   router-link.home-link(to='/')
-  span.title {{project.name}}
-  router-link.close-link(to='/')
+  span.title {{(project && project.name)}}
+  .close-link(@click="goBack")
 </template>
 <script>
 import {mapState} from 'vuex'
 
+let previousRoute
+
 export default {
-  computed: mapState({project: 'executeProject'})
+  methods: {
+    goBack () {
+      if (previousRoute) {
+        this.$router.push(previousRoute)
+      } else {
+        this.$router.push("/")
+      }
+    }
+  },
+  computed: mapState({project: 'executeProject'}),
+  watch: {
+    $route (to, from) {
+      if (to.name === 'execute') {
+        console.debug(from)
+        if (from.name !== 'execute') {
+          previousRoute = from.path
+        }
+      }
+    }
+  }
 }
 
 </script>

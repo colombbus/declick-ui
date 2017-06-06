@@ -1,16 +1,21 @@
 <template lang="pug">
 .main
+  .loading(ref="loading")
+    img(src="../../assets/img/spinner.gif")    
+    p Chargement...
   execute-header-bar
   .main__execute
-    iframe(v-if='project', id="execution-frame", :src="iframeUrl", frameborder="0", scrolling="no", onmousewheel="", :style="iframeStyle")
+    iframe.execution(:src="iframeUrl", frameborder="0", scrolling="no", onmousewheel="", :style="iframeStyle")
 </template>
 
 <script>
 import {mapState} from 'vuex'
 import config from 'assets/config/declick'
 import ExecuteHeaderBar from './ExecuteHeaderBar'
+import store from '../../store'
 
 let viewPortTag
+let currentId = -1
 
 export default {
   computed: {
@@ -33,7 +38,7 @@ export default {
       if (this.project && this.project.mainProgram) {
         return config.clientUrl + 'execute.html#id=' + this.project.id + '&init=' + encodeURI(this.project.mainProgram)
       } else {
-        return ""
+        return config.clientUrl + 'execute.html#'
       }
     },
     ...mapState({project: 'executeProject'})
@@ -44,6 +49,9 @@ export default {
     viewPortTag.name = "viewport"
     viewPortTag.content = "width=device-width, user-scalable=no"
     document.getElementsByTagName('head')[0].appendChild(viewPortTag)
+    if (this.$route.name === 'execute') {
+      this.checkId()
+    }
   },
   watch: {
     project () {
@@ -52,10 +60,28 @@ export default {
       } else {
         viewPortTag.content = "width=device-width, user-scalable=no"
       }
+    },
+    $route (to, from) {
+      if (to.name === 'execute') {
+        this.checkId()
+      }
     }
   },
   components: {
     ExecuteHeaderBar
+  },
+  methods: {
+    async checkId () {
+      if (this.$route.params.projectId) {
+        let newId = parseInt(this.$route.params.projectId)
+        if (newId !== currentId) {
+          this.$refs.loading.style.display = "flex"
+          await store.dispatch('loadExecuteProject', {id: newId})
+          this.$refs.loading.style.display = "none"
+          currentId = newId
+        }
+      }
+    }
   }
 }
 </script>
@@ -64,14 +90,33 @@ export default {
 .main 
   height: 100vh
   background-color: #000000
+  position: relative
 
 .main__execute
   height: calc(100vh - 63px)
-  background-color: #000000
 
-#execution-frame
+.execution
   display: block
   margin-left: auto
   margin-right: auto
   padding: 0
+
+.loading
+  position: absolute
+  top: 0
+  bottom: 0
+  left: 0
+  right: 0
+  display: flex
+  flex-direction: column
+  justify-content: center
+  align-items: center
+  background-color: #FFFFFF
+
+.loading img
+  height: 50px
+
+.loading p
+  font-weight: bolder
+
 </style>

@@ -4,6 +4,7 @@
   .content
     course-run(v-show="this.$route.name === 'step'")
     create-view(v-show="this.$route.name === 'create'")
+    execute(v-show="this.$route.name === 'execute'")
     keep-alive
       router-view(
         v-if='$route.meta.keepAlive === undefined || $route.meta.keepAlive',
@@ -24,6 +25,7 @@ import courseRun from 'components/learn/CourseRun'
 import CreateView from 'components/create/CreateView'
 import FooterBar from 'components/navigation/FooterBar'
 import HeaderBar from 'components/navigation/HeaderBar'
+import Execute from 'components/execute/Execute'
 
 export default {
   computed: {
@@ -44,7 +46,8 @@ export default {
     courseRun,
     CreateView,
     FooterBar,
-    HeaderBar
+    HeaderBar,
+    Execute
   }
 }
 </script>
