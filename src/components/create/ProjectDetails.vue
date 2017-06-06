@@ -6,7 +6,7 @@ div
     dl
       dt nom du projet
       dd {{project.name}}
-      dt lien public
+      dt lien vers l'application
       dd: router-link(:to="{name: 'execute', params: {projectId: project.id}}")
         | {{project.name}}
       dt public
