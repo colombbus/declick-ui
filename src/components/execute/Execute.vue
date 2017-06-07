@@ -20,7 +20,8 @@ let currentId = -1
 export default {
   data () {
     return {
-      count: 0
+      count: 0,
+      hidden: true
     }
   },
   computed: {
@@ -40,7 +41,7 @@ export default {
       return content
     },
     iframeUrl () {
-      if (this.project && this.project.mainProgram) {
+      if (!this.hidden && this.project && this.project.mainProgram) {
         return config.clientUrl + 'execute.html#id=' + this.project.id + '&init=' + encodeURI(this.project.mainProgram) + "&count=" + this.count
       } else {
         return config.clientUrl + 'execute.html#'
@@ -68,7 +69,10 @@ export default {
     },
     $route (to, from) {
       if (to.name === 'execute') {
+        this.hidden = false
         this.checkId()
+      } else if (!this.hidden) {
+        this.hidden = true
       }
     }
   },
