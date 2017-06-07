@@ -28,8 +28,9 @@ export default {
   ],
   created () {
     let router = this.$router
-    window.goTo = function (location) {
+    window.goTo = function (event, location) {
       router.push(location)
+      event.preventDefault()
     }
     let url = config.cmsUrl +
       'api/1/tables/pages/rows/' +
