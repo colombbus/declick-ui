@@ -2,6 +2,12 @@
   <div>
     <div id="declickMap">
       <canvas id="map" ></canvas>
+      <button
+        @click="resetResults"
+        v-if="useOfflineMode"
+        type="button"
+        id="reset-results-button"
+      >Réinitialiser le parcours</button>
     </div>
   </div>
 </template>
@@ -9,6 +15,8 @@
 <script>
 /* global __webpack_public_path__ */
 
+import config from 'assets/config/declick'
+import Storage from 'src/storage'
 import Map from '../../assets/js/map.js'
 import {mapState, mapActions} from 'vuex'
 
@@ -19,6 +27,7 @@ var map = new Map()
 export default {
   data () {
     return {
+      useOfflineMode: config.offline
     }
   },
   computed: mapState(['currentAssessment', 'currentCourse', 'user']),
@@ -64,6 +73,10 @@ export default {
     }
   },
   methods: {
+    resetResults () {
+      Storage.resetUserResults()
+      this.loadSteps()
+    },
     async loadSteps () {
       await this.selectCourse({id: this.$route.params.id})
       map.loadStepsFromUI(this.currentCourse)
@@ -75,6 +88,7 @@ export default {
 
 <style lang="css">
 #declickMap {
+    position: relative;
     background-color:#000000;
     height: calc(100vh - 195px)
 }
@@ -87,5 +101,19 @@ export default {
 }
 #text {
     color:#FFFFFF;
+}
+#reset-results-button {
+  position: absolute;
+  right: 20px;
+  bottom: 0;
+  padding: 3px 5px;
+  border-radius: 5px 5px 0 0;
+  border-width: 0;
+  color: white;
+  background-color: brown;
+  outline: 0;
+}
+#reset-results-button:hover {
+  background-color: darkred;
 }
 </style>

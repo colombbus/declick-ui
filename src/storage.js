@@ -214,6 +214,13 @@ export default {
     }
     fs.writeFileSync(resultsFile, JSON.stringify(this.userResults), {encoding: 'utf8'})
   },
+  resetUserResults () {
+    let resultsFile = this.getUserResultsFile(this.userId)
+    if (fs.existsSync(resultsFile)) {
+      fs.removeSync(resultsFile)
+    }
+    this.userResults = []
+  },
   /* API CALLS */
   getAllCourses () {
     return this.courses
