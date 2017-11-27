@@ -24,6 +24,43 @@
           to="/create")
           img(src="../assets/img/create.png" alt="Créer" title="Créer")
           | Envie de créer des applis ? C'est par ici !
+    .partners-band
+      .partners-band-content
+        .partners-box
+          span.partners-box-title NOS PARTENAIRES PÉDAGOGIQUES
+          .partners-box-content
+            img.partners-logo(
+              src='~assets/image/logo-ClassCode.png'
+              alt='Class\'Code'
+            )
+            img.partners-logo(
+              src='~assets/image/logo-D-ClicsNumeriques.png'
+              alt='D-Clics Numériques'
+            )
+            img.partners-logo(
+              src='~assets/image/logo-France-IOI.png'
+              alt='France-IOI'
+            )
+        .partners-box-separator
+        .partners-box
+          span.partners-box-title ILS NOUS SOUTIENNENT
+          .partners-box-content
+            img.partners-logo(
+              src='~assets/image/logo-Ministry-of-Education.png'
+              alt='Ministère de l\'Éducation'
+            )
+            img.partners-logo(
+              src='~assets/image/logo-Vivendi-Create-Joy.png'
+              alt='Vivendi Create Joy'
+            )
+            img.partners-logo(
+              src='~assets/image/logo-SAP.png'
+              alt='SAP'
+            )
+            img.partners-logo(
+              src='~assets/image/logo-Fondation-Free.png'
+              alt='Fondation Free'
+            )
 </template>
 
 <script>
@@ -51,6 +88,47 @@ export default {
 </script>
 
 <style scoped>
+.partners-band {
+  width: 100%;
+  padding: 25px;
+  padding-top: 35px;
+  background-color: #470A2B;
+}
+
+.partners-box-separator {
+  display: inline-block;
+  height: 150px;
+  margin: auto;
+  border-left: 1px solid white;
+  vertical-align: top;
+}
+
+.partners-box {
+  display: inline-block;
+  width: 420px;
+  vertical-align: top;
+}
+
+.partners-box-title {
+  display: block;
+  font-size: 18px;
+  font-weight: 350;
+  text-align: center;
+  color: white;
+}
+
+.partners-box-content {
+  height: 120px;
+  margin: 10px auto 0 auto;
+  line-height: 120px;
+}
+
+.partners-logo {
+  display: inline-block;
+  margin: auto 8px;
+  vertical-align: middle;
+}
+
 #content .hidden {
   display:none;
 }
