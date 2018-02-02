@@ -17,13 +17,13 @@
 
 <script>
 import {mapState} from 'vuex'
-import {importProject} from 'src/api'
+import Api from 'src/api'
 
 export default {
   props: ['editor'],
   methods: {
     importExamplePrograms () {
-      importProject(402, this.authorization)
+      Api.importProject(402, this.authorization)
       window.alert('Les programmes ont été importés, veuillez recharger la page.')
     },
     toggleMode () {
