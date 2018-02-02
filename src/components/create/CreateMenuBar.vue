@@ -23,14 +23,14 @@ export default {
   props: ['editor'],
   methods: {
     importExamplePrograms () {
-      Api.importProject(402, this.authorization)
+      Api.importProject(402, this.token)
       window.alert('Les programmes ont été importés, veuillez recharger la page.')
     },
     toggleMode () {
       this.$emit('toggleEditor')
     }
   },
-  computed: mapState(['authorization', 'user', 'currentProject'])
+  computed: mapState(['token', 'user', 'currentProject'])
 }
 </script>
 
