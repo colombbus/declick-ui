@@ -17,7 +17,7 @@
 
 <script>
 import {mapState} from 'vuex'
-import {importProject} from '@/api'
+import {importProject} from 'src/api'
 
 export default {
   props: ['editor'],
