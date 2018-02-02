@@ -6,8 +6,9 @@
       li: a(@click="$emit('showView', {view: 'ProjectDetails', params: {project: currentProject}})") informations
       li.divider(role='separator')
       li: a(@click="$emit('showView', 'ProjectList')") projets
-      li.divider(role='separator')
-      li: a(@click="importExamplePrograms") importer les programmes d'exemple
+      template(v-if='user')
+        li.divider(role='separator')
+        li: a(@click='importExamplePrograms') importer les programmes d'exemple
   span.project-name {{(currentProject && currentProject.name) || 'Projet'}}
   a(
     @click='toggleMode',
