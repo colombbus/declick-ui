@@ -6,6 +6,8 @@
       li: a(@click="$emit('showView', {view: 'ProjectDetails', params: {project: currentProject}})") informations
       li.divider(role='separator')
       li: a(@click="$emit('showView', 'ProjectList')") projets
+      li.divider(role='separator')
+      li: a(@click="importExamplePrograms") importer les programmes d'exemple
   span.project-name {{(currentProject && currentProject.name) || 'Projet'}}
   a(
     @click='toggleMode',
@@ -15,15 +17,20 @@
 
 <script>
 import {mapState} from 'vuex'
+import {importProject} from '@/api'
 
 export default {
   props: ['editor'],
   methods: {
+    importExamplePrograms () {
+      importProject(402, this.authorization)
+      window.alert('Les programmes ont été importés, veuillez recharger la page.')
+    },
     toggleMode () {
       this.$emit('toggleEditor')
     }
   },
-  computed: mapState(['user', 'currentProject'])
+  computed: mapState(['authorization', 'user', 'currentProject'])
 }
 </script>
 
