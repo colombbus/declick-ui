@@ -1,17 +1,12 @@
 <template lang="pug">
 .self
-  | Réalisé par
-  |
-  a(target='_blank' href='http://www.colombbus.org/') Colombbus
-  a(href='mailto:declick@colombbus.org' class='right-aligned')
-    | Contactez-nous !
-    |
-    span.glyphicon.glyphicon-envelope
+  | © Colombbus 2018 - &nbsp;
+  a(target='_blank' href='mailto:declick@colombbus.org') contact
 </template>
 
 <style lang="sass" scoped>
 a
-  color: #D1D718
+  color: #fff
   text-decoration: none
 
 .self
@@ -19,9 +14,10 @@ a
   height: 25px
   padding: 0 5px
   font-size: 12pt
-  color: #D1D718
+  color: #fff
   background-color: #480A2A
-  border-top: 1px solid #D1D718
+  border-top: 1px solid #fff
+  text-align: center
 
 .right-aligned
   float: right

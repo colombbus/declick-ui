@@ -1,33 +1,21 @@
 <template lang="pug">
-div
-  slogan-bar
-  authenticated-user-box.user-box(v-if='user')
-  main-menu
-  breadcrumb
+.slogan-bar
+  router-link.slogan-bar__logo(to='/' tag='button')
 </template>
 
-<script>
-import AuthenticatedUserBox from 'components/user/AuthenticatedUserBox'
-import Breadcrumb from 'components/navigation/Breadcrumb'
-import MainMenu from 'components/navigation/MainMenu'
-import SloganBar from 'components/navigation/SloganBar'
-import {mapState} from 'vuex'
+<style lang="sass">
+.slogan-bar
+  border-bottom: 3px solid #D1D718
+  background: #480a2a
 
-export default {
-  computed: mapState(['user']),
-  components: {
-    AuthenticatedUserBox,
-    Breadcrumb,
-    MainMenu,
-    SloganBar
-  }
-}
-</script>
-
-<style lang="sass" scoped>
-.user-box
-  float: right
-  position: relative
-  top: -3px
-  margin-top: -38px
+.slogan-bar__logo
+  display: block
+  height: 90px
+  width: 157px
+  margin: 5px auto
+  padding: 0
+  border: 0
+  background-color: transparent
+  background-image: url(~@/assets/images/logo.png)
+  outline: 0
 </style>

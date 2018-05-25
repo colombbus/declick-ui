@@ -18,11 +18,14 @@ import UserList from 'components/user/UserList'
 import UserProfile from 'components/user/UserProfile'
 import UserEditor from 'components/user/UserEditor'
 
+import Home from '@/components/Home.vue'
+import Resources from '@/components/Resources.vue'
+
 var routes = [
   {
     path: '/',
     name: 'home',
-    component: CmsDocument,
+    component: Home,
     meta: {
       id: 4,
       title: 'Accueil'
@@ -101,6 +104,13 @@ var routes = [
     meta: {
       title: 'Créer',
       useFullscreen: true
+    }
+  },
+  {
+    path: '/resources',
+    component: Resources,
+    meta: {
+      title: 'Ressources'
     }
   },
   {

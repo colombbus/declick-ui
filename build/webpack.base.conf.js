@@ -29,6 +29,7 @@ module.exports = {
     alias: {
       'paper$': 'paper/dist/paper-core.min.js',
       'vue$': 'vue/dist/vue',
+      '@': path.resolve(__dirname, '../src'),
       'src': path.resolve(__dirname, '../src'),
       'assets': path.resolve(__dirname, '../src/assets'),
       'store': path.resolve(__dirname, '../src/store'),
