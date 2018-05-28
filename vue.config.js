@@ -26,29 +26,10 @@ module.exports = {
           'window.jQuery': 'jquery',
         }])
         .end()
-      .plugin('paper-window-dependency-fix')
-        .use(webpack.IgnorePlugin, [
-          /^\.\/node\/window$/,
-          new RegExp(path.join('paper', 'dist$'))
-        ])
-        .end()
-      .plugin('paper-extend-dependency-fix')
-        .use(webpack.IgnorePlugin, [
-          /^\.\/node\/extend$/,
-          new RegExp(path.join('paper', 'dist$'))
-        ])
-        .end()
       .plugin('html-template')
         .use(HtmlWebpackPlugin, [{
           template: 'public/index.html',
         }])
         .end()
-  },
-  devServer: {
-    port: 8080,
-    host: 'localhost',
-    allowedHosts: [
-      process.env.HOST,
-    ],
   },
 }

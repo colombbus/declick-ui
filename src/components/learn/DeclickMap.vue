@@ -29,8 +29,7 @@ export default {
   ]),
   mounted () {
     // TODO: Find a better solution.
-    let robotPath = __webpack_public_path__ + // eslint-disable-line camelcase
-      'static/map-robot.svg'
+    let robotPath = require('@/assets/images/robot-pawn.svg')
     map.init('map', robotPath, (step) => {
       this.selectAssessment({id: step.id})
       this.$router.push({
