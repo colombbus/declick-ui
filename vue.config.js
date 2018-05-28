@@ -11,9 +11,6 @@ module.exports = {
         .prepend('@babel/polyfill')
         .end()
       .resolve
-        .modules
-          .add('bower_components')
-          .end()
         .alias
           .set('vue$', 'vue/dist/vue')
           .end()
