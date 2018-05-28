@@ -1,19 +1,13 @@
-<template>
-  <div v-if="rootNode">
-    <tree-view
-      :node="rootNode"
-      @select-node="selectNode"
-      id="course-tree-view"
-    ></tree-view>
-    <step-editor
-      v-if="selectedNode"
-      :node="selectedNode"
-      @create-child="createChildStep"
-      @save="saveStep"
-      @remove="removeStep"
-      id="course-step-editor"
-    ></step-editor>
-  </div>
+<template lang="pug">
+div(v-if='rootNode')
+  tree-view#course-tree-view(:node='rootNode', @select-node='selectNode')
+  step-editor#course-step-editor(
+    v-if='selectedNode'
+    :node='selectedNode'
+    @create-child='createChildStep'
+    @save='saveStep'
+    @remove='removeStep'
+  )
 </template>
 
 <script>
@@ -138,38 +132,31 @@ export default {
 }
 </script>
 
-<style>
-#course-tree-view {
-  float: left;
-}
+<style lang="sass">
+#course-tree-view
+  float: left
 
-#course-step-editor {
-  float: left;
-  margin-left: 20px;
-}
+#course-step-editor
+  float: left
+  margin-left: 20px
 
-#course-tree-view, #course-tree-view ol {
-  margin: 0;
-  padding: 0;
-  list-style-type: none;
-}
-
-#course-tree-view li {
-  margin: 0px;
-}
-
-#course-tree-view a {
-  text-decoration: none;
-}
-
-#course-tree-view .glyphicon {
-  color: #2A6698;
-}
-
-#course-tree-view .node-control {
-  display: inline-block;
-  width: 25px;
-  padding: 0 5px;
-  text-align: center;
-}
+#course-tree-view
+  margin: 0
+  padding: 0
+  list-style-type: none
+  ol
+    margin: 0
+    padding: 0
+    list-style-type: none
+  li
+    margin: 0px
+  a
+    text-decoration: none
+  .glyphicon
+    color: #2A6698
+  .node-control
+    display: inline-block
+    width: 25px
+    padding: 0 5px
+    text-align: center
 </style>

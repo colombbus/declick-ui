@@ -57,7 +57,7 @@ div
         )
           | {{resource.file_name}}
     button.btn.btn-default(
-      @click="showProjectDetails"
+      @click='showProjectDetails'
       type='button'
     )
       | annuler
@@ -114,7 +114,7 @@ export default {
         id: this.params.project.id,
         data
       })
-      console.debug(truc)
+      // console.debug(truc)
       this.params.project.name = this.name
       this.params.project.isPublic = this.isPublic
       this.params.project.sceneWidth = this.sceneWidth

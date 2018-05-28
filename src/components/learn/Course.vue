@@ -1,7 +1,6 @@
-<template lang="html">
-    <keep-alive>
-        <router-view></router-view>
-    </keep-alive>
+<template lang="pug">
+keep-alive
+  router-view
 </template>
 
 <script>
