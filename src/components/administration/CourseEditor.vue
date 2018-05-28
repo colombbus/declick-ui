@@ -15,7 +15,7 @@ div(v-if='rootNode')
 
 import StepEditor from './StepEditor'
 import TreeView from './TreeView'
-import config from '@/assets/config/declick'
+import config from '@/config'
 
 export default {
   data: function () {

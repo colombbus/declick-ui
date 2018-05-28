@@ -1,2 +1,0 @@
-export const GOOGLE_APP_ID = 'GOOGLE_APP_ID'
-export const FACEBOOK_APP_ID = 'FACEBOOK_APP_ID'

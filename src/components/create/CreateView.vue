@@ -33,7 +33,7 @@ import ProjectCreator from './ProjectCreator'
 import ProjectDetails from './ProjectDetails'
 import ProjectEditor from './ProjectEditor'
 import ProjectList from './ProjectList'
-import config from '@/assets/config/declick'
+import config from '@/config'
 import {EventBus} from '@/eventBus'
 
 export default {

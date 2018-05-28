@@ -26,7 +26,7 @@ div
 // TODO: use store
 
 import CourseCreator from './CourseCreator'
-import config from '@/assets/config/declick'
+import config from '@/config'
 
 export default {
   data () {

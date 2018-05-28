@@ -10,7 +10,7 @@ import CourseList from '@/components/learn/CourseList'
 import Progress from '@/components/learn/Progress'
 import DeclickMap from '@/components/learn/DeclickMap'
 
-import config from '@/assets/config/declick'
+import config from '@/config'
 
 import AdministrationCourseList from '@/components/administration/CourseList'
 import CourseEditor from '@/components/administration/CourseEditor'

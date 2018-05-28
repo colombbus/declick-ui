@@ -16,7 +16,7 @@
 
 <script>
 import Vue from 'vue'
-import config from '@/assets/config/declick'
+import config from '@/config'
 
 export default {
   data () {
