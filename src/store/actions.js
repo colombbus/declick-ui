@@ -1,5 +1,5 @@
 import * as mutations from './mutation-types'
-import Api from 'src/api'
+import Api from '@/api'
 
 const LOCAL_STORAGE_PREFIX = 'ui'
 const LOCAL_STORAGE_VERSION = 5

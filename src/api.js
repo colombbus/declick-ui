@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueResource from 'vue-resource'
-import config from 'assets/config/declick'
+import config from '@/assets/config/declick'
 
 Vue.use(VueResource)
 

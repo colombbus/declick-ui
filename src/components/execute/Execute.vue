@@ -10,7 +10,7 @@
 
 <script>
 import {mapState} from 'vuex'
-import config from 'assets/config/declick'
+import config from '@/assets/config/declick'
 import ExecuteHeaderBar from './ExecuteHeaderBar'
 import store from '../../store'
 
