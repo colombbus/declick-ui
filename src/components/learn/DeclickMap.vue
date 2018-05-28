@@ -9,7 +9,7 @@
 <script>
 /* global __webpack_public_path__ */
 
-import Map from '../../assets/js/map.js'
+import Map from './map.js'
 import {mapState, mapActions} from 'vuex'
 
 import mapConfig from './mapConfig'
