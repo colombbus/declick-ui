@@ -47,9 +47,9 @@ ul.main-menu
 </template>
 
 <script>
-import AuthenticationModal from 'components/user/AuthenticationModal'
+import AuthenticationModal from '@/components/user/AuthenticationModal'
 import {mapState, mapActions} from 'vuex'
-import config from 'assets/config/declick'
+import config from '@/assets/config/declick'
 
 export default {
   data () {

@@ -37,7 +37,7 @@
 // TODO: use store
 
 import CourseCreator from './CourseCreator'
-import config from 'assets/config/declick'
+import config from '@/assets/config/declick'
 
 export default {
   data () {

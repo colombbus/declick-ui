@@ -20,7 +20,7 @@
 <script>
 /* global $ */
 
-import config from 'assets/config/declick'
+import config from '@/assets/config/declick'
 
 export default {
   props: [

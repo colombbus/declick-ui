@@ -28,6 +28,7 @@
           v-for="child in node.children"
           :depth="depth + 1"
           :node="child"
+          :key='node.data.id'
           @select-node="transmitEvent"
         ></step-tree-item>
       </li>

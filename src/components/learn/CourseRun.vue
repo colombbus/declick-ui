@@ -10,15 +10,15 @@
 </template>
 
 <script>
-import config from 'assets/config/declick'
-import Channel from 'exports-loader?Channel!jschannel/src/jschannel.js'
+import config from '@/assets/config/declick'
+// import Channel from 'exports-loader?Channel!jschannel/src/jschannel.js'
 import {mapState, mapActions} from 'vuex'
-// import Api from 'src/api'
-// import {EventBus} from 'src/eventBus'
+// import Api from '@/api'
+// import {EventBus} from '@/eventBus'
 
 import ProgressHeaderBar from '../learn/ProgressHeaderBar'
 
-window.Channel = Channel
+// window.Channel = Channel
 // import pem from 'exports-loader?TaskProxyManager&Platform!pem-platform/task-xd-pr.js'
 // var task = false
 export default {

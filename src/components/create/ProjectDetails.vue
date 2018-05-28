@@ -40,7 +40,7 @@ div
 
 <script>
 import {mapActions, mapState} from 'vuex'
-import Api from 'src/api'
+import Api from '@/api'
 
 export default {
   props: ['params'],

@@ -16,6 +16,6 @@
   padding: 0
   border: 0
   background-color: transparent
-  background-image: url(~@/assets/images/logo.png)
+  background-image: url(~@/assets/img/logo.png)
   outline: 0
 </style>
