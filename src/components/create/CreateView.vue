@@ -2,20 +2,20 @@
 .create-view
   create-header-bar
   create-menu-bar(
-    @showView="showView"
-    @toggleEditor="editor = !editor"
-    v-bind:editor="editor"
+    @showView='showView'
+    @toggleEditor='editor = !editor'
+    v-bind:editor='editor'
   )
   transition(
-    v-on:before-enter="beforeEnter"
-    v-on:enter="onEnter"
-    v-on:leave="onLeave"
-    v-bind:css="false"
+    v-on:before-enter='beforeEnter'
+    v-on:enter='onEnter'
+    v-on:leave='onLeave'
+    v-bind:css='false'
   )
     .slider(v-if='view')
       button.close-button(@click='view = null')
       component(
-        @showView="showView",
+        @showView='showView',
         @close='view = null',
         :is='view',
         :params='params'
@@ -26,8 +26,6 @@
 </template>
 
 <script>
-/* global $ */
-import 'jquery'
 import {mapState} from 'vuex'
 import CreateHeaderBar from './CreateHeaderBar'
 import CreateMenuBar from './CreateMenuBar'
@@ -96,18 +94,21 @@ export default {
       $(element).slideUp(1000, done)
     },
     toggleWiki () {
+      // Disabled in favor of new interface components.
+      /*
       let wikiFrame = $(this.$refs.wikiFrame)
       let createFrame = $(this.$refs.createFrame)
       wikiFrame.stop()
       createFrame.stop()
       this.wiki = !(this.wiki)
       if (this.wiki) {
-        wikiFrame.css("left", "-365px").show().animate({left: "0"}, 500)
-        createFrame.animate({"padding-left": "365px"}, 500)
+        wikiFrame.css('left', '-365px').show().animate({left: '0'}, 500)
+        createFrame.animate({'padding-left': '365px'}, 500)
       } else {
-        wikiFrame.animate({left: "-365px"}, 500, function () { $(this).hide() })
-        createFrame.animate({"padding-left": "8px"}, 500, function () { $(this).css("padding-left", "") })
+        wikiFrame.animate({left: '-365px'}, 500, function () { $(this).hide() })
+        createFrame.animate({'padding-left': '8px'}, 500, function () { $(this).css('padding-left', '') })
       }
+      */
     }
   },
   components: {

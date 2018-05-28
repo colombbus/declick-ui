@@ -62,8 +62,8 @@ transition(name='modal')
 </template>
 
 <script>
-import 'bootstrap-social/bootstrap-social.css'
 import 'font-awesome/css/font-awesome.css'
+
 import RegistrationForm from './RegistrationForm'
 
 export default {

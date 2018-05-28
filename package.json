@@ -2,35 +2,26 @@
   "name": "declick-ui",
   "version": "1.0.0",
   "license": "GPL-3.0",
-  "description": "Declick v2 User Interface",
-  "author": {
-    "name": "Colombbus",
-    "email": "contact@colombbus.org"
-  },
+  "description": "Declick user interface",
+  "author": "Colombbus <contact@colombbus.org>",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "serve2": "vue-cli-service serve --host localhost --allowed-hosts fcc44c0356ec48c391df95af4f538acf.vfs.cloud9.eu-west-1.amazows.com",
-    "build": "node build/build.js",
-    "lint": "eslint --ext .js,.vue src"
+    "build": "vue-cli-service build"
   },
   "dependencies": {
     "@babel/polyfill": "^7.0.0-beta.49",
-    "bootstrap": "^3.3.7",
-    "bootstrap-social": "^5.1.1",
+    "axios": "^0.18.0",
     "font-awesome": "^4.7.0",
-    "jquery": "^3.1.1",
-    "jstree": "^3.3.3",
     "lodash.debounce": "^4.0.8",
     "lodash.range": "^3.2.0",
     "paper": "^0.11.5",
-    "ramda": "^0.23.0",
     "vue": "^2.2.1",
-    "vue-analytics": "^4.1.0",
+    "vue-analytics": "^5.12.2",
     "vue-click-outside": "^1.0.7",
-    "vue-resource": "^1.2.0",
-    "vue-router": "^2.3.0",
-    "vuex": "^2.2.1"
+    "vue-i18n": "^7.7.0",
+    "vue-router": "^3.0.1",
+    "vuex": "^3.0.1"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.0.0-beta.49",

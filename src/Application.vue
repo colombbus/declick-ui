@@ -22,7 +22,6 @@
 </template>
 
 <script>
-import R from 'ramda'
 import courseRun from '@/components/learn/CourseRun'
 import CreateView from '@/components/create/CreateView'
 import FooterBar from '@/components/navigation/FooterBar'

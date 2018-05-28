@@ -1,8 +1,10 @@
 import Vue from 'vue'
-import VueResource from 'vue-resource'
+// import VueResource from 'vue-resource'
+import axios from 'axios'
+// TODO: Update this file to use axios.
 import config from '@/assets/config/declick'
 
-Vue.use(VueResource)
+// Vue.use(VueResource)
 
 export default {
   // tokens methods

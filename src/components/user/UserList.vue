@@ -28,7 +28,6 @@ div
 </template>
 
 <script>
-import R from 'ramda'
 import debounce from 'lodash.debounce'
 import Api from '@/api'
 

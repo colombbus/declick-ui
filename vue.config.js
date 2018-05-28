@@ -16,15 +16,7 @@ module.exports = {
           .end()
         .alias
           .set('vue$', 'vue/dist/vue')
-          .set('paper$', 'paper/dist/paper-core')
           .end()
-        .end()
-      .plugin('jQuery-provider')
-        .use(webpack.ProvidePlugin, [{
-          '$': 'jquery',
-          'jQuery': 'jquery',
-          'window.jQuery': 'jquery',
-        }])
         .end()
       .plugin('html-template')
         .use(HtmlWebpackPlugin, [{

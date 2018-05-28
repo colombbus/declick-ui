@@ -1,5 +1,4 @@
-import paper from'paper'
-import './jquery.mousewheel.min.js'
+import paper from 'paper'
 
 function DeclickMap() {
 
