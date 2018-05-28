@@ -7,6 +7,7 @@ import store from '@/store'
 import config from '@/assets/config/declick'
 import Application from '@/Application'
 import VueAnalytics from 'vue-analytics'
+import i18n from './i18n'
 
 // document.domain = config.domain
 
@@ -20,6 +21,7 @@ if (config.googleId) {
 /* eslint-disable no-new */
 new Vue({
   el: '#application',
+  i18n,
   template: '<application/>',
   store,
   router,
