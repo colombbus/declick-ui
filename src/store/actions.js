@@ -200,10 +200,7 @@ function setLocalItem (key, value) {
 }
 
 function clearLocalItems () {
-  let keys = []
-  for (let index = 0; index < localStorage.length; index++) {
-    keys.push(localStorage.key(index))
-  }
+  let keys = Object.keys(localStorage)
   let prefixLength = LOCAL_STORAGE_PREFIX.length
   keys.forEach((key) => {
     if (key.substr(0, prefixLength + 1) === `${LOCAL_STORAGE_PREFIX}.`) {
