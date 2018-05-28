@@ -6,13 +6,13 @@ import '@/styles/global.sass'
 
 import Vue from 'vue'
 import {mapActions} from 'vuex'
-import router from './router'
-import store from './store'
-import config from 'assets/config/declick'
-import Application from './Application'
+import router from '@/router'
+import store from '@/store'
+import config from '@/assets/config/declick'
+import Application from '@/Application'
 import VueAnalytics from 'vue-analytics'
 
-document.domain = config.domain
+// document.domain = config.domain
 
 if (config.googleId) {
   Vue.use(VueAnalytics, {

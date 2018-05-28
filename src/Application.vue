@@ -18,17 +18,17 @@
     //-   :id='viewId'
     //- )
   router-view
-  footer-bar(v-show='!viewUseFullscreen')
+  footer-bar
 </template>
 
 <script>
 import R from 'ramda'
-import courseRun from 'components/learn/CourseRun'
-import CreateView from 'components/create/CreateView'
-import FooterBar from 'components/navigation/FooterBar'
-import MainMenu from 'components/navigation/MainMenu'
-import HeaderBar from 'components/navigation/HeaderBar'
-import Execute from 'components/execute/Execute'
+import courseRun from '@/components/learn/CourseRun'
+import CreateView from '@/components/create/CreateView'
+import FooterBar from '@/components/navigation/FooterBar'
+import MainMenu from '@/components/navigation/MainMenu'
+import HeaderBar from '@/components/navigation/HeaderBar'
+import Execute from '@/components/execute/Execute'
 
 export default {
   computed: {
