@@ -73,6 +73,7 @@ export default {
 <style lang="sass">
 .main-menu
   display: flex
+  margin: 0
   padding: 0
   border-top: 7px solid #6e3a51
   justify-content: center

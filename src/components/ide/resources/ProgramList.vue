@@ -28,7 +28,7 @@ export default {
     }
   },
   created () {
-    range(0, 5).forEach(() => this.createProgram())
+    range(0, 25).forEach(() => this.createProgram())
   },
   methods: {
     select (id) {
