@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import courseRun from '@/components/learn/CourseRun'
+import CourseRun from '@/components/learn/CourseRun'
 import CreateView from '@/components/create/CreateView'
 import FooterBar from '@/components/navigation/FooterBar'
 import MainMenu from '@/components/navigation/MainMenu'
@@ -45,7 +45,7 @@ export default {
     }
   },
   components: {
-    courseRun,
+    CourseRun,
     CreateView,
     FooterBar,
     HeaderBar,
