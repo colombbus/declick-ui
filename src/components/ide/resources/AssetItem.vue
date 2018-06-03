@@ -133,7 +133,6 @@ export default {
     background-color: #E47637
   &:hover
 
-
 .asset-item > div
   padding-bottom: 2px
   margin-bottom: 5px
@@ -152,4 +151,10 @@ export default {
 
 .asset-item > img
   width: 50px
+  opacity: .6
+  &:hover
+    opacity: 1
+
+.asset-item--selected-active> img
+    opacity: 1
 </style>
