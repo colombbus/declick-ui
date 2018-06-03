@@ -150,7 +150,7 @@ export default {
   outline: 0
 
 .asset-item > img
-  width: 50px
+  width: 65px
   opacity: .6
   &:hover
     opacity: 1
