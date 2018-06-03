@@ -28,7 +28,7 @@ export default {
     }
   },
   created () {
-    range(0, 25).forEach(() => this.createProgram())
+    range(0, 5).forEach(() => this.createProgram())
   },
   methods: {
     select (id) {
@@ -83,6 +83,7 @@ export default {
 @import '~@/assets/styles/mixins'
 
 .program-list
+  width: 230px
   display: grid
   height: 100%
   grid-template-rows: 1fr auto

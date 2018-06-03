@@ -30,7 +30,7 @@ export default {
 .resource-panel
   display: grid
   height: 100%
-  grid-template-columns: 230px auto
+  grid-template-columns: auto auto
   grid-template-rows: 100%
   background: #a6a1a6
 

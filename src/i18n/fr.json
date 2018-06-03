@@ -7,6 +7,9 @@
   "pattern": {
     "program": {
       "name": "nouveau {index}"
+    },
+    "asset": {
+      "name": "image {index}"
     }
   }
 }
