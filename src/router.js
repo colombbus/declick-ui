@@ -18,14 +18,14 @@ import UserList from 'components/user/UserList'
 import UserProfile from 'components/user/UserProfile'
 import UserEditor from 'components/user/UserEditor'
 
-import Home from '@/components/Home.vue'
-import Resources from '@/components/Resources.vue'
+import HomePage from '@/components/HomePage.vue'
+import ResourcesPage from '@/components/ResourcesPage.vue'
 
 var routes = [
   {
     path: '/',
     name: 'home',
-    component: Home,
+    component: HomePage,
     meta: {
       id: 4,
       title: 'Accueil'
@@ -108,7 +108,7 @@ var routes = [
   },
   {
     path: '/resources',
-    component: Resources,
+    component: ResourcesPage,
     meta: {
       title: 'Ressources'
     }
