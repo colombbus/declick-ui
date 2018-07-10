@@ -1,27 +1,22 @@
-<template>
-  <div class="panel panel-default" id="course-creator">
-    <div class="panel-heading">nouveau parcours</div>
-    <div class="panel-body">
-      <div class="form-group">
-        <label for="name">nom :</label>
-        <input type="text" name="name" class="form-control" id="name" v-model="name">
-      </div>
-      <div class="form-group">
-        <label for="shortDescription">description courte :</label>
-        <textarea name="shortDescription" class="form-control" id="shortDescription" v-model="shortDescription"></textarea>
-      </div>
-      <div class="form-group">
-        <label for="description">description :</label>
-        <textarea name="description" class="form-control" id="description" v-model="description"></textarea>
-      </div>
-      <button class="btn btn-success" type="button" @click="create">créer</button>
-    </div>
-  </div>
+<template lang="pug">
+#course-creator.panel.panel-default
+  .panel-heading nouveau parcours
+  .panel-body
+    .form-group
+      label(for='name') nom :
+      input#name.form-control(type='text' name='name' v-model='name')
+    .form-group
+      label(for='shortDescription') description courte :
+      textarea#shortDescription.form-control(name='shortDescription' v-model='shortDescription')
+    .form-group
+      label(for='description') description :
+      textarea#description.form-control(name='description' v-model='description')
+    button.btn.btn-success(type='button' @click='create') créer
 </template>
 
 <script>
 import Vue from 'vue'
-import config from 'assets/config/declick'
+import config from '@/config'
 
 export default {
   data () {
@@ -46,8 +41,7 @@ export default {
 }
 </script>
 
-<style>
-#course-creator {
-  width: 100%;
-}
+<style lang="sass">
+#course-creator
+  width: 100%
 </style>

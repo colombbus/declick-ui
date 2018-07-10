@@ -54,9 +54,9 @@ div.main-menu(:class='stateClass')
 </template>
 
 <script>
-import AuthenticationModal from 'components/user/AuthenticationModal'
+import AuthenticationModal from '@/components/user/AuthenticationModal'
 import {mapState, mapActions} from 'vuex'
-import config from 'assets/config/declick'
+import config from '@/config'
 
 export default {
   data () {

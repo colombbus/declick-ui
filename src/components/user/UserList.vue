@@ -28,9 +28,8 @@ div
 </template>
 
 <script>
-import R from 'ramda'
 import debounce from 'lodash.debounce'
-import Api from 'src/api'
+import Api from '@/api'
 
 export default {
   data () {

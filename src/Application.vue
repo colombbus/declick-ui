@@ -22,13 +22,12 @@
 </template>
 
 <script>
-import R from 'ramda'
-import courseRun from 'components/learn/CourseRun'
-import CreateView from 'components/create/CreateView'
-import FooterBar from 'components/navigation/FooterBar'
-import MainMenu from 'components/navigation/MainMenu'
-import HeaderBar from 'components/navigation/HeaderBar'
-import Execute from 'components/execute/Execute'
+import CourseRun from '@/components/learn/CourseRun'
+import CreateView from '@/components/create/CreateView'
+import FooterBar from '@/components/navigation/FooterBar'
+import MainMenu from '@/components/navigation/MainMenu'
+import HeaderBar from '@/components/navigation/HeaderBar'
+import Execute from '@/components/execute/Execute'
 
 export default {
   computed: {
@@ -46,7 +45,7 @@ export default {
     }
   },
   components: {
-    courseRun,
+    CourseRun,
     CreateView,
     FooterBar,
     HeaderBar,
@@ -62,7 +61,7 @@ export default {
   height: 100%
   margin: 0
   padding: 0
-  grid-template-rows: auto auto 1fr auto
+  grid-template-rows: auto auto minmax(0, 1fr) auto
 
 .application--fullscreen
   &__header-bar, &__footer-bar

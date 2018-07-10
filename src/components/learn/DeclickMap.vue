@@ -9,7 +9,7 @@
 <script>
 /* global __webpack_public_path__ */
 
-import Map from '../../assets/js/map.js'
+import Map from './map.js'
 import {mapState, mapActions} from 'vuex'
 
 import mapConfig from './mapConfig'
@@ -29,8 +29,7 @@ export default {
   ]),
   mounted () {
     // TODO: Find a better solution.
-    let robotPath = __webpack_public_path__ + // eslint-disable-line camelcase
-      'static/map-robot.svg'
+    let robotPath = require('@/assets/images/robot-pawn.svg')
     map.init('map', robotPath, (step) => {
       this.selectAssessment({id: step.id})
       this.$router.push({

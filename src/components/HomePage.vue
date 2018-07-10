@@ -7,35 +7,32 @@
       code informatique et de les appliquer à travers des projets, individuels
       ou collectifs, d'applications ou de jeux vidéo.
   .home__box
-    img.home__robot-train(src='~@/assets/images/figures/robot-train.svg')
     h3 les parcours
     p.
       La section « APPRENDRE » regroupe des parcours qui vous permettent
       d'assimiler progressivement des notions de programmation.
   .home__box
-    img.home__robot-idea(src='~@/assets/images/figures/robot-idea.svg')
     h3 l'espace créatif
     p.
       La section « CRÉER » vous propose un environnement de travail où vous
       pouvez composer avec les notions acquises pour créer vos propres jeux et
       applications.
   .home__box
-    img.home__robot-observe(src='~@/assets/images/figures/robot-observe.svg')
     h3 l'espace découverte
     p.
       Dans la section « JOUER » retrouvez et testez les jeux ou les
       applications créés par la communauté Declick.
   h2 declick en vidéo
-  .home__video: iframe(
-    src='https://player.vimeo.com/video/211507001?title=0&byline=0&portrait=0'
-    frameborder='0'
-    webkitallowfullscreen
-    mozallowfullscreen
-    allowfullscreen
-  )
+  .home__video
+    iframe(
+      src='https://player.vimeo.com/video/211507001?title=0&byline=0&portrait=0'
+      frameborder='0'
+      webkitallowfullscreen
+      mozallowfullscreen
+      allowfullscreen
+    )
   h2 notre approche
   .home__box
-    img(src='~@/assets/images/figures/target.svg')
     h3 notre mission
     p.
       Declick a été conçu pour initier les 8-15 ans au code et à la création
@@ -43,7 +40,6 @@
       ainsi une étape intermédiaire entre les éditeurs visuels (type Scratch)
       et les vrais environnements de programmation.
   .home__box
-    img(src='~@/assets/images/figures/chart.svg')
     h3 notre pédagogie
     p.
       Declick est le fruit de plus de 10 ans d'expérience de l'enseignement de
@@ -52,13 +48,11 @@
       d'ateliers dans les collèges les écoles élémentaires et les centres
       d'animation.
   .home__box
-    img(src='~@/assets/images/logos/Octocat.svg')
     h3 un logiciel libre
     p.
       Declick est gratuit et libre : le code source de la plateforme est
       hébergé sur GitHub et diffusé sous license GPL 3.0. Si vous voulez
       contribuer au développement, n'hésitez pas à nous contacter !
-    img.home__tag(src='~@/assets/images/figures/made-in-France.svg')
   .home__about-us
     h3 l'association Colombbus
     p.
@@ -69,259 +63,114 @@
       développement personnel et de lien social.
     a(href='https://www.colombbus.org/' target='_blank') en savoir plus
   .home__partners
-    h3 nos partenaires éducatifs
-    .home__logo-group
-      a(
-        href='https://pixees.fr/classcode-v2/'
-        title="Class'Code"
-        target='_blank'
-      ): img(src='~@/assets/images/logos/ClassCode.svg')
-      a(
-        href='https://d-clicsnumeriques.org/'
-        title='D-Clics Numériques'
-        target='_blank'
-      ): img(src='~@/assets/images/logos/D-Clics-Numeriques.svg')
-      a(
-        href='https://www.reseau-canope.fr/'
-        title='Réseau Canopé'
-        target='_blank'
-      ): img(src='~@/assets/images/logos/Canope.svg')
-      a(
-        href='http://www.ensiie.fr/'
-        title='ENSIIE'
-        target='_blank'
-      ): img(src='~@/assets/images/logos/ENSIIE.svg')
-      a(
-        href='http://www.france-ioi.org/'
-        title='France-IOI'
-        target='_blank'
-      ): img(src='~@/assets/images/logos/France-IOI.svg')
-    h3 nos partenaires publics
-    .home__logo-group
-      a(
-        href='http://www.education.gouv.fr/'
-        title="Ministère de l'Éducation nationale"
-        target='_blank'
-      ): img(src='~@/assets/images/logos/Ministere-Education-nationale.svg')
-      a(
-        href='http://www.europe-en-france.gouv.fr/'
-        title="L'Europe s'engage"
-        target='_blank'
-      ): img(src='~@/assets/images/logos/lEurope-sengage.svg')
-      a(
-        href='https://www.paris.fr/'
-        title='Mairie de Paris'
-        target='_blank'
-      ): img(src='~@/assets/images/logos/Mairie-de-Paris.svg')
-    h3 nos mécènes
-    .home__logo-group
-      a(
-        href='https://www.vivendi.com/create-joy-fr/'
-        title='Vivendi Create Joy'
-        target='_blank'
-      ): img(src='~@/assets/images/logos/Vivendi-Create-Joy.svg')
-      a(
-        href='https://www.thalesgroup.com/fr'
-        title='Thales'
-        target='_blank'
-      ): img(src='~@/assets/images/logos/Thales.svg')
-      a(
-        href='https://www.fondation-sncf.org/fr/'
-        title='Fondation SNCF'
-        target='_blank'
-      ): img(src='~@/assets/images/logos/Fondation-SNCF.svg')
-      a(
-        href='https://group.bnpparibas/decouvrez-le-groupe/fondation-bnp-paribas'
-        title='Fondation BNP Paribas'
-        target='_blank'
-      ): img(src='~@/assets/images/logos/Fondation-BNP-Paribas.svg')
+    .home__box
+      h3 nos partenaires éducatifs
+      .home__logo-group
+    .home__box
+      h3 nos partenaires publics
+      .home__logo-group
+    .home__box
+      h3 nos partenaires privés
+      .home__logo-group
 </template>
 
 <style lang="sass">
 @import '~@/styles/mixins'
 
-$crimson: #e32c20
-$cab-sav: #480a2a
-$red-violet: #de1580
-$white: #fff
-$wine-berry: #531937
+.home
+  display: grid
+  max-width: 992px
+  margin: auto
+  padding: 40px 10px 0 10px
+  grid-template-columns: repeat(12, 1fr)
+  grid-gap: 30px
+  text-align: center
+  color: #531937
 
-$vertical-gap: 40px
-
-@mixin postline($color)
+.home h2, .home h3
+  margin-bottom: 5px
+  font-weight: bold
+  text-transform: uppercase
+  letter-spacing: 2px
   &:after
     content: ''
     display: block
     width: 100px
     margin: auto
     margin-top: 7px
-    margin-bottom: 12px
-    border-bottom: 1px solid #{$color}
+    border-bottom: 1px solid #e32c20
 
-@mixin preline($color)
-  &:before
-    content: ''
-    display: block
-    width: 100px
-    margin: auto
-    margin-bottom: 12px
-    border-bottom: 1px solid #{$color}
-
-.home
-  display: grid
-  max-width: 992px
-  margin: auto
-  padding: #{$vertical-gap} 15px 0 15px
-  grid-template-columns: repeat(12, 1fr)
-  grid-column-gap: 30px
-  text-align: center
-  color: $wine-berry
-
-.home > *
-  grid-column: 1 / -1
-  margin-bottom: $vertical-gap
-
-.home__box
-  position: relative
-  grid-column: span 4
-
-.home h2,
 .home h3
-  text-transform: uppercase
-  letter-spacing: 2px
+  font-size: 11pt
+  text-align: center
+  color: #e32c20
 
 .home h2
-  @include postline($crimson)
-  font-size: 16pt
-  font-weight: bold
-  margin-bottom: 25px
-
-.home__box > h3
-  @include postline($crimson)
-  font-weight: bold
-  color: $crimson
-
-.home h3
-  font-size: 12pt
-
-.home h4
-  margin-bottom: 5px
-  font-size: 12pt
-  font-weight: bold
+  font-size: 18pt
 
 .home__presentation
   width: 66%
-  margin-left: auto
-  margin-right: auto
+  margin: auto
+  font-size: 12pt
 
-.home__box > img
-  height: 50px
+.home__presentation h4
+  margin-bottom: 5px
+  font-size: 14pt
+  font-weight: bold
 
-.home__box .home__robot-train,
-.home__box .home__robot-idea
-  height: 80px
+.home > *
+  grid-column: 1 / -1
 
-.home__box .home__robot-observe
-  margin-top: 30px
-
-.home__tag
-  position: absolute
-  bottom: 0
-  right: 0
-  display: block
+.home__box
+  margin-bottom: 30px
+  grid-column: span 4
 
 .home__video
   +ratio-container(16, 9)
+  margin-bottom: 35px
 
-.home__about-us
-  +full-width-background($red-violet)
+.home .home__about-us
+  +full-width-background(#de1580)
   width: 66%
-  margin-left: auto
-  margin-right: auto
-  margin-bottom: 0
-  padding: #{$vertical-gap} 0
-  color: $white
-  & > :first-child
-    margin-top: 0
+  margin: auto
+  padding: 50px 0
+  *
+    color: #fff
   h3
-    @include postline($white)
     font-weight: inherit
+  h3:after
+    border-color: white
   p
     margin-bottom: 20px
   & > a
     padding: 5px
-    border: 1px solid $white
+    border: 1px solid white
     font-size: 8pt
-    color: inherit
     text-decoration: none
     text-transform: uppercase
 
-.home__partners
-  +full-width-background($cab-sav)
+.home .home__partners
+  +full-width-background(#480a2a)
   display: grid
-  margin-bottom: 0
-  padding: #{$vertical-gap} 0
-  grid-template-columns: repeat(3, 1fr)
-  grid-template-rows: auto 1fr
-  grid-auto-flow: column
-  grid-row-gap: 20px
-  color: $white
+  margin-top: -30px
+  grid-template-columns: repeat(12, 1fr)
+  *
+    color: #fff
+  h3
+    font-weight: normal
+  h3:after
+    display: none
 
-.home__partners > *:nth-child(2n + 4)
-  border-left: 1px solid white
+.home__partners .home__box
+  position: relative
+  & + *:before
+    position: absolute
+    left: 0
+    top: 50px
+    content: ''
+    height: 140px
+    border-left: 1px solid #fff
 
 .home__logo-group
-  display: flex
-  flex-wrap: wrap
-  justify-content: center
-  align-items: center
-
-.home__logo-group a
-  margin: 5px
-
-.home__logo-group img
-  height: 75px
-  width: 90px
-
-// small devices
-
-@media only screen and (max-width: 576px)
-  .home
-    text-align: justify
-    text-align-last: center
-  .home__presentation,
-  .home__about-us
-    width: 100%
-  .home__box
-    grid-column: span 12
-    & > img,
-    & > h3
-      display: inline-block
-      margin: 0
-      vertical-align: baseline
-      line-height: 30px
-    & > img
-      position: relative
-      top: 4px
-      height: 20px
-      margin-right: 11px
-    & > p
-      @include preline($crimson)
-  .home__box > h3:after
-    display: none
-  .home__box .home__robot-train,
-  .home__box .home__robot-idea,
-    height: 35px
-  .home__box .home__robot-observe
-    height: 23px
-    margin-top: 0
-  .home__box .home__tag
-    display: none
-  .home__partners
-    grid-template-columns: 1fr
-    grid-template-rows: repeat(6, auto)
-  .home__partners > *:nth-child(2n + 4)
-    border-left: 0
-  .home__partners h3
-    margin-top: 20px
+  height: 150px
 </style>
