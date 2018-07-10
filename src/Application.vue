@@ -1,6 +1,6 @@
 <template lang="pug">
 .application(:class="fullscreenMode ? 'application--fullscreen': null")
-  header-bar
+  header-bar.application__header
   main-menu
   //- .content
   //-   course-run(v-show="this.$route.name === 'step'")
@@ -18,7 +18,7 @@
     //-   :id='viewId'
     //- )
   router-view
-  footer-bar(v-show='!viewUseFullscreen')
+  footer-bar.application__footer(v-show='!viewUseFullscreen')
 </template>
 
 <script>
@@ -62,9 +62,16 @@ export default {
   height: 100%
   margin: 0
   padding: 0
-  grid-template-rows: auto 1fr auto
+  grid-template-rows: auto auto 1fr auto
 
 .application--fullscreen
   &__header-bar, &__footer-bar
+    display: none
+
+// small devices
+
+@media only screen and (max-width: 576px)
+  .application__header,
+  .application__footer
     display: none
 </style>
