@@ -52,12 +52,13 @@
       d'ateliers dans les collèges les écoles élémentaires et les centres
       d'animation.
   .home__box
-    img(src='~@/assets/images/figures/Octocat.svg')
+    img(src='~@/assets/images/logos/Octocat.svg')
     h3 un logiciel libre
     p.
       Declick est gratuit et libre : le code source de la plateforme est
       hébergé sur GitHub et diffusé sous license GPL 3.0. Si vous voulez
       contribuer au développement, n'hésitez pas à nous contacter !
+    img.home__tag(src='~@/assets/images/figures/made-in-France.svg')
   .home__about-us
     h3 l'association Colombbus
     p.
@@ -68,75 +69,72 @@
       développement personnel et de lien social.
     a(href='https://www.colombbus.org/' target='_blank') en savoir plus
   .home__partners
-    .home__box
-      h3 nos partenaires éducatifs
-      .home__logo-group
-        a(
-          href='https://pixees.fr/classcode-v2/'
-          title="Class'Code"
-          target='_blank'
-        ): img(src='~@/assets/images/logos/ClassCode.svg')
-        a(
-          href='https://d-clicsnumeriques.org/'
-          title='D-Clics Numériques'
-          target='_blank'
-        ): img(src='~@/assets/images/logos/D-Clics-Numeriques.svg')
-        a(
-          href='https://www.reseau-canope.fr/'
-          title='Réseau Canopé'
-          target='_blank'
-        ): img(src='~@/assets/images/logos/Canope.svg')
-        a(
-          href='http://www.ensiie.fr/'
-          title='ENSIIE'
-          target='_blank'
-        ): img(src='~@/assets/images/logos/ENSIIE.svg')
-        a(
-          href='http://www.france-ioi.org/'
-          title='France-IOI'
-          target='_blank'
-        ): img(src='~@/assets/images/logos/France-IOI.svg')
-    .home__box
-      h3 nos partenaires publics
-      .home__logo-group
-        a(
-          href='http://www.education.gouv.fr/'
-          title="Ministère de l'Éducation nationale"
-          target='_blank'
-        ): img(src='~@/assets/images/logos/Ministere-Education-nationale.svg')
-        a(
-          href='http://www.europe-en-france.gouv.fr/'
-          title="L'Europe s'engage"
-          target='_blank'
-        ): img(src='~@/assets/images/logos/lEurope-sengage.svg')
-        a(
-          href='https://www.paris.fr/'
-          title='Mairie de Paris'
-          target='_blank'
-        ): img(src='~@/assets/images/logos/Mairie-de-Paris.svg')
-    .home__box
-      h3 nos partenaires privés
-      .home__logo-group
-        a(
-          href='https://www.vivendi.com/create-joy-fr/'
-          title='Vivendi Create Joy'
-          target='_blank'
-        ): img(src='~@/assets/images/logos/Vivendi-Create-Joy.svg')
-        a(
-          href='https://www.thalesgroup.com/fr'
-          title='Thales'
-          target='_blank'
-        ): img(src='~@/assets/images/logos/Thales.svg')
-        a(
-          href='https://www.fondation-sncf.org/fr/'
-          title='Fondation SNCF'
-          target='_blank'
-        ): img(src='~@/assets/images/logos/Fondation-SNCF.svg')
-        a(
-          href='https://group.bnpparibas/decouvrez-le-groupe/fondation-bnp-paribas'
-          title='Fondation BNP Paribas'
-          target='_blank'
-        ): img(src='~@/assets/images/logos/Fondation-BNP-Paribas.svg')
+    h3 nos partenaires éducatifs
+    .home__logo-group
+      a(
+        href='https://pixees.fr/classcode-v2/'
+        title="Class'Code"
+        target='_blank'
+      ): img(src='~@/assets/images/logos/ClassCode.svg')
+      a(
+        href='https://d-clicsnumeriques.org/'
+        title='D-Clics Numériques'
+        target='_blank'
+      ): img(src='~@/assets/images/logos/D-Clics-Numeriques.svg')
+      a(
+        href='https://www.reseau-canope.fr/'
+        title='Réseau Canopé'
+        target='_blank'
+      ): img(src='~@/assets/images/logos/Canope.svg')
+      a(
+        href='http://www.ensiie.fr/'
+        title='ENSIIE'
+        target='_blank'
+      ): img(src='~@/assets/images/logos/ENSIIE.svg')
+      a(
+        href='http://www.france-ioi.org/'
+        title='France-IOI'
+        target='_blank'
+      ): img(src='~@/assets/images/logos/France-IOI.svg')
+    h3 nos partenaires publics
+    .home__logo-group
+      a(
+        href='http://www.education.gouv.fr/'
+        title="Ministère de l'Éducation nationale"
+        target='_blank'
+      ): img(src='~@/assets/images/logos/Ministere-Education-nationale.svg')
+      a(
+        href='http://www.europe-en-france.gouv.fr/'
+        title="L'Europe s'engage"
+        target='_blank'
+      ): img(src='~@/assets/images/logos/lEurope-sengage.svg')
+      a(
+        href='https://www.paris.fr/'
+        title='Mairie de Paris'
+        target='_blank'
+      ): img(src='~@/assets/images/logos/Mairie-de-Paris.svg')
+    h3 nos mécènes
+    .home__logo-group
+      a(
+        href='https://www.vivendi.com/create-joy-fr/'
+        title='Vivendi Create Joy'
+        target='_blank'
+      ): img(src='~@/assets/images/logos/Vivendi-Create-Joy.svg')
+      a(
+        href='https://www.thalesgroup.com/fr'
+        title='Thales'
+        target='_blank'
+      ): img(src='~@/assets/images/logos/Thales.svg')
+      a(
+        href='https://www.fondation-sncf.org/fr/'
+        title='Fondation SNCF'
+        target='_blank'
+      ): img(src='~@/assets/images/logos/Fondation-SNCF.svg')
+      a(
+        href='https://group.bnpparibas/decouvrez-le-groupe/fondation-bnp-paribas'
+        title='Fondation BNP Paribas'
+        target='_blank'
+      ): img(src='~@/assets/images/logos/Fondation-BNP-Paribas.svg')
 </template>
 
 <style lang="sass">
@@ -184,6 +182,7 @@ $vertical-gap: 40px
   margin-bottom: $vertical-gap
 
 .home__box
+  position: relative
   grid-column: span 4
 
 .home h2,
@@ -197,7 +196,7 @@ $vertical-gap: 40px
   font-weight: bold
   margin-bottom: 25px
 
-.home > .home__box > h3
+.home__box > h3
   @include postline($crimson)
   font-weight: bold
   color: $crimson
@@ -224,6 +223,12 @@ $vertical-gap: 40px
 
 .home__box .home__robot-observe
   margin-top: 30px
+
+.home__tag
+  position: absolute
+  bottom: 0
+  right: 0
+  display: block
 
 .home__video
   +ratio-container(16, 9)
@@ -256,26 +261,27 @@ $vertical-gap: 40px
   display: grid
   margin-bottom: 0
   padding: #{$vertical-gap} 0
-  grid-template-columns: repeat(12, 1fr)
+  grid-template-columns: repeat(3, 1fr)
+  grid-template-rows: auto 1fr
+  grid-auto-flow: column
+  grid-row-gap: 20px
   color: $white
 
-.home__partners .home__box
-  position: relative
-  & h3
-    margin-bottom: 20px
-    font-weight: inherit
-  & + *:before
-    position: absolute
-    left: 0
-    top: 50px
-    content: ''
-    height: calc(100% - 50px)
-    border-left: 1px solid $white
+.home__partners > *:nth-child(2n + 4)
+  border-left: 1px solid white
+
+.home__logo-group
+  display: flex
+  flex-wrap: wrap
+  justify-content: center
+  align-items: center
+
+.home__logo-group a
+  margin: 5px
 
 .home__logo-group img
-  max-height: 60px
-  max-width: 90px
-  margin: 5px
+  height: 75px
+  width: 90px
 
 // small devices
 
@@ -301,7 +307,7 @@ $vertical-gap: 40px
       margin-right: 11px
     & > p
       @include preline($crimson)
-  .home .home__box > h3:after
+  .home__box > h3:after
     display: none
   .home__box .home__robot-train,
   .home__box .home__robot-idea,
@@ -309,10 +315,13 @@ $vertical-gap: 40px
   .home__box .home__robot-observe
     height: 23px
     margin-top: 0
-  .home__partners .home__box:before
+  .home__box .home__tag
     display: none
+  .home__partners
+    grid-template-columns: 1fr
+    grid-template-rows: repeat(6, auto)
+  .home__partners > *:nth-child(2n + 4)
+    border-left: 0
   .home__partners h3
     margin-top: 20px
-  .home__logo-group
-    text-align: center
 </style>
