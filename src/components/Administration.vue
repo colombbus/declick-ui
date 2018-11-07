@@ -28,52 +28,60 @@
 </template>
 
 <script>
-export default {}
+export default {
+  created () {
+    // je ne sais pas le quel est le meilleur moyen de le recup
+    // this.$store.state.user.isAdmin || !this.$store.getters.getUser.isAdmin
+    if (!this.$store.getters.getUser.isAdmin) {
+      this.$router.push("/")
+    }
+  }
+}
 </script>
 
 <style lang="css">
-.layouts{
+.layouts {
   width: 100%;
   height: 100vh;
-  background-color: white
+  background-color: white;
 }
-  .content-link{
-    background-color: #eee;
-    margin: 10px 0;
-    padding: 10px 15px;
-    border-radius: 5px;
-    color: #23527c;
-  }
-  .content-link:hover,
-  .content-link.router-link-active{
-    background-color: #337ab7;
-    color:#fff
-  }
-  .adminNav,
-  .adminNav li{
-    list-style: none;
-    text-align: left;
-    margin: 0;
-    padding: 0;
-  }
-  .adminNav a {
-    display: block;
-    text-decoration: none;
-  }
-  .admnNav a:hover{
-    background-color: #eee;
-  }
-  #closeAdminPanel{
-    display: block;
-    width: 26px;
-    height: 26px;
-    float: right;
-    background-image: url(../assets/img/close.png);
-    position: absolute;
-    top: 10px;
-    right: 15px;
-  }
-  .container{
-    position: relative;
-  }
+.content-link {
+  background-color: #eee;
+  margin: 10px 0;
+  padding: 10px 15px;
+  border-radius: 5px;
+  color: #23527c;
+}
+.content-link:hover,
+.content-link.router-link-active {
+  background-color: #337ab7;
+  color: #fff;
+}
+.adminNav,
+.adminNav li {
+  list-style: none;
+  text-align: left;
+  margin: 0;
+  padding: 0;
+}
+.adminNav a {
+  display: block;
+  text-decoration: none;
+}
+.admnNav a:hover {
+  background-color: #eee;
+}
+#closeAdminPanel {
+  display: block;
+  width: 26px;
+  height: 26px;
+  float: right;
+  background-image: url(../assets/img/close.png);
+  position: absolute;
+  top: 10px;
+  right: 15px;
+}
+.container {
+  position: relative;
+}
 </style>

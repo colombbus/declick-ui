@@ -18,11 +18,12 @@ import UserList from 'components/user/UserList'
 import UserProfile from 'components/user/UserProfile'
 import UserEditor from 'components/user/UserEditor'
 
+import HomePage from 'components/HomePage'
 var routes = [
   {
     path: '/',
     name: 'home',
-    component: CmsDocument,
+    component: HomePage,
     meta: {
       id: 4,
       title: 'Accueil'

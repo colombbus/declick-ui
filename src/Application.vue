@@ -1,6 +1,7 @@
 <template lang="pug">
 .self(:style="{overflow: viewUseFullscreen ? 'hidden' : null}")
-  header-bar.header(v-show='!viewUseFullscreen')
+  HeaderBar.application__header
+  MainMenu.header(v-show='!viewUseFullscreen')
   .content
     course-run(v-show="this.$route.name === 'step'")
     create-view(v-show="this.$route.name === 'create'")
@@ -25,6 +26,8 @@ import courseRun from 'components/learn/CourseRun'
 import CreateView from 'components/create/CreateView'
 import FooterBar from 'components/navigation/FooterBar'
 import HeaderBar from 'components/navigation/HeaderBar'
+import MainMenu from 'components/navigation/MainMenu'
+
 import Execute from 'components/execute/Execute'
 
 export default {
@@ -47,6 +50,7 @@ export default {
     CreateView,
     FooterBar,
     HeaderBar,
+    MainMenu,
     Execute
   }
 }
