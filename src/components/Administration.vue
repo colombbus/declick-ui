@@ -32,8 +32,12 @@ export default {
   created () {
     // je ne sais pas le quel est le meilleur moyen de le recup
     // this.$store.state.user.isAdmin || !this.$store.getters.getUser.isAdmin
-    if (!this.$store.getters.getUser.isAdmin) {
+    if (!this.$store.state.user) {
       this.$router.push("/")
+    } else {
+      if (this.$store.state.user.isAdmin === false) {
+        this.$router.push("/")
+      }
     }
   }
 }

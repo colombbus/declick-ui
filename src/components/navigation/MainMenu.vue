@@ -3,19 +3,39 @@ div.main-menu(:class='stateClass' ref='menu')
   button.main-menu__open(type='button' @click='open')
   button.main-menu__close(type='button' @click='close')
   ul.main-menu__list
-    li.main-menu__item
-      router-link.main-menu__link.main-menu__home(to='/') ACCUEIL
+    li.main-menu__item: router-link.main-menu__link.main-menu__home(to='/') ACCUEIL
     li.main-menu__item: router-link.main-menu__link(to='/progress') APPRENDRE
     li.main-menu__item: router-link.main-menu__link(to='/create') CRÉER
     li.main-menu__item: router-link.main-menu__link(to='/explore') JOUER
-    li.main-menu__item: router-link.main-menu__link(to='/resources') RESSOURCES
+    //- li.main-menu__item: router-link.main-menu__link(to='/resources') RESSOURCES
+    //- li.main-menu__item: router-link.main-menu__link(to='/contact') CONTACT
     li.main-menu__item
-      router-link.main-menu__link.main-menu__contact(to='/contact') CONTACT
+      a.main-menu__link.connectionLink(
+        v-if="!user"
+        @click='isAuthenticationModalVisible = true'
+        class="illustrated-link log-in-link"
+      ) SE CONNECTER
+      a.main-menu__link.connectionLink(
+        v-else
+        @click='logOut'
+      ) SE DÉCONNECTER
+    li.main-menu__item(v-if="user && user.isAdmin"): router-link.main-menu__link(to='/administration') ADMINISTRATION
+    li.main-menu__item(v-if="user"): router-link.main-menu__link(:to="getUserIDLink") MON COMPTE
 
-// .self
-//   ul
-//     li
-//       router-link(
+
+  authentication-modal(
+    @close='isAuthenticationModalVisible = false'
+    v-if='isAuthenticationModalVisible'
+  )
+
+
+
+
+
+//- // .self
+//- //   ul
+//- //     li
+//- //       router-link(
 //         to='/explore'
 //         class='illustrated-link explore-link'
 //       ) Découvrir
@@ -54,13 +74,16 @@ div.main-menu(:class='stateClass' ref='menu')
 </template>
 
 <script>
-import AuthenticationModal from '../user/AuthenticationModal'
-import {mapState, mapActions} from 'vuex'
-import config from '../../config'
+import AuthenticationModal from "../user/AuthenticationModal"
+import { mapState, mapActions } from "vuex"
+import config from "../../config"
 
 export default {
   data () {
     return {
+      userID: this.$store.state.user ? this.$store.state.user.id : false,
+      // user: this.$store.state.user,
+      // logOut: false,
       isAuthenticationModalVisible: false,
       opened: false,
       sticky: false,
@@ -77,20 +100,26 @@ export default {
       }
     }
     this.onScroll()
-    document.body.addEventListener('scroll', this.onScroll)
+    document.body.addEventListener("scroll", this.onScroll)
   },
   computed: {
+    getUserIDLink () {
+      return '/users/' + this.userID
+    },
+    user_id () {
+      return this.userID
+    },
     forumLink () {
       return config.forumUrl
     },
     stateClass () {
       return {
-        'main-menu--opened': this.opened,
-        'main-menu--closed': !this.opened,
-        'main-menu--sticky': this.sticky
+        "main-menu--opened": this.opened,
+        "main-menu--closed": !this.opened,
+        "main-menu--sticky": this.sticky
       }
     },
-    ...mapState(['user'])
+    ...mapState(["user"])
   },
   methods: {
     open () {
@@ -99,7 +128,7 @@ export default {
     close () {
       this.opened = false
     },
-    ...mapActions(['logOut'])
+    ...mapActions(["logOut"])
   },
   components: {
     AuthenticationModal
@@ -111,9 +140,9 @@ export default {
 @import '../../styles/global'
 
 .main-menu__list
-  position: relative;
-  width: 100%;
-  z-index: 500;
+  position: relative
+  width: 100%
+  z-index: 500
   display: flex
   margin: 0
   padding: 0
@@ -126,6 +155,8 @@ export default {
 .main-menu__item
   display: inline-block
   padding: 7px
+  cursor: pointer
+
 
 .main-menu__item + .main-menu__item
   margin-left: 25px
