@@ -1,7 +1,7 @@
 <template lang="pug">
 .footer-bar
-  | © Colombbus 2018 -&nbsp;
-  a(target='_blank' href='mailto:declick@colombbus.org') contact
+  | © Colombbus 2023 -&nbsp;
+  a(target='_blank' href='mailto:contact@colombbus.org') contact
 </template>
 
 <style lang="sass" scoped>
